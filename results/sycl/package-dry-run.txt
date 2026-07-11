@@ -1,0 +1,2 @@
+Treebeard 0.1.0-rc.3 pkg2: backend=sycl profile=quality context=262144 slots=1 multimodal=0
+Command: /tmp/treebeard-pkg2-sycl-final/runtime/sycl-beec6bd316cc5285481d1545e66b31f984b1eb93e69fe05c7d0b1c5e1bafc756/opt/treebeard-0.1.0-rc.3/bin/llama-server -m <package-root>/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf -ngl 99 -ncmoe 0 -c 262144 -np 1 -kvu -fa on -ctk f16 -ctv f16 -b 8192 -ub 1024 -t 15 --host 127.0.0.1 --port 8093 --jinja --metrics -a treebeard-0.1.0-rc.3-Qwen3.6-35B-A3B-Q5-sycl-c262144-np1 --no-op-offload

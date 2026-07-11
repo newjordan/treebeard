@@ -1,0 +1,2531 @@
+{
+  "config": {
+    "agents": [
+      1,
+      2,
+      4,
+      6,
+      8,
+      12
+    ],
+    "ctx": 262144,
+    "metric": "aggregate predicted tokens per second over concurrent client wall time",
+    "n_predict": 256,
+    "parallel": 12,
+    "port": 8098,
+    "prompt": "Write a compact but production-quality Python class implementing a thread-safe LRU cache with per-item TTL expiry. Include type hints, docstrings, and a short usage example.",
+    "repeats": 5
+  },
+  "failures": [],
+  "finished": "2026-07-11T14:03:55.872051Z",
+  "kind": "turbo-multiagent-pareto",
+  "label": "rc3-packaged-full",
+  "passed": true,
+  "samples": [
+    {
+      "active_agents": 6,
+      "aggregate_wall_tps": 169.73755088603886,
+      "failures": [],
+      "max_slot_tps": 30.61898063433199,
+      "mean_slot_tps": 30.61784785622522,
+      "min_slot_tps": 30.616768828206556,
+      "order_index": 0,
+      "p95_client_ms": 9049.033667250114,
+      "repeat": 0,
+      "requests": [
+        {
+          "client_ms": 9047.54706499807,
+          "ended": 47051.459193204,
+          "predicted_n": 256,
+          "predicted_tps": 30.616768828206556,
+          "prompt_n": 34,
+          "prompt_tps": 50.10241523113423,
+          "slot": 0,
+          "started": 47042.411646139
+        },
+        {
+          "client_ms": 9047.945858997991,
+          "ended": 47051.45946611,
+          "predicted_n": 256,
+          "predicted_tps": 30.617156969738645,
+          "prompt_n": 34,
+          "prompt_tps": 50.07798910361872,
+          "slot": 1,
+          "started": 47042.411520251
+        },
+        {
+          "client_ms": 9047.852862997388,
+          "ended": 47051.459791073,
+          "predicted_n": 256,
+          "predicted_tps": 30.617581739674247,
+          "prompt_n": 34,
+          "prompt_tps": 50.05366046835505,
+          "slot": 2,
+          "started": 47042.41193821
+        },
+        {
+          "client_ms": 9048.341055000492,
+          "ended": 47051.460108402,
+          "predicted_n": 256,
+          "predicted_tps": 30.618083422795547,
+          "prompt_n": 34,
+          "prompt_tps": 50.02788318783558,
+          "slot": 3,
+          "started": 47042.411767347
+        },
+        {
+          "client_ms": 9048.257608003041,
+          "ended": 47051.460401015,
+          "predicted_n": 256,
+          "predicted_tps": 30.61851554260435,
+          "prompt_n": 34,
+          "prompt_tps": 50.00367674093683,
+          "slot": 4,
+          "started": 47042.412143407
+        },
+        {
+          "client_ms": 9049.264537999989,
+          "ended": 47051.460667558,
+          "predicted_n": 256,
+          "predicted_tps": 30.61898063433199,
+          "prompt_n": 34,
+          "prompt_tps": 49.97986105598626,
+          "slot": 5,
+          "started": 47042.41140302
+        }
+      ],
+      "total_predicted_tokens": 1536,
+      "wall_ms": 9049.264537999989
+    },
+    {
+      "active_agents": 2,
+      "aggregate_wall_tps": 104.73487807663649,
+      "failures": [],
+      "max_slot_tps": 55.05673532055172,
+      "mean_slot_tps": 55.05501259236246,
+      "min_slot_tps": 55.05328986417321,
+      "order_index": 1,
+      "p95_client_ms": 4888.510980199862,
+      "repeat": 0,
+      "requests": [
+        {
+          "client_ms": 4888.075865004794,
+          "ended": 47056.393510863,
+          "predicted_n": 256,
+          "predicted_tps": 55.05328986417321,
+          "prompt_n": 34,
+          "prompt_tps": 145.12549086563087,
+          "slot": 0,
+          "started": 47051.505434998
+        },
+        {
+          "client_ms": 4888.533880999603,
+          "ended": 47056.393844213,
+          "predicted_n": 256,
+          "predicted_tps": 55.05673532055172,
+          "prompt_n": 34,
+          "prompt_tps": 144.85282526914932,
+          "slot": 1,
+          "started": 47051.505310332
+        }
+      ],
+      "total_predicted_tokens": 512,
+      "wall_ms": 4888.533880999603
+    },
+    {
+      "active_agents": 4,
+      "aggregate_wall_tps": 145.97524554174325,
+      "failures": [],
+      "max_slot_tps": 39.348602333033966,
+      "mean_slot_tps": 39.347096447319714,
+      "min_slot_tps": 39.345578517560035,
+      "order_index": 2,
+      "p95_client_ms": 7014.819418052502,
+      "repeat": 0,
+      "requests": [
+        {
+          "client_ms": 7013.897092001571,
+          "ended": 47063.428807256,
+          "predicted_n": 256,
+          "predicted_tps": 39.345578517560035,
+          "prompt_n": 34,
+          "prompt_tps": 67.81513593942911,
+          "slot": 0,
+          "started": 47056.414910164
+        },
+        {
+          "client_ms": 7014.098170999205,
+          "ended": 47063.42930756,
+          "predicted_n": 256,
+          "predicted_tps": 39.34658237276184,
+          "prompt_n": 34,
+          "prompt_tps": 67.77066407277772,
+          "slot": 1,
+          "started": 47056.415209389
+        },
+        {
+          "client_ms": 7014.430718998483,
+          "ended": 47063.429446072,
+          "predicted_n": 256,
+          "predicted_tps": 39.347622565923025,
+          "prompt_n": 34,
+          "prompt_tps": 67.72584577629755,
+          "slot": 2,
+          "started": 47056.415015353
+        },
+        {
+          "client_ms": 7014.888012003212,
+          "ended": 47063.429685534,
+          "predicted_n": 256,
+          "predicted_tps": 39.348602333033966,
+          "prompt_n": 34,
+          "prompt_tps": 67.6813561751275,
+          "slot": 3,
+          "started": 47056.414797522
+        }
+      ],
+      "total_predicted_tokens": 1024,
+      "wall_ms": 7014.888012003212
+    },
+    {
+      "active_agents": 8,
+      "aggregate_wall_tps": 181.48560017534308,
+      "failures": [],
+      "max_slot_tps": 24.53258948477633,
+      "mean_slot_tps": 24.531951515620886,
+      "min_slot_tps": 24.53112491881252,
+      "order_index": 3,
+      "p95_client_ms": 11284.376773350596,
+      "repeat": 0,
+      "requests": [
+        {
+          "client_ms": 11282.561048006755,
+          "ended": 47074.74650433,
+          "predicted_n": 256,
+          "predicted_tps": 24.53112491881252,
+          "prompt_n": 34,
+          "prompt_tps": 40.60452979357373,
+          "slot": 0,
+          "started": 47063.463943282
+        },
+        {
+          "client_ms": 11282.425933000923,
+          "ended": 47074.74661576,
+          "predicted_n": 256,
+          "predicted_tps": 24.53153629608491,
+          "prompt_n": 34,
+          "prompt_tps": 40.58339828666441,
+          "slot": 1,
+          "started": 47063.464189827
+        },
+        {
+          "client_ms": 11282.371640998463,
+          "ended": 47074.747121205,
+          "predicted_n": 256,
+          "predicted_tps": 24.531719657257376,
+          "prompt_n": 34,
+          "prompt_tps": 40.56703165063672,
+          "slot": 2,
+          "started": 47063.464749564
+        },
+        {
+          "client_ms": 11282.796612998936,
+          "ended": 47074.747252563,
+          "predicted_n": 256,
+          "predicted_tps": 24.531914775361447,
+          "prompt_n": 34,
+          "prompt_tps": 40.55096839290549,
+          "slot": 3,
+          "started": 47063.46445595
+        },
+        {
+          "client_ms": 11283.440268001868,
+          "ended": 47074.747498787,
+          "predicted_n": 256,
+          "predicted_tps": 24.53206287912698,
+          "prompt_n": 34,
+          "prompt_tps": 40.53530446186403,
+          "slot": 4,
+          "started": 47063.464058519
+        },
+        {
+          "client_ms": 11283.277911999903,
+          "ended": 47074.747864578,
+          "predicted_n": 256,
+          "predicted_tps": 24.532239195465216,
+          "prompt_n": 34,
+          "prompt_tps": 40.52008723736429,
+          "slot": 5,
+          "started": 47063.464586666
+        },
+        {
+          "client_ms": 11283.884477001266,
+          "ended": 47074.748216202,
+          "predicted_n": 256,
+          "predicted_tps": 24.532424918082306,
+          "prompt_n": 34,
+          "prompt_tps": 40.50517096160467,
+          "slot": 6,
+          "started": 47063.464331725
+        },
+        {
+          "client_ms": 11284.641856000235,
+          "ended": 47074.748459992,
+          "predicted_n": 256,
+          "predicted_tps": 24.53258948477633,
+          "prompt_n": 34,
+          "prompt_tps": 40.49021744437656,
+          "slot": 7,
+          "started": 47063.463818136
+        }
+      ],
+      "total_predicted_tokens": 2048,
+      "wall_ms": 11284.641856000235
+    },
+    {
+      "active_agents": 1,
+      "aggregate_wall_tps": 76.8593097699472,
+      "failures": [],
+      "max_slot_tps": 79.37866351136479,
+      "mean_slot_tps": 79.37866351136479,
+      "min_slot_tps": 79.37866351136479,
+      "order_index": 4,
+      "p95_client_ms": 3330.761110999447,
+      "repeat": 0,
+      "requests": [
+        {
+          "client_ms": 3330.761110999447,
+          "ended": 47078.136972346,
+          "predicted_n": 256,
+          "predicted_tps": 79.37866351136479,
+          "prompt_n": 34,
+          "prompt_tps": 329.5659422678014,
+          "slot": 0,
+          "started": 47074.806211235
+        }
+      ],
+      "total_predicted_tokens": 256,
+      "wall_ms": 3330.761110999447
+    },
+    {
+      "active_agents": 12,
+      "aggregate_wall_tps": 194.9171589140231,
+      "failures": [],
+      "max_slot_tps": 17.566690809429883,
+      "mean_slot_tps": 17.566304080121242,
+      "min_slot_tps": 17.566062805810745,
+      "order_index": 5,
+      "p95_client_ms": 15759.998322749016,
+      "repeat": 0,
+      "requests": [
+        {
+          "client_ms": 15755.395986998337,
+          "ended": 47093.90841001,
+          "predicted_n": 256,
+          "predicted_tps": 17.566062805810745,
+          "prompt_n": 34,
+          "prompt_tps": 28.996482897192116,
+          "slot": 0,
+          "started": 47078.153014023
+        },
+        {
+          "client_ms": 15756.775481997465,
+          "ended": 47093.908749511,
+          "predicted_n": 256,
+          "predicted_tps": 17.566089323289738,
+          "prompt_n": 34,
+          "prompt_tps": 28.98587790977719,
+          "slot": 1,
+          "started": 47078.151974029
+        },
+        {
+          "client_ms": 15755.823503997817,
+          "ended": 47093.909216172,
+          "predicted_n": 256,
+          "predicted_tps": 17.566095350000676,
+          "prompt_n": 34,
+          "prompt_tps": 28.977527927092538,
+          "slot": 2,
+          "started": 47078.153392668
+        },
+        {
+          "client_ms": 15756.984997002291,
+          "ended": 47093.909470562,
+          "predicted_n": 256,
+          "predicted_tps": 17.56612427827074,
+          "prompt_n": 34,
+          "prompt_tps": 28.969478949839345,
+          "slot": 3,
+          "started": 47078.152485565
+        },
+        {
+          "client_ms": 15757.489158997487,
+          "ended": 47093.909812658,
+          "predicted_n": 256,
+          "predicted_tps": 17.56614597453581,
+          "prompt_n": 34,
+          "prompt_tps": 28.961631800553164,
+          "slot": 4,
+          "started": 47078.152323499
+        },
+        {
+          "client_ms": 15757.379281996691,
+          "ended": 47093.910224586,
+          "predicted_n": 256,
+          "predicted_tps": 17.566215885087853,
+          "prompt_n": 34,
+          "prompt_tps": 28.953961498043903,
+          "slot": 5,
+          "started": 47078.152845304
+        },
+        {
+          "client_ms": 15758.06128000113,
+          "ended": 47093.91067154,
+          "predicted_n": 256,
+          "predicted_tps": 17.56628941230332,
+          "prompt_n": 34,
+          "prompt_tps": 28.946393832715383,
+          "slot": 6,
+          "started": 47078.15261026
+        },
+        {
+          "client_ms": 15758.856000000378,
+          "ended": 47093.91106359,
+          "predicted_n": 256,
+          "predicted_tps": 17.566362940134315,
+          "prompt_n": 34,
+          "prompt_tps": 28.938583813798935,
+          "slot": 7,
+          "started": 47078.15220759
+        },
+        {
+          "client_ms": 15758.597621999797,
+          "ended": 47093.911321136,
+          "predicted_n": 256,
+          "predicted_tps": 17.56644972787442,
+          "prompt_n": 34,
+          "prompt_tps": 28.931098037280268,
+          "slot": 8,
+          "started": 47078.152723514
+        },
+        {
+          "client_ms": 15759.553787996992,
+          "ended": 47093.911660758,
+          "predicted_n": 256,
+          "predicted_tps": 17.56652205164626,
+          "prompt_n": 34,
+          "prompt_tps": 28.923443897451076,
+          "slot": 9,
+          "started": 47078.15210697
+        },
+        {
+          "client_ms": 15758.876318002876,
+          "ended": 47093.91203805,
+          "predicted_n": 256,
+          "predicted_tps": 17.566600403071135,
+          "prompt_n": 34,
+          "prompt_tps": 28.915892174339014,
+          "slot": 10,
+          "started": 47078.153161732
+        },
+        {
+          "client_ms": 15760.541643001488,
+          "ended": 47093.912376339,
+          "predicted_n": 256,
+          "predicted_tps": 17.566690809429883,
+          "prompt_n": 34,
+          "prompt_tps": 28.90809860382386,
+          "slot": 11,
+          "started": 47078.151834696
+        }
+      ],
+      "total_predicted_tokens": 3072,
+      "wall_ms": 15760.541643001488
+    },
+    {
+      "active_agents": 12,
+      "aggregate_wall_tps": 194.02319477431033,
+      "failures": [],
+      "max_slot_tps": 17.481329632663318,
+      "mean_slot_tps": 17.48091929693583,
+      "min_slot_tps": 17.480775755857476,
+      "order_index": 0,
+      "p95_client_ms": 15832.505727452372,
+      "repeat": 1,
+      "requests": [
+        {
+          "client_ms": 15828.72261799639,
+          "ended": 47109.823780317,
+          "predicted_n": 256,
+          "predicted_tps": 17.480792467144134,
+          "prompt_n": 34,
+          "prompt_tps": 28.97298439634361,
+          "slot": 0,
+          "started": 47093.995057699
+        },
+        {
+          "client_ms": 15829.62761700037,
+          "ended": 47109.82408921,
+          "predicted_n": 256,
+          "predicted_tps": 17.480779336844783,
+          "prompt_n": 34,
+          "prompt_tps": 28.96488859166748,
+          "slot": 1,
+          "started": 47093.994461593
+        },
+        {
+          "client_ms": 15829.610513996158,
+          "ended": 47109.824187936,
+          "predicted_n": 256,
+          "predicted_tps": 17.480786498823804,
+          "prompt_n": 34,
+          "prompt_tps": 28.95662467956088,
+          "slot": 2,
+          "started": 47093.994577422
+        },
+        {
+          "client_ms": 15829.752602003282,
+          "ended": 47109.824444721,
+          "predicted_n": 256,
+          "predicted_tps": 17.480775755857476,
+          "prompt_n": 34,
+          "prompt_tps": 28.94829153994694,
+          "slot": 3,
+          "started": 47093.994692119
+        },
+        {
+          "client_ms": 15829.414714004088,
+          "ended": 47109.824933203,
+          "predicted_n": 256,
+          "predicted_tps": 17.480785305160225,
+          "prompt_n": 34,
+          "prompt_tps": 28.940184893734195,
+          "slot": 4,
+          "started": 47093.995518489
+        },
+        {
+          "client_ms": 15829.779513995163,
+          "ended": 47109.825442375,
+          "predicted_n": 256,
+          "predicted_tps": 17.48079843546854,
+          "prompt_n": 34,
+          "prompt_tps": 28.932132025827883,
+          "slot": 5,
+          "started": 47093.995662861
+        },
+        {
+          "client_ms": 15830.423299004906,
+          "ended": 47109.825755085,
+          "predicted_n": 256,
+          "predicted_tps": 17.480816340466212,
+          "prompt_n": 34,
+          "prompt_tps": 28.924501945598116,
+          "slot": 6,
+          "started": 47093.995331786
+        },
+        {
+          "client_ms": 15830.946587004291,
+          "ended": 47109.826130644,
+          "predicted_n": 256,
+          "predicted_tps": 17.480874830380884,
+          "prompt_n": 34,
+          "prompt_tps": 28.91665454718645,
+          "slot": 7,
+          "started": 47093.995184057
+        },
+        {
+          "client_ms": 15831.533514996408,
+          "ended": 47109.826442102,
+          "predicted_n": 256,
+          "predicted_tps": 17.48095838808083,
+          "prompt_n": 34,
+          "prompt_tps": 28.909155529556212,
+          "slot": 8,
+          "started": 47093.994908587
+        },
+        {
+          "client_ms": 15831.971622006677,
+          "ended": 47109.826779599,
+          "predicted_n": 256,
+          "predicted_tps": 17.481089694651796,
+          "prompt_n": 34,
+          "prompt_tps": 28.90043206145932,
+          "slot": 9,
+          "started": 47093.994807977
+        },
+        {
+          "client_ms": 15831.165278999833,
+          "ended": 47109.827112347,
+          "predicted_n": 256,
+          "predicted_tps": 17.481244877687963,
+          "prompt_n": 34,
+          "prompt_tps": 28.891321047157433,
+          "slot": 10,
+          "started": 47093.995947068
+        },
+        {
+          "client_ms": 15833.15852299711,
+          "ended": 47109.827489099,
+          "predicted_n": 256,
+          "predicted_tps": 17.481329632663318,
+          "prompt_n": 34,
+          "prompt_tps": 28.88336895615505,
+          "slot": 11,
+          "started": 47093.994330576
+        }
+      ],
+      "total_predicted_tokens": 3072,
+      "wall_ms": 15833.15852299711
+    },
+    {
+      "active_agents": 8,
+      "aggregate_wall_tps": 182.0045584124211,
+      "failures": [],
+      "max_slot_tps": 24.626030637860364,
+      "mean_slot_tps": 24.62525603848914,
+      "min_slot_tps": 24.624400934496013,
+      "order_index": 1,
+      "p95_client_ms": 11252.047568598573,
+      "repeat": 1,
+      "requests": [
+        {
+          "client_ms": 11250.074146999395,
+          "ended": 47121.159431691,
+          "predicted_n": 256,
+          "predicted_tps": 24.624400934496013,
+          "prompt_n": 34,
+          "prompt_tps": 40.24016275962302,
+          "slot": 0,
+          "started": 47109.909357544
+        },
+        {
+          "client_ms": 11249.81254299928,
+          "ended": 47121.159580612,
+          "predicted_n": 256,
+          "predicted_tps": 24.62482728954141,
+          "prompt_n": 34,
+          "prompt_tps": 40.21879021879022,
+          "slot": 1,
+          "started": 47109.909768069
+        },
+        {
+          "client_ms": 11250.587805996474,
+          "ended": 47121.159828189,
+          "predicted_n": 256,
+          "predicted_tps": 24.62493388060966,
+          "prompt_n": 34,
+          "prompt_tps": 40.202763821769324,
+          "slot": 2,
+          "started": 47109.909240383
+        },
+        {
+          "client_ms": 11249.802384001669,
+          "ended": 47121.160305651,
+          "predicted_n": 256,
+          "predicted_tps": 24.625139959291563,
+          "prompt_n": 34,
+          "prompt_tps": 40.18736769195673,
+          "slot": 3,
+          "started": 47109.910503267
+        },
+        {
+          "client_ms": 11250.57100399863,
+          "ended": 47121.160523562,
+          "predicted_n": 256,
+          "predicted_tps": 24.625341303863724,
+          "prompt_n": 34,
+          "prompt_tps": 40.17169856575221,
+          "slot": 4,
+          "started": 47109.909952558
+        },
+        {
+          "client_ms": 11251.27155699738,
+          "ended": 47121.160892208,
+          "predicted_n": 256,
+          "predicted_tps": 24.62555923346406,
+          "prompt_n": 34,
+          "prompt_tps": 40.15642107078278,
+          "slot": 5,
+          "started": 47109.909620651
+        },
+        {
+          "client_ms": 11250.908132002223,
+          "ended": 47121.161281193,
+          "predicted_n": 256,
+          "predicted_tps": 24.62581506878635,
+          "prompt_n": 34,
+          "prompt_tps": 40.14106040875406,
+          "slot": 6,
+          "started": 47109.910373061
+        },
+        {
+          "client_ms": 11252.465420999215,
+          "ended": 47121.161566451,
+          "predicted_n": 256,
+          "predicted_tps": 24.626030637860364,
+          "prompt_n": 34,
+          "prompt_tps": 40.125664138749826,
+          "slot": 7,
+          "started": 47109.90910103
+        }
+      ],
+      "total_predicted_tokens": 2048,
+      "wall_ms": 11252.465420999215
+    },
+    {
+      "active_agents": 6,
+      "aggregate_wall_tps": 168.01035053753418,
+      "failures": [],
+      "max_slot_tps": 30.281380263164117,
+      "mean_slot_tps": 30.28024308464566,
+      "min_slot_tps": 30.278719158138063,
+      "order_index": 2,
+      "p95_client_ms": 9142.204674499226,
+      "repeat": 1,
+      "requests": [
+        {
+          "client_ms": 9141.067528005806,
+          "ended": 47130.361301201,
+          "predicted_n": 256,
+          "predicted_tps": 30.278719158138063,
+          "prompt_n": 34,
+          "prompt_tps": 50.14497798045526,
+          "slot": 0,
+          "started": 47121.220233673
+        },
+        {
+          "client_ms": 9141.078657994512,
+          "ended": 47130.36106772,
+          "predicted_n": 256,
+          "predicted_tps": 30.279567938952606,
+          "prompt_n": 34,
+          "prompt_tps": 50.11341845736159,
+          "slot": 1,
+          "started": 47121.219989062
+        },
+        {
+          "client_ms": 9141.138320999744,
+          "ended": 47130.36161856,
+          "predicted_n": 256,
+          "predicted_tps": 30.280148145624803,
+          "prompt_n": 34,
+          "prompt_tps": 50.088612648553244,
+          "slot": 2,
+          "started": 47121.220480239
+        },
+        {
+          "client_ms": 9141.382321002311,
+          "ended": 47130.361740089,
+          "predicted_n": 256,
+          "predicted_tps": 30.280628086465388,
+          "prompt_n": 34,
+          "prompt_tps": 50.065084609992994,
+          "slot": 3,
+          "started": 47121.220357768
+        },
+        {
+          "client_ms": 9141.937048996624,
+          "ended": 47130.362055665,
+          "predicted_n": 256,
+          "predicted_tps": 30.28101491552898,
+          "prompt_n": 34,
+          "prompt_tps": 50.04113675801136,
+          "slot": 4,
+          "started": 47121.220118616
+        },
+        {
+          "client_ms": 9142.293883000093,
+          "ended": 47130.362156185,
+          "predicted_n": 256,
+          "predicted_tps": 30.281380263164117,
+          "prompt_n": 34,
+          "prompt_tps": 50.01838911364472,
+          "slot": 5,
+          "started": 47121.219862302
+        }
+      ],
+      "total_predicted_tokens": 1536,
+      "wall_ms": 9142.293883000093
+    },
+    {
+      "active_agents": 2,
+      "aggregate_wall_tps": 106.38657309439984,
+      "failures": [],
+      "max_slot_tps": 55.97464873174784,
+      "mean_slot_tps": 55.97278242223139,
+      "min_slot_tps": 55.97091611271493,
+      "order_index": 3,
+      "p95_client_ms": 4812.62588474965,
+      "repeat": 1,
+      "requests": [
+        {
+          "client_ms": 4812.407189994701,
+          "ended": 47135.22105535,
+          "predicted_n": 256,
+          "predicted_tps": 55.97091611271493,
+          "prompt_n": 34,
+          "prompt_tps": 144.86516887444026,
+          "slot": 0,
+          "started": 47130.40864816
+        },
+        {
+          "client_ms": 4812.637394999911,
+          "ended": 47135.22116658,
+          "predicted_n": 256,
+          "predicted_tps": 55.97464873174784,
+          "prompt_n": 34,
+          "prompt_tps": 144.5934796846161,
+          "slot": 1,
+          "started": 47130.408529185
+        }
+      ],
+      "total_predicted_tokens": 512,
+      "wall_ms": 4812.637394999911
+    },
+    {
+      "active_agents": 4,
+      "aggregate_wall_tps": 145.78683272311713,
+      "failures": [],
+      "max_slot_tps": 39.31068106522732,
+      "mean_slot_tps": 39.308871780937984,
+      "min_slot_tps": 39.306667239888895,
+      "order_index": 4,
+      "p95_client_ms": 7023.705206147497,
+      "repeat": 1,
+      "requests": [
+        {
+          "client_ms": 7023.054596000293,
+          "ended": 47142.265275136,
+          "predicted_n": 256,
+          "predicted_tps": 39.306667239888895,
+          "prompt_n": 34,
+          "prompt_tps": 67.46326228525848,
+          "slot": 0,
+          "started": 47135.24222054
+        },
+        {
+          "client_ms": 7023.687560998951,
+          "ended": 47142.265766343,
+          "predicted_n": 256,
+          "predicted_tps": 39.308489958216306,
+          "prompt_n": 34,
+          "prompt_tps": 67.40214299166394,
+          "slot": 1,
+          "started": 47135.242078782
+        },
+        {
+          "client_ms": 7023.453518995666,
+          "ended": 47142.265901568,
+          "predicted_n": 256,
+          "predicted_tps": 39.30964886041942,
+          "prompt_n": 34,
+          "prompt_tps": 67.35727686416216,
+          "slot": 2,
+          "started": 47135.242448049
+        },
+        {
+          "client_ms": 7023.70831999724,
+          "ended": 47142.265655935,
+          "predicted_n": 256,
+          "predicted_tps": 39.31068106522732,
+          "prompt_n": 34,
+          "prompt_tps": 67.31406963046555,
+          "slot": 3,
+          "started": 47135.241947615
+        }
+      ],
+      "total_predicted_tokens": 1024,
+      "wall_ms": 7023.953952993907
+    },
+    {
+      "active_agents": 1,
+      "aggregate_wall_tps": 76.72027857753935,
+      "failures": [],
+      "max_slot_tps": 79.23373549612543,
+      "mean_slot_tps": 79.23373549612543,
+      "min_slot_tps": 79.23373549612543,
+      "order_index": 5,
+      "p95_client_ms": 3336.7970600011176,
+      "repeat": 1,
+      "requests": [
+        {
+          "client_ms": 3336.7970600011176,
+          "ended": 47145.636980477,
+          "predicted_n": 256,
+          "predicted_tps": 79.23373549612543,
+          "prompt_n": 34,
+          "prompt_tps": 329.2786859843496,
+          "slot": 0,
+          "started": 47142.300183417
+        }
+      ],
+      "total_predicted_tokens": 256,
+      "wall_ms": 3336.7970600011176
+    },
+    {
+      "active_agents": 4,
+      "aggregate_wall_tps": 145.81078194790453,
+      "failures": [],
+      "max_slot_tps": 39.333536249310704,
+      "mean_slot_tps": 39.33191066283385,
+      "min_slot_tps": 39.33024887904949,
+      "order_index": 0,
+      "p95_client_ms": 7022.6988034544775,
+      "repeat": 2,
+      "requests": [
+        {
+          "client_ms": 7022.091370999988,
+          "ended": 47152.673057336,
+          "predicted_n": 256,
+          "predicted_tps": 39.33024887904949,
+          "prompt_n": 34,
+          "prompt_tps": 67.089461824123,
+          "slot": 0,
+          "started": 47145.650965965
+        },
+        {
+          "client_ms": 7022.056864996557,
+          "ended": 47152.673175979,
+          "predicted_n": 256,
+          "predicted_tps": 39.33136072219753,
+          "prompt_n": 34,
+          "prompt_tps": 67.04461424698053,
+          "slot": 1,
+          "started": 47145.651119114
+        },
+        {
+          "client_ms": 7022.1237809964805,
+          "ended": 47152.673418948,
+          "predicted_n": 256,
+          "predicted_tps": 39.332496800777676,
+          "prompt_n": 34,
+          "prompt_tps": 67.00035470776021,
+          "slot": 2,
+          "started": 47145.651295167
+        },
+        {
+          "client_ms": 7022.800278005889,
+          "ended": 47152.673648531,
+          "predicted_n": 256,
+          "predicted_tps": 39.333536249310704,
+          "prompt_n": 34,
+          "prompt_tps": 66.95799961006811,
+          "slot": 3,
+          "started": 47145.650848253
+        }
+      ],
+      "total_predicted_tokens": 1024,
+      "wall_ms": 7022.800278005889
+    },
+    {
+      "active_agents": 2,
+      "aggregate_wall_tps": 104.65462040989199,
+      "failures": [],
+      "max_slot_tps": 55.03225943754881,
+      "mean_slot_tps": 55.03112969297909,
+      "min_slot_tps": 55.029999948409376,
+      "order_index": 1,
+      "p95_client_ms": 4892.268712402074,
+      "repeat": 2,
+      "requests": [
+        {
+          "client_ms": 4892.000933999952,
+          "ended": 47157.599888844,
+          "predicted_n": 256,
+          "predicted_tps": 55.029999948409376,
+          "prompt_n": 34,
+          "prompt_tps": 144.0299582313121,
+          "slot": 0,
+          "started": 47152.70788791
+        },
+        {
+          "client_ms": 4892.282806002186,
+          "ended": 47157.600052513,
+          "predicted_n": 256,
+          "predicted_tps": 55.03225943754881,
+          "prompt_n": 34,
+          "prompt_tps": 143.83132815540552,
+          "slot": 1,
+          "started": 47152.707769707
+        }
+      ],
+      "total_predicted_tokens": 512,
+      "wall_ms": 4892.282806002186
+    },
+    {
+      "active_agents": 12,
+      "aggregate_wall_tps": 193.48777480825055,
+      "failures": [],
+      "max_slot_tps": 17.42768582593377,
+      "mean_slot_tps": 17.42733979548349,
+      "min_slot_tps": 17.427045181180343,
+      "order_index": 2,
+      "p95_client_ms": 15876.475893399038,
+      "repeat": 2,
+      "requests": [
+        {
+          "client_ms": 15872.848104998411,
+          "ended": 47173.494783112,
+          "predicted_n": 256,
+          "predicted_tps": 17.427045181180343,
+          "prompt_n": 34,
+          "prompt_tps": 29.000885379971308,
+          "slot": 0,
+          "started": 47157.621935007
+        },
+        {
+          "client_ms": 15872.728408998228,
+          "ended": 47173.495241828,
+          "predicted_n": 256,
+          "predicted_tps": 17.427135343149484,
+          "prompt_n": 34,
+          "prompt_tps": 28.989263740911014,
+          "slot": 1,
+          "started": 47157.622513419
+        },
+        {
+          "client_ms": 15873.496407999482,
+          "ended": 47173.495549218,
+          "predicted_n": 256,
+          "predicted_tps": 17.42714720663593,
+          "prompt_n": 34,
+          "prompt_tps": 28.98066478235521,
+          "slot": 2,
+          "started": 47157.62205281
+        },
+        {
+          "client_ms": 15872.793230999378,
+          "ended": 47173.495858612,
+          "predicted_n": 256,
+          "predicted_tps": 17.42715432473555,
+          "prompt_n": 34,
+          "prompt_tps": 28.97261406262516,
+          "slot": 3,
+          "started": 47157.623065381
+        },
+        {
+          "client_ms": 15873.393813999428,
+          "ended": 47173.49629224,
+          "predicted_n": 256,
+          "predicted_tps": 17.427189915320877,
+          "prompt_n": 34,
+          "prompt_tps": 28.964321067795254,
+          "slot": 4,
+          "started": 47157.622898426
+        },
+        {
+          "client_ms": 15873.389968000993,
+          "ended": 47173.496633525,
+          "predicted_n": 256,
+          "predicted_tps": 17.42723974238455,
+          "prompt_n": 34,
+          "prompt_tps": 28.95650137330466,
+          "slot": 5,
+          "started": 47157.623243557
+        },
+        {
+          "client_ms": 15874.74334199942,
+          "ended": 47173.497014554,
+          "predicted_n": 256,
+          "predicted_tps": 17.427314483514305,
+          "prompt_n": 34,
+          "prompt_tps": 28.948636604358985,
+          "slot": 6,
+          "started": 47157.622271212
+        },
+        {
+          "client_ms": 15875.173894004547,
+          "ended": 47173.497339437,
+          "predicted_n": 256,
+          "predicted_tps": 17.427415325737112,
+          "prompt_n": 34,
+          "prompt_tps": 28.940603666944725,
+          "slot": 7,
+          "started": 47157.622165543
+        },
+        {
+          "client_ms": 15875.060240003222,
+          "ended": 47173.497708153,
+          "predicted_n": 256,
+          "predicted_tps": 17.427481763603968,
+          "prompt_n": 34,
+          "prompt_tps": 28.93314146689325,
+          "slot": 8,
+          "started": 47157.622647913
+        },
+        {
+          "client_ms": 15875.315172001137,
+          "ended": 47173.498076128,
+          "predicted_n": 256,
+          "predicted_tps": 17.427590912627792,
+          "prompt_n": 34,
+          "prompt_tps": 28.92536320472606,
+          "slot": 9,
+          "started": 47157.622760956
+        },
+        {
+          "client_ms": 15876.069915997505,
+          "ended": 47173.498457798,
+          "predicted_n": 256,
+          "predicted_tps": 17.427677520978225,
+          "prompt_n": 34,
+          "prompt_tps": 28.917884265524016,
+          "slot": 10,
+          "started": 47157.622387882
+        },
+        {
+          "client_ms": 15876.972088000912,
+          "ended": 47173.498767372,
+          "predicted_n": 256,
+          "predicted_tps": 17.42768582593377,
+          "prompt_n": 34,
+          "prompt_tps": 28.910655021908322,
+          "slot": 11,
+          "started": 47157.621795284
+        }
+      ],
+      "total_predicted_tokens": 3072,
+      "wall_ms": 15876.972088000912
+    },
+    {
+      "active_agents": 1,
+      "aggregate_wall_tps": 76.63691787257763,
+      "failures": [],
+      "max_slot_tps": 79.15528938215277,
+      "mean_slot_tps": 79.15528938215277,
+      "min_slot_tps": 79.15528938215277,
+      "order_index": 3,
+      "p95_client_ms": 3340.4266130019096,
+      "repeat": 2,
+      "requests": [
+        {
+          "client_ms": 3340.4266130019096,
+          "ended": 47176.920070285,
+          "predicted_n": 256,
+          "predicted_tps": 79.15528938215277,
+          "prompt_n": 34,
+          "prompt_tps": 328.41356927594467,
+          "slot": 0,
+          "started": 47173.579643672
+        }
+      ],
+      "total_predicted_tokens": 256,
+      "wall_ms": 3340.4266130019096
+    },
+    {
+      "active_agents": 8,
+      "aggregate_wall_tps": 181.8354471132532,
+      "failures": [],
+      "max_slot_tps": 24.598097356386745,
+      "mean_slot_tps": 24.597425251246705,
+      "min_slot_tps": 24.596610779195647,
+      "order_index": 4,
+      "p95_client_ms": 11262.687347150859,
+      "repeat": 2,
+      "requests": [
+        {
+          "client_ms": 11260.855034997803,
+          "ended": 47188.196366767,
+          "predicted_n": 256,
+          "predicted_tps": 24.596610779195647,
+          "prompt_n": 34,
+          "prompt_tps": 40.32736330209939,
+          "slot": 0,
+          "started": 47176.935511732
+        },
+        {
+          "client_ms": 11260.82053999562,
+          "ended": 47188.196710296,
+          "predicted_n": 256,
+          "predicted_tps": 24.597014902428157,
+          "prompt_n": 34,
+          "prompt_tps": 40.306758139297784,
+          "slot": 1,
+          "started": 47176.935889756
+        },
+        {
+          "client_ms": 11261.218932006159,
+          "ended": 47188.196854127,
+          "predicted_n": 256,
+          "predicted_tps": 24.597220514081908,
+          "prompt_n": 34,
+          "prompt_tps": 40.29032735890979,
+          "slot": 2,
+          "started": 47176.935635195
+        },
+        {
+          "client_ms": 11261.191079996934,
+          "ended": 47188.197209198,
+          "predicted_n": 256,
+          "predicted_tps": 24.597331593072123,
+          "prompt_n": 34,
+          "prompt_tps": 40.274720979102156,
+          "slot": 3,
+          "started": 47176.936018118
+        },
+        {
+          "client_ms": 11261.106098994787,
+          "ended": 47188.19730573,
+          "predicted_n": 256,
+          "predicted_tps": 24.597527756292305,
+          "prompt_n": 34,
+          "prompt_tps": 40.25826863395406,
+          "slot": 4,
+          "started": 47176.936199631
+        },
+        {
+          "client_ms": 11261.305375002848,
+          "ended": 47188.197673474,
+          "predicted_n": 256,
+          "predicted_tps": 24.597702651440176,
+          "prompt_n": 34,
+          "prompt_tps": 40.24235365690553,
+          "slot": 5,
+          "started": 47176.936368099
+        },
+        {
+          "client_ms": 11262.235811002029,
+          "ended": 47188.197988308,
+          "predicted_n": 256,
+          "predicted_tps": 24.597896457076573,
+          "prompt_n": 34,
+          "prompt_tps": 40.22726035792797,
+          "slot": 6,
+          "started": 47176.935752497
+        },
+        {
+          "client_ms": 11262.930482000229,
+          "ended": 47188.198309965,
+          "predicted_n": 256,
+          "predicted_tps": 24.598097356386745,
+          "prompt_n": 34,
+          "prompt_tps": 40.2123210551713,
+          "slot": 7,
+          "started": 47176.935379483
+        }
+      ],
+      "total_predicted_tokens": 2048,
+      "wall_ms": 11262.930482000229
+    },
+    {
+      "active_agents": 6,
+      "aggregate_wall_tps": 167.73973108877396,
+      "failures": [],
+      "max_slot_tps": 30.234801579390446,
+      "mean_slot_tps": 30.233543522401977,
+      "min_slot_tps": 30.232048687769655,
+      "order_index": 5,
+      "p95_client_ms": 9156.828536997637,
+      "repeat": 2,
+      "requests": [
+        {
+          "client_ms": 9155.510010001308,
+          "ended": 47197.412615076,
+          "predicted_n": 256,
+          "predicted_tps": 30.232048687769655,
+          "prompt_n": 34,
+          "prompt_tps": 50.02302530429448,
+          "slot": 0,
+          "started": 47188.257105066
+        },
+        {
+          "client_ms": 9155.529055999068,
+          "ended": 47197.413027324,
+          "predicted_n": 256,
+          "predicted_tps": 30.232859149833104,
+          "prompt_n": 34,
+          "prompt_tps": 49.98867903445396,
+          "slot": 1,
+          "started": 47188.257498268
+        },
+        {
+          "client_ms": 9155.758560002141,
+          "ended": 47197.413126271,
+          "predicted_n": 256,
+          "predicted_tps": 30.23336972753947,
+          "prompt_n": 34,
+          "prompt_tps": 49.96252810392206,
+          "slot": 2,
+          "started": 47188.257367711
+        },
+        {
+          "client_ms": 9156.183902996418,
+          "ended": 47197.413397854,
+          "predicted_n": 256,
+          "predicted_tps": 30.23382319212957,
+          "prompt_n": 34,
+          "prompt_tps": 49.93721130049717,
+          "slot": 3,
+          "started": 47188.257213951
+        },
+        {
+          "client_ms": 9156.082019995665,
+          "ended": 47197.41372454,
+          "predicted_n": 256,
+          "predicted_tps": 30.234358797749618,
+          "prompt_n": 34,
+          "prompt_tps": 49.91133398315933,
+          "slot": 4,
+          "started": 47188.25764252
+        },
+        {
+          "client_ms": 9157.043414998043,
+          "ended": 47197.414017343,
+          "predicted_n": 256,
+          "predicted_tps": 30.234801579390446,
+          "prompt_n": 34,
+          "prompt_tps": 49.88687417649976,
+          "slot": 5,
+          "started": 47188.256973928
+        }
+      ],
+      "total_predicted_tokens": 1536,
+      "wall_ms": 9157.043414998043
+    },
+    {
+      "active_agents": 12,
+      "aggregate_wall_tps": 195.24240060180898,
+      "failures": [],
+      "max_slot_tps": 17.59869516674523,
+      "mean_slot_tps": 17.59834493229371,
+      "min_slot_tps": 17.598150764319996,
+      "order_index": 0,
+      "p95_client_ms": 15733.764899848029,
+      "repeat": 3,
+      "requests": [
+        {
+          "client_ms": 15730.4734979989,
+          "ended": 47213.192812201,
+          "predicted_n": 256,
+          "predicted_tps": 17.59829351547567,
+          "prompt_n": 34,
+          "prompt_tps": 28.99700222168208,
+          "slot": 0,
+          "started": 47197.462338703
+        },
+        {
+          "client_ms": 15729.995424997469,
+          "ended": 47213.193016016,
+          "predicted_n": 256,
+          "predicted_tps": 17.59826811043958,
+          "prompt_n": 34,
+          "prompt_tps": 28.988695261456712,
+          "slot": 1,
+          "started": 47197.463020591
+        },
+        {
+          "client_ms": 15730.845710000722,
+          "ended": 47213.193295954,
+          "predicted_n": 256,
+          "predicted_tps": 17.598185847016495,
+          "prompt_n": 34,
+          "prompt_tps": 28.980516569184164,
+          "slot": 2,
+          "started": 47197.462450244
+        },
+        {
+          "client_ms": 15730.52288100007,
+          "ended": 47213.193630055,
+          "predicted_n": 256,
+          "predicted_tps": 17.598150764319996,
+          "prompt_n": 34,
+          "prompt_tps": 28.971947485788835,
+          "slot": 3,
+          "started": 47197.463107174
+        },
+        {
+          "client_ms": 15731.49736099731,
+          "ended": 47213.19405639,
+          "predicted_n": 256,
+          "predicted_tps": 17.598176169017282,
+          "prompt_n": 34,
+          "prompt_tps": 28.964148347552744,
+          "slot": 4,
+          "started": 47197.462559029
+        },
+        {
+          "client_ms": 15731.025609995413,
+          "ended": 47213.194394668,
+          "predicted_n": 256,
+          "predicted_tps": 17.598211251815073,
+          "prompt_n": 34,
+          "prompt_tps": 28.95635340718339,
+          "slot": 5,
+          "started": 47197.463369058
+        },
+        {
+          "client_ms": 15731.239744003688,
+          "ended": 47213.194757523,
+          "predicted_n": 256,
+          "predicted_tps": 17.598266900677785,
+          "prompt_n": 34,
+          "prompt_tps": 28.948390128939533,
+          "slot": 6,
+          "started": 47197.463517779
+        },
+        {
+          "client_ms": 15731.96109499986,
+          "ended": 47213.195173929,
+          "predicted_n": 256,
+          "predicted_tps": 17.59834553554034,
+          "prompt_n": 34,
+          "prompt_tps": 28.940726837842554,
+          "slot": 7,
+          "started": 47197.463212834
+        },
+        {
+          "client_ms": 15732.826719002333,
+          "ended": 47213.195509933,
+          "predicted_n": 256,
+          "predicted_tps": 17.59844473744633,
+          "prompt_n": 34,
+          "prompt_tps": 28.93289525526047,
+          "slot": 8,
+          "started": 47197.462683214
+        },
+        {
+          "client_ms": 15733.134489993972,
+          "ended": 47213.195931749,
+          "predicted_n": 256,
+          "predicted_tps": 17.598500387785705,
+          "prompt_n": 34,
+          "prompt_tps": 28.925264772515554,
+          "slot": 9,
+          "started": 47197.462797259
+        },
+        {
+          "client_ms": 15733.337582998502,
+          "ended": 47213.196226836,
+          "predicted_n": 256,
+          "predicted_tps": 17.598600801245045,
+          "prompt_n": 34,
+          "prompt_tps": 28.917490744276677,
+          "slot": 10,
+          "started": 47197.462889253
+        },
+        {
+          "client_ms": 15734.287175997451,
+          "ended": 47213.196507867,
+          "predicted_n": 256,
+          "predicted_tps": 17.59869516674523,
+          "prompt_n": 34,
+          "prompt_tps": 28.909794638423495,
+          "slot": 11,
+          "started": 47197.462220691
+        }
+      ],
+      "total_predicted_tokens": 3072,
+      "wall_ms": 15734.287175997451
+    },
+    {
+      "active_agents": 1,
+      "aggregate_wall_tps": 76.78515442744418,
+      "failures": [],
+      "max_slot_tps": 79.36881946321876,
+      "mean_slot_tps": 79.36881946321876,
+      "min_slot_tps": 79.36881946321876,
+      "order_index": 1,
+      "p95_client_ms": 3333.977796995896,
+      "repeat": 3,
+      "requests": [
+        {
+          "client_ms": 3333.977796995896,
+          "ended": 47216.611655659,
+          "predicted_n": 256,
+          "predicted_tps": 79.36881946321876,
+          "prompt_n": 34,
+          "prompt_tps": 321.00607079127997,
+          "slot": 0,
+          "started": 47213.277677862
+        }
+      ],
+      "total_predicted_tokens": 256,
+      "wall_ms": 3333.977796995896
+    },
+    {
+      "active_agents": 2,
+      "aggregate_wall_tps": 104.7580123898965,
+      "failures": [],
+      "max_slot_tps": 55.087301537774934,
+      "mean_slot_tps": 55.08618731170094,
+      "min_slot_tps": 55.08507308562695,
+      "order_index": 2,
+      "p95_client_ms": 4887.425884349068,
+      "repeat": 3,
+      "requests": [
+        {
+          "client_ms": 4886.8856449989835,
+          "ended": 47221.520049062,
+          "predicted_n": 256,
+          "predicted_tps": 55.08507308562695,
+          "prompt_n": 34,
+          "prompt_tps": 144.0897764065705,
+          "slot": 0,
+          "started": 47216.633163417
+        },
+        {
+          "client_ms": 4887.454317999072,
+          "ended": 47221.520425392,
+          "predicted_n": 256,
+          "predicted_tps": 55.087301537774934,
+          "prompt_n": 34,
+          "prompt_tps": 143.89463526942154,
+          "slot": 1,
+          "started": 47216.632971074
+        }
+      ],
+      "total_predicted_tokens": 512,
+      "wall_ms": 4887.454317999072
+    },
+    {
+      "active_agents": 8,
+      "aggregate_wall_tps": 182.3411670423765,
+      "failures": [],
+      "max_slot_tps": 24.668167377755502,
+      "mean_slot_tps": 24.667463807046058,
+      "min_slot_tps": 24.666650928829483,
+      "order_index": 3,
+      "p95_client_ms": 11231.479608650625,
+      "repeat": 3,
+      "requests": [
+        {
+          "client_ms": 11229.256539001653,
+          "ended": 47232.771067128,
+          "predicted_n": 256,
+          "predicted_tps": 24.666650928829483,
+          "prompt_n": 34,
+          "prompt_tps": 40.3947277751772,
+          "slot": 0,
+          "started": 47221.541810589
+        },
+        {
+          "client_ms": 11229.076348994568,
+          "ended": 47232.771383996,
+          "predicted_n": 256,
+          "predicted_tps": 24.667062110506127,
+          "prompt_n": 34,
+          "prompt_tps": 40.37314283542957,
+          "slot": 1,
+          "started": 47221.542307647
+        },
+        {
+          "client_ms": 11229.462076997152,
+          "ended": 47232.771657963,
+          "predicted_n": 256,
+          "predicted_tps": 24.667188082202248,
+          "prompt_n": 34,
+          "prompt_tps": 40.356609997281865,
+          "slot": 2,
+          "started": 47221.542195886
+        },
+        {
+          "client_ms": 11229.97059699992,
+          "ended": 47232.771889821,
+          "predicted_n": 256,
+          "predicted_tps": 24.667385361217242,
+          "prompt_n": 34,
+          "prompt_tps": 40.3406171877132,
+          "slot": 3,
+          "started": 47221.541919224
+        },
+        {
+          "client_ms": 11229.857022997749,
+          "ended": 47232.772306688,
+          "predicted_n": 256,
+          "predicted_tps": 24.667563628101405,
+          "prompt_n": 34,
+          "prompt_tps": 40.32458922289772,
+          "slot": 4,
+          "started": 47221.542449665
+        },
+        {
+          "client_ms": 11230.186453998613,
+          "ended": 47232.772849903,
+          "predicted_n": 256,
+          "predicted_tps": 24.667751405339143,
+          "prompt_n": 34,
+          "prompt_tps": 40.30857398935142,
+          "slot": 5,
+          "started": 47221.542663449
+        },
+        {
+          "client_ms": 11231.083407001279,
+          "ended": 47232.773153536,
+          "predicted_n": 256,
+          "predicted_tps": 24.66794156241731,
+          "prompt_n": 34,
+          "prompt_tps": 40.29314447699498,
+          "slot": 6,
+          "started": 47221.542070129
+        },
+        {
+          "client_ms": 11231.692948000273,
+          "ended": 47232.773382148,
+          "predicted_n": 256,
+          "predicted_tps": 24.668167377755502,
+          "prompt_n": 34,
+          "prompt_tps": 40.27810849263918,
+          "slot": 7,
+          "started": 47221.5416892
+        }
+      ],
+      "total_predicted_tokens": 2048,
+      "wall_ms": 11231.692948000273
+    },
+    {
+      "active_agents": 6,
+      "aggregate_wall_tps": 166.64570731624113,
+      "failures": [],
+      "max_slot_tps": 30.032150825215464,
+      "mean_slot_tps": 30.030805652067865,
+      "min_slot_tps": 30.029466413918655,
+      "order_index": 4,
+      "p95_client_ms": 9216.95426950464,
+      "repeat": 3,
+      "requests": [
+        {
+          "client_ms": 9215.877946000546,
+          "ended": 47242.048701786,
+          "predicted_n": 256,
+          "predicted_tps": 30.029466413918655,
+          "prompt_n": 34,
+          "prompt_tps": 49.81261665675298,
+          "slot": 0,
+          "started": 47232.83282384
+        },
+        {
+          "client_ms": 9215.941164999094,
+          "ended": 47242.048890402,
+          "predicted_n": 256,
+          "predicted_tps": 30.029998326062206,
+          "prompt_n": 34,
+          "prompt_tps": 49.78759732377021,
+          "slot": 1,
+          "started": 47232.832949237
+        },
+        {
+          "client_ms": 9216.153216002567,
+          "ended": 47242.04923892,
+          "predicted_n": 256,
+          "predicted_tps": 30.030519688700817,
+          "prompt_n": 34,
+          "prompt_tps": 49.763404285214556,
+          "slot": 2,
+          "started": 47232.833085704
+        },
+        {
+          "client_ms": 9215.900748997228,
+          "ended": 47242.049384164,
+          "predicted_n": 256,
+          "predicted_tps": 30.031072775612515,
+          "prompt_n": 34,
+          "prompt_tps": 49.73916198289558,
+          "slot": 3,
+          "started": 47232.833483415
+        },
+        {
+          "client_ms": 9216.631318005966,
+          "ended": 47242.049866865,
+          "predicted_n": 256,
+          "predicted_tps": 30.03162588289754,
+          "prompt_n": 34,
+          "prompt_tps": 49.7155248424091,
+          "slot": 4,
+          "started": 47232.833235547
+        },
+        {
+          "client_ms": 9217.061920004198,
+          "ended": 47242.049769671,
+          "predicted_n": 256,
+          "predicted_tps": 30.032150825215464,
+          "prompt_n": 34,
+          "prompt_tps": 49.69205540956484,
+          "slot": 5,
+          "started": 47232.832707751
+        }
+      ],
+      "total_predicted_tokens": 1536,
+      "wall_ms": 9217.15911400679
+    },
+    {
+      "active_agents": 4,
+      "aggregate_wall_tps": 145.94707379088626,
+      "failures": [],
+      "max_slot_tps": 39.36027256988754,
+      "mean_slot_tps": 39.35849199381359,
+      "min_slot_tps": 39.3564301258099,
+      "order_index": 5,
+      "p95_client_ms": 7016.183911695771,
+      "repeat": 3,
+      "requests": [
+        {
+          "client_ms": 7015.196453001408,
+          "ended": 47249.110613218,
+          "predicted_n": 256,
+          "predicted_tps": 39.3564301258099,
+          "prompt_n": 34,
+          "prompt_tps": 67.36087997083669,
+          "slot": 0,
+          "started": 47242.095416765
+        },
+        {
+          "client_ms": 7015.651220004656,
+          "ended": 47249.110725409,
+          "predicted_n": 256,
+          "predicted_tps": 39.35807593126051,
+          "prompt_n": 34,
+          "prompt_tps": 67.30181101255575,
+          "slot": 1,
+          "started": 47242.095074189
+        },
+        {
+          "client_ms": 7015.854313998716,
+          "ended": 47249.111092312,
+          "predicted_n": 256,
+          "predicted_tps": 39.35918934829638,
+          "prompt_n": 34,
+          "prompt_tps": 67.25694526867171,
+          "slot": 2,
+          "started": 47242.095237998
+        },
+        {
+          "client_ms": 7016.242075995251,
+          "ended": 47249.111193232,
+          "predicted_n": 256,
+          "predicted_tps": 39.36027256988754,
+          "prompt_n": 34,
+          "prompt_tps": 67.21426523935197,
+          "slot": 3,
+          "started": 47242.094951156
+        }
+      ],
+      "total_predicted_tokens": 1024,
+      "wall_ms": 7016.242075995251
+    },
+    {
+      "active_agents": 2,
+      "aggregate_wall_tps": 104.74922368181862,
+      "failures": [],
+      "max_slot_tps": 55.095873276047975,
+      "mean_slot_tps": 55.09394061669994,
+      "min_slot_tps": 55.0920079573519,
+      "order_index": 0,
+      "p95_client_ms": 4887.838807247681,
+      "repeat": 4,
+      "requests": [
+        {
+          "client_ms": 4887.352792000456,
+          "ended": 47254.033052399,
+          "predicted_n": 256,
+          "predicted_tps": 55.0920079573519,
+          "prompt_n": 34,
+          "prompt_tps": 143.6004865522368,
+          "slot": 0,
+          "started": 47249.145699607
+        },
+        {
+          "client_ms": 4887.864386997535,
+          "ended": 47254.033439249,
+          "predicted_n": 256,
+          "predicted_tps": 55.095873276047975,
+          "prompt_n": 34,
+          "prompt_tps": 143.32566119499876,
+          "slot": 1,
+          "started": 47249.145574862
+        }
+      ],
+      "total_predicted_tokens": 512,
+      "wall_ms": 4887.864386997535
+    },
+    {
+      "active_agents": 8,
+      "aggregate_wall_tps": 182.58748914331773,
+      "failures": [],
+      "max_slot_tps": 24.698506965606075,
+      "mean_slot_tps": 24.697692356263396,
+      "min_slot_tps": 24.69711782705496,
+      "order_index": 1,
+      "p95_client_ms": 11216.324327049006,
+      "repeat": 4,
+      "requests": [
+        {
+          "client_ms": 11214.143737000995,
+          "ended": 47265.268761342,
+          "predicted_n": 256,
+          "predicted_tps": 24.69711782705496,
+          "prompt_n": 34,
+          "prompt_tps": 40.51506564632254,
+          "slot": 0,
+          "started": 47254.054617605
+        },
+        {
+          "client_ms": 11214.152093001758,
+          "ended": 47265.269063182,
+          "predicted_n": 256,
+          "predicted_tps": 24.697172627158842,
+          "prompt_n": 34,
+          "prompt_tps": 40.498271676699915,
+          "slot": 1,
+          "started": 47254.054911089
+        },
+        {
+          "client_ms": 11214.174745997298,
+          "ended": 47265.269479919,
+          "predicted_n": 256,
+          "predicted_tps": 24.69729175865845,
+          "prompt_n": 34,
+          "prompt_tps": 40.48153982252417,
+          "slot": 2,
+          "started": 47254.055305173
+        },
+        {
+          "client_ms": 11214.560824002547,
+          "ended": 47265.269747013,
+          "predicted_n": 256,
+          "predicted_tps": 24.69747760609279,
+          "prompt_n": 34,
+          "prompt_tps": 40.46530338266133,
+          "slot": 3,
+          "started": 47254.055186189
+        },
+        {
+          "client_ms": 11215.004422003403,
+          "ended": 47265.270057619,
+          "predicted_n": 256,
+          "predicted_tps": 24.69772302429793,
+          "prompt_n": 34,
+          "prompt_tps": 40.44879123546074,
+          "slot": 4,
+          "started": 47254.055053197
+        },
+        {
+          "client_ms": 11214.972852001665,
+          "ended": 47265.270407119,
+          "predicted_n": 256,
+          "predicted_tps": 24.69799465790094,
+          "prompt_n": 34,
+          "prompt_tps": 40.433013793603735,
+          "slot": 5,
+          "started": 47254.055434267
+        },
+        {
+          "client_ms": 11215.922524999769,
+          "ended": 47265.270657081,
+          "predicted_n": 256,
+          "predicted_tps": 24.69825438333717,
+          "prompt_n": 34,
+          "prompt_tps": 40.41724865523492,
+          "slot": 6,
+          "started": 47254.054734556
+        },
+        {
+          "client_ms": 11216.540681998595,
+          "ended": 47265.271038601,
+          "predicted_n": 256,
+          "predicted_tps": 24.698506965606075,
+          "prompt_n": 34,
+          "prompt_tps": 40.40255201531494,
+          "slot": 7,
+          "started": 47254.054497919
+        }
+      ],
+      "total_predicted_tokens": 2048,
+      "wall_ms": 11216.540681998595
+    },
+    {
+      "active_agents": 4,
+      "aggregate_wall_tps": 145.85538098602387,
+      "failures": [],
+      "max_slot_tps": 39.34744113292349,
+      "mean_slot_tps": 39.3457584618364,
+      "min_slot_tps": 39.344090970915346,
+      "order_index": 2,
+      "p95_client_ms": 7020.601148352216,
+      "repeat": 4,
+      "requests": [
+        {
+          "client_ms": 7019.6632469960605,
+          "ended": 47272.349770718,
+          "predicted_n": 256,
+          "predicted_tps": 39.344090970915346,
+          "prompt_n": 34,
+          "prompt_tps": 67.07556456910855,
+          "slot": 0,
+          "started": 47265.330107471
+        },
+        {
+          "client_ms": 7020.044657998369,
+          "ended": 47272.350382944,
+          "predicted_n": 256,
+          "predicted_tps": 39.34514917344448,
+          "prompt_n": 34,
+          "prompt_tps": 67.03245356523934,
+          "slot": 1,
+          "started": 47265.330338286
+        },
+        {
+          "client_ms": 7020.308024999395,
+          "ended": 47272.350524151,
+          "predicted_n": 256,
+          "predicted_tps": 39.34635257006225,
+          "prompt_n": 34,
+          "prompt_tps": 66.9875501667793,
+          "slot": 2,
+          "started": 47265.330216126
+        },
+        {
+          "client_ms": 7020.652876002714,
+          "ended": 47272.350636062,
+          "predicted_n": 256,
+          "predicted_tps": 39.34744113292349,
+          "prompt_n": 34,
+          "prompt_tps": 66.94547487969504,
+          "slot": 3,
+          "started": 47265.329983186
+        }
+      ],
+      "total_predicted_tokens": 1024,
+      "wall_ms": 7020.652876002714
+    },
+    {
+      "active_agents": 12,
+      "aggregate_wall_tps": 193.22811049315305,
+      "failures": [],
+      "max_slot_tps": 17.409989335021375,
+      "mean_slot_tps": 17.409622892565235,
+      "min_slot_tps": 17.409367749567878,
+      "order_index": 3,
+      "p95_client_ms": 15897.636959851297,
+      "repeat": 4,
+      "requests": [
+        {
+          "client_ms": 15894.670715999382,
+          "ended": 47288.279309683,
+          "predicted_n": 256,
+          "predicted_tps": 17.409367749567878,
+          "prompt_n": 34,
+          "prompt_tps": 28.842475125485976,
+          "slot": 0,
+          "started": 47272.384638967
+        },
+        {
+          "client_ms": 15894.012054006453,
+          "ended": 47288.279508058,
+          "predicted_n": 256,
+          "predicted_tps": 17.409447073240727,
+          "prompt_n": 34,
+          "prompt_tps": 28.83195802066912,
+          "slot": 1,
+          "started": 47272.385496004
+        },
+        {
+          "client_ms": 15893.991846001882,
+          "ended": 47288.279903565,
+          "predicted_n": 256,
+          "predicted_tps": 17.409455360830343,
+          "prompt_n": 34,
+          "prompt_tps": 28.823500987204905,
+          "slot": 2,
+          "started": 47272.385911719
+        },
+        {
+          "client_ms": 15894.409795000684,
+          "ended": 47288.28003876,
+          "predicted_n": 256,
+          "predicted_tps": 17.40944115353869,
+          "prompt_n": 34,
+          "prompt_tps": 28.815390808737845,
+          "slot": 3,
+          "started": 47272.385628965
+        },
+        {
+          "client_ms": 15895.589722000295,
+          "ended": 47288.280334388,
+          "predicted_n": 256,
+          "predicted_tps": 17.409484959429097,
+          "prompt_n": 34,
+          "prompt_tps": 28.80728519297068,
+          "slot": 4,
+          "started": 47272.384744666
+        },
+        {
+          "client_ms": 15895.76204700279,
+          "ended": 47288.280626359,
+          "predicted_n": 256,
+          "predicted_tps": 17.40950982232983,
+          "prompt_n": 34,
+          "prompt_tps": 28.79945247158595,
+          "slot": 5,
+          "started": 47272.384864312
+        },
+        {
+          "client_ms": 15894.85675800097,
+          "ended": 47288.281064516,
+          "predicted_n": 256,
+          "predicted_tps": 17.409583227498707,
+          "prompt_n": 34,
+          "prompt_tps": 28.791770295869313,
+          "slot": 6,
+          "started": 47272.386207758
+        },
+        {
+          "client_ms": 15896.232114006125,
+          "ended": 47288.281359022,
+          "predicted_n": 256,
+          "predicted_tps": 17.409666105046252,
+          "prompt_n": 34,
+          "prompt_tps": 28.78401911258869,
+          "slot": 7,
+          "started": 47272.385126908
+        },
+        {
+          "client_ms": 15896.349996997742,
+          "ended": 47288.28164385,
+          "predicted_n": 256,
+          "predicted_tps": 17.409752535329215,
+          "prompt_n": 34,
+          "prompt_tps": 28.776320811966208,
+          "slot": 8,
+          "started": 47272.385293853
+        },
+        {
+          "client_ms": 15897.087990000728,
+          "ended": 47288.282071347,
+          "predicted_n": 256,
+          "predicted_tps": 17.409844886442926,
+          "prompt_n": 34,
+          "prompt_tps": 28.768748339450923,
+          "slot": 9,
+          "started": 47272.384983357
+        },
+        {
+          "client_ms": 15896.703312995669,
+          "ended": 47288.282459589,
+          "predicted_n": 256,
+          "predicted_tps": 17.40993250250778,
+          "prompt_n": 34,
+          "prompt_tps": 28.7611311922081,
+          "slot": 10,
+          "started": 47272.385756276
+        },
+        {
+          "client_ms": 15898.307923001994,
+          "ended": 47288.282808308,
+          "predicted_n": 256,
+          "predicted_tps": 17.409989335021375,
+          "prompt_n": 34,
+          "prompt_tps": 28.753372178575354,
+          "slot": 11,
+          "started": 47272.384500385
+        }
+      ],
+      "total_predicted_tokens": 3072,
+      "wall_ms": 15898.307923001994
+    },
+    {
+      "active_agents": 6,
+      "aggregate_wall_tps": 166.64856415904345,
+      "failures": [],
+      "max_slot_tps": 30.04267115491656,
+      "mean_slot_tps": 30.041570041099494,
+      "min_slot_tps": 30.040460745566683,
+      "order_index": 4,
+      "p95_client_ms": 9216.80229474805,
+      "repeat": 4,
+      "requests": [
+        {
+          "client_ms": 9215.620729002694,
+          "ended": 47297.581474897,
+          "predicted_n": 256,
+          "predicted_tps": 30.040460745566683,
+          "prompt_n": 34,
+          "prompt_tps": 49.62149019172868,
+          "slot": 0,
+          "started": 47288.365854168
+        },
+        {
+          "client_ms": 9216.076028998941,
+          "ended": 47297.581787347,
+          "predicted_n": 256,
+          "predicted_tps": 30.04091196698504,
+          "prompt_n": 34,
+          "prompt_tps": 49.59753062647516,
+          "slot": 1,
+          "started": 47288.365711318
+        },
+        {
+          "client_ms": 9216.205864002404,
+          "ended": 47297.582213511,
+          "predicted_n": 256,
+          "predicted_tps": 30.041409031269,
+          "prompt_n": 34,
+          "prompt_tps": 49.574027875184264,
+          "slot": 2,
+          "started": 47288.366007647
+        },
+        {
+          "client_ms": 9215.516873002343,
+          "ended": 47297.581922712,
+          "predicted_n": 256,
+          "predicted_tps": 30.041754518262277,
+          "prompt_n": 34,
+          "prompt_tps": 49.55228057084227,
+          "slot": 3,
+          "started": 47288.366405839
+        },
+        {
+          "client_ms": 9216.1206929959,
+          "ended": 47297.582303361,
+          "predicted_n": 256,
+          "predicted_tps": 30.042212829597396,
+          "prompt_n": 34,
+          "prompt_tps": 49.529109277239186,
+          "slot": 4,
+          "started": 47288.366182668
+        },
+        {
+          "client_ms": 9217.001104996598,
+          "ended": 47297.582591134,
+          "predicted_n": 256,
+          "predicted_tps": 30.04267115491656,
+          "prompt_n": 34,
+          "prompt_tps": 49.50624797970826,
+          "slot": 5,
+          "started": 47288.365590029
+        }
+      ],
+      "total_predicted_tokens": 1536,
+      "wall_ms": 9217.001104996598
+    },
+    {
+      "active_agents": 1,
+      "aggregate_wall_tps": 76.76163861667878,
+      "failures": [],
+      "max_slot_tps": 79.29720375137725,
+      "mean_slot_tps": 79.29720375137725,
+      "min_slot_tps": 79.29720375137725,
+      "order_index": 5,
+      "p95_client_ms": 3334.9991560025956,
+      "repeat": 4,
+      "requests": [
+        {
+          "client_ms": 3334.9991560025956,
+          "ended": 47300.963918451,
+          "predicted_n": 256,
+          "predicted_tps": 79.29720375137725,
+          "prompt_n": 34,
+          "prompt_tps": 326.73771610336445,
+          "slot": 0,
+          "started": 47297.628919295
+        }
+      ],
+      "total_predicted_tokens": 256,
+      "wall_ms": 3334.9991560025956
+    }
+  ],
+  "schema_version": 1,
+  "server": {
+    "expected_parallel": 12,
+    "props": {
+      "bos_token": "<|endoftext|>",
+      "build_info": "b9624-0424f677f",
+      "chat_template": "{%- set image_count = namespace(value=0) %}\n{%- set video_count = namespace(value=0) %}\n{%- macro render_content(content, do_vision_count, is_system_content=false) %}\n    {%- if content is string %}\n        {{- content }}\n    {%- elif content is iterable and content is not mapping %}\n        {%- for item in content %}\n            {%- if 'image' in item or 'image_url' in item or item.type == 'image' %}\n                {%- if is_system_content %}\n                    {{- raise_exception('System message cannot contain images.') }}\n                {%- endif %}\n                {%- if do_vision_count %}\n                    {%- set image_count.value = image_count.value + 1 %}\n                {%- endif %}\n                {%- if add_vision_id %}\n                    {{- 'Picture ' ~ image_count.value ~ ': ' }}\n                {%- endif %}\n                {{- '<|vision_start|><|image_pad|><|vision_end|>' }}\n            {%- elif 'video' in item or item.type == 'video' %}\n                {%- if is_system_content %}\n                    {{- raise_exception('System message cannot contain videos.') }}\n                {%- endif %}\n                {%- if do_vision_count %}\n                    {%- set video_count.value = video_count.value + 1 %}\n                {%- endif %}\n                {%- if add_vision_id %}\n                    {{- 'Video ' ~ video_count.value ~ ': ' }}\n                {%- endif %}\n                {{- '<|vision_start|><|video_pad|><|vision_end|>' }}\n            {%- elif 'text' in item %}\n                {{- item.text }}\n            {%- else %}\n                {{- raise_exception('Unexpected item type in content.') }}\n            {%- endif %}\n        {%- endfor %}\n    {%- elif content is none or content is undefined %}\n        {{- '' }}\n    {%- else %}\n        {{- raise_exception('Unexpected content type.') }}\n    {%- endif %}\n{%- endmacro %}\n{%- if not messages %}\n    {{- raise_exception('No messages provided.') }}\n{%- endif %}\n{%- set num_sys = 0 %}\n{%- set merged_system = '' %}\n{%- if messages[0].role == 'system' or messages[0].role == 'developer' %}\n    {%- set first = render_content(messages[0].content, false, true)|trim %}\n    {%- if messages|length > 1 and (messages[1].role == 'system' or messages[1].role == 'developer') %}\n        {%- set second = render_content(messages[1].content, false, true)|trim %}\n        {%- set merged_system = first + '\\n' + second %}\n        {%- set num_sys = 2 %}\n    {%- else %}\n        {%- set merged_system = first %}\n        {%- set num_sys = 1 %}\n    {%- endif %}\n{%- endif %}\n{%- if tools and tools is iterable and tools is not mapping %}\n    {{- '<|im_start|>system\\n' }}\n    {{- \"# Tools\\n\\nYou have access to the following functions:\\n\\n<tools>\" }}\n    {%- for tool in tools %}\n        {{- \"\\n\" }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \"\\n</tools>\" }}\n    {{- '\\n\\nIf you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n<tool_call>\\n<function=example_function_name>\\n<parameter=example_parameter_1>\\nvalue_1\\n</parameter>\\n<parameter=example_parameter_2>\\nThis is the value for the second parameter\\nthat can span\\nmultiple lines\\n</parameter>\\n</function>\\n</tool_call>\\n\\n<IMPORTANT>\\nReminder:\\n- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags\\n- Required parameters MUST be specified\\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\\n</IMPORTANT>' }}\n    {%- if merged_system %}\n        {{- '\\n\\n' + merged_system }}\n    {%- endif %}\n    {{- '<|im_end|>\\n' }}\n{%- else %}\n    {%- if merged_system %}\n        {{- '<|im_start|>system\\n' + merged_system + '<|im_end|>\\n' }}\n    {%- endif %}\n{%- endif %}\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \"user\" %}\n        {%- set content = render_content(message.content, false)|trim %}\n        {%- if not(content.startswith('<tool_response>') and content.endswith('</tool_response>')) %}\n            {%- set ns.multi_step_tool = false %}\n            {%- set ns.last_query_index = index %}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- for message in messages %}\n    {%- if loop.index0 >= num_sys and message.role != \"system\" and message.role != \"developer\" %}\n    {%- set content = render_content(message.content, true)|trim %}\n    {%- if message.role == \"user\" %}\n        {{- '<|im_start|>' + message.role + '\\n' + content + '<|im_end|>' + '\\n' }}\n    {%- elif message.role == \"assistant\" %}\n        {%- set reasoning_content = '' %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if '</think>' in content %}\n                {%- set reasoning_content = content.split('</think>')[0].rstrip('\\n').split('<think>')[-1].lstrip('\\n') %}\n                {%- set content = content.split('</think>')[-1].lstrip('\\n') %}\n            {%- endif %}\n        {%- endif %}\n        {%- set reasoning_content = reasoning_content|trim %}\n        {%- if (preserve_thinking is defined and preserve_thinking is true) or (loop.index0 > ns.last_query_index) %}\n            {{- '<|im_start|>' + message.role + '\\n<think>\\n' + reasoning_content + '\\n</think>\\n\\n' + content }}\n        {%- else %}\n            {{- '<|im_start|>' + message.role + '\\n' + content }}\n        {%- endif %}\n        {%- if message.tool_calls and message.tool_calls is iterable and message.tool_calls is not mapping %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if tool_call.function is defined %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {%- if loop.first %}\n                    {%- if content|trim %}\n                        {{- '\\n\\n<tool_call>\\n<function=' + tool_call.name + '>\\n' }}\n                    {%- else %}\n                        {{- '<tool_call>\\n<function=' + tool_call.name + '>\\n' }}\n                    {%- endif %}\n                {%- else %}\n                    {{- '\\n<tool_call>\\n<function=' + tool_call.name + '>\\n' }}\n                {%- endif %}\n                {%- if tool_call.arguments is mapping %}\n                    {%- for args_name in tool_call.arguments %}\n                        {%- set args_value = tool_call.arguments[args_name] %}\n                        {{- '<parameter=' + args_name + '>\\n' }}\n                        {%- set args_value = args_value | tojson | safe if args_value is mapping or (args_value is sequence and args_value is not string) else args_value | string %}\n                        {{- args_value }}\n                        {{- '\\n</parameter>\\n' }}\n                    {%- endfor %}\n                {%- endif %}\n                {{- '</function>\\n</tool_call>' }}\n            {%- endfor %}\n        {%- endif %}\n        {{- '<|im_end|>\\n' }}\n    {%- elif message.role == \"tool\" %}\n        {%- if loop.previtem and loop.previtem.role != \"tool\" %}\n            {{- '<|im_start|>user' }}\n        {%- endif %}\n        {{- '\\n<tool_response>\\n' }}\n        {{- content }}\n        {{- '\\n</tool_response>' }}\n        {%- if not loop.last and loop.nextitem.role != \"tool\" %}\n            {{- '<|im_end|>\\n' }}\n        {%- elif loop.last %}\n            {{- '<|im_end|>\\n' }}\n        {%- endif %}\n    {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- '<|im_start|>assistant\\n' }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- '<think>\\n\\n</think>\\n\\n' }}\n    {%- else %}\n        {{- '<think>\\n' }}\n    {%- endif %}\n{%- endif %}\n{#- Unsloth fixes - developer role, tool calling #}",
+      "chat_template_caps": {
+        "supports_object_arguments": true,
+        "supports_parallel_tool_calls": true,
+        "supports_preserve_reasoning": true,
+        "supports_string_content": true,
+        "supports_system_role": true,
+        "supports_tool_calls": true,
+        "supports_tools": true,
+        "supports_typed_content": false
+      },
+      "cors_proxy_enabled": false,
+      "default_generation_settings": {
+        "n_ctx": 262144,
+        "params": {
+          "backend_sampling": false,
+          "chat_format": "Content-only",
+          "dry_allowed_length": 2,
+          "dry_base": 1.75,
+          "dry_multiplier": 0.0,
+          "dry_penalty_last_n": -1,
+          "dynatemp_exponent": 1.0,
+          "dynatemp_range": 0.0,
+          "frequency_penalty": 0.0,
+          "generation_prompt": "",
+          "ignore_eos": false,
+          "lora": [],
+          "max_tokens": -1,
+          "min_keep": 0,
+          "min_p": 0.05000000074505806,
+          "mirostat": 0,
+          "mirostat_eta": 0.10000000149011612,
+          "mirostat_tau": 5.0,
+          "n_discard": 0,
+          "n_keep": 0,
+          "n_predict": -1,
+          "n_probs": 0,
+          "post_sampling_probs": false,
+          "presence_penalty": 0.0,
+          "reasoning_format": "none",
+          "reasoning_in_content": false,
+          "repeat_last_n": 64,
+          "repeat_penalty": 1.0,
+          "samplers": [
+            "penalties",
+            "dry",
+            "top_n_sigma",
+            "top_k",
+            "typ_p",
+            "top_p",
+            "min_p",
+            "xtc",
+            "temperature"
+          ],
+          "seed": 4294967295,
+          "speculative.types": "none",
+          "stream": false,
+          "temperature": 1.0,
+          "timings_per_token": false,
+          "top_k": 20,
+          "top_n_sigma": -1.0,
+          "top_p": 0.949999988079071,
+          "typical_p": 1.0,
+          "xtc_probability": 0.0,
+          "xtc_threshold": 0.10000000149011612
+        }
+      },
+      "endpoint_metrics": true,
+      "endpoint_props": false,
+      "endpoint_slots": true,
+      "eos_token": "<|im_end|>",
+      "is_sleeping": false,
+      "media_marker": "<__media_dUqbhwo1GpZdpo8v7KspCMhPlbtB4mG8__>",
+      "modalities": {
+        "audio": false,
+        "video": false,
+        "vision": false
+      },
+      "model_alias": "turbo-statetree-0.1.0-rc.3-Qwen3.6-35B-A3B-Q5-c262144-np12",
+      "model_path": "/home/frosty40/models/Qwen3.6-35B-A3B/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf",
+      "statetree": {
+        "byte_scope": "all_live_slot_prompt_state",
+        "durable_cache_pressure_publish": true,
+        "durable_cache_reclamation": "managed_cache_only_oldest_revision",
+        "durable_logical_head_delete": "retry_safe_retired_name_tombstone",
+        "durable_logical_head_parent_edge": "previous_digest",
+        "durable_logical_heads": "generation_digest_cas",
+        "durable_publish_advance": "intent_object_atomic_owner_head_commit",
+        "durable_snapshot_admission": "reject",
+        "durable_snapshot_compatibility_id": null,
+        "durable_snapshot_enabled": false,
+        "durable_snapshot_format": "turbo-statetree-cold-v1",
+        "durable_snapshot_io": "single_ordered_worker_two_phase",
+        "durable_snapshot_load_budget_scope": "aggregate_queued_and_verified_payloads",
+        "durable_snapshot_publish": "intent_object_commit_reconciled",
+        "journal_capacity": 1024,
+        "lease_ms": 0,
+        "max_snapshot_bytes": 0,
+        "max_snapshot_disk_bytes": 0,
+        "max_snapshot_load_bytes": 0,
+        "max_snapshot_manifest_bytes": 0,
+        "max_state_bytes": 0,
+        "node_identity_scope": "server_process",
+        "node_mutations": [
+          "fork",
+          "snapshot",
+          "commit",
+          "renew",
+          "erase"
+        ],
+        "node_semantics": "immutable_branch_incarnation",
+        "snapshot_admission": "reject",
+        "snapshot_digest": "sha256:turbo-statetree-snapshot-v1",
+        "snapshot_enabled": false,
+        "snapshot_manifest_checkpoint_schema": "atomic-publish-advance-v3",
+        "snapshot_manifest_format": "turbo-statetree-manifest-v1",
+        "snapshot_retention_classes": [
+          "pinned",
+          "cache"
+        ],
+        "snapshot_storage": "digest_deduplicated_immutable_payloads",
+        "state_identity_scope": "server_process"
+      },
+      "total_slots": 12,
+      "ui": true,
+      "ui_settings": {},
+      "webui": true,
+      "webui_settings": {}
+    }
+  },
+  "started": "2026-07-11T13:59:29.762343Z",
+  "summary": {
+    "failed_samples": 0,
+    "pareto_front_active_agents": [
+      1,
+      2,
+      4,
+      6,
+      8,
+      12
+    ],
+    "rows": [
+      {
+        "active_agents": 1,
+        "aggregate_wall_tps": {
+          "max": 76.8593097699472,
+          "mean": 76.75265985283743,
+          "min": 76.63691787257763,
+          "n": 5,
+          "p50": 76.76163861667878,
+          "p95": 76.8444787014466
+        },
+        "failed_samples": 0,
+        "mean_slot_tps": {
+          "max": 79.37866351136479,
+          "mean": 79.28674232084781,
+          "min": 79.15528938215277,
+          "n": 5,
+          "p50": 79.29720375137725,
+          "p95": 79.37669470173559
+        },
+        "min_slot_tps": {
+          "max": 79.37866351136479,
+          "mean": 79.28674232084781,
+          "min": 79.15528938215277,
+          "n": 5,
+          "p50": 79.29720375137725,
+          "p95": 79.37669470173559
+        },
+        "p95_client_ms": {
+          "max": 3340.4266130019096,
+          "mean": 3335.392347400193,
+          "min": 3330.761110999447,
+          "n": 5,
+          "p50": 3334.9991560025956,
+          "p95": 3339.700702401751
+        },
+        "samples": 5
+      },
+      {
+        "active_agents": 2,
+        "aggregate_wall_tps": {
+          "max": 106.38657309439984,
+          "mean": 105.05666153052869,
+          "min": 104.65462040989199,
+          "n": 5,
+          "p50": 104.74922368181862,
+          "p95": 106.06086095349917
+        },
+        "failed_samples": 0,
+        "mean_slot_tps": {
+          "max": 55.97278242223139,
+          "mean": 55.247810527194765,
+          "min": 55.03112969297909,
+          "n": 5,
+          "p50": 55.08618731170094,
+          "p95": 55.7970140611251
+        },
+        "min_slot_tps": {
+          "max": 55.97091611271493,
+          "mean": 55.24625739365528,
+          "min": 55.029999948409376,
+          "n": 5,
+          "p50": 55.08507308562695,
+          "p95": 55.79513448164233
+        },
+        "p95_client_ms": {
+          "max": 4892.268712402074,
+          "mean": 4873.734053789667,
+          "min": 4812.62588474965,
+          "n": 5,
+          "p50": 4887.838807247681,
+          "p95": 4891.517165961632
+        },
+        "samples": 5
+      },
+      {
+        "active_agents": 4,
+        "aggregate_wall_tps": {
+          "max": 145.97524554174325,
+          "mean": 145.875062997935,
+          "min": 145.78683272311713,
+          "n": 5,
+          "p50": 145.85538098602387,
+          "p95": 145.96961119157186
+        },
+        "failed_samples": 0,
+        "mean_slot_tps": {
+          "max": 39.35849199381359,
+          "mean": 39.338425869348306,
+          "min": 39.308871780937984,
+          "n": 5,
+          "p50": 39.3457584618364,
+          "p95": 39.35621288451481
+        },
+        "min_slot_tps": {
+          "max": 39.3564301258099,
+          "mean": 39.336603146644734,
+          "min": 39.306667239888895,
+          "n": 5,
+          "p50": 39.344090970915346,
+          "p95": 39.35425980415993
+        },
+        "p95_client_ms": {
+          "max": 7023.705206147497,
+          "mean": 7019.601697540493,
+          "min": 7014.819418052502,
+          "n": 5,
+          "p50": 7020.601148352216,
+          "p95": 7023.503925608893
+        },
+        "samples": 5
+      },
+      {
+        "active_agents": 6,
+        "aggregate_wall_tps": {
+          "max": 169.73755088603886,
+          "mean": 167.7563807975263,
+          "min": 166.64570731624113,
+          "n": 5,
+          "p50": 167.73973108877396,
+          "p95": 169.39211081633792
+        },
+        "failed_samples": 0,
+        "mean_slot_tps": {
+          "max": 30.61784785622522,
+          "mean": 30.240802031288045,
+          "min": 30.030805652067865,
+          "n": 5,
+          "p50": 30.233543522401977,
+          "p95": 30.550326901909308
+        },
+        "min_slot_tps": {
+          "max": 30.616768828206556,
+          "mean": 30.239492766719923,
+          "min": 30.029466413918655,
+          "n": 5,
+          "p50": 30.232048687769655,
+          "p95": 30.549158894192857
+        },
+        "p95_client_ms": {
+          "max": 9216.95426950464,
+          "mean": 9156.364688599933,
+          "min": 9049.033667250114,
+          "n": 5,
+          "p50": 9156.828536997637,
+          "p95": 9216.923874553322
+        },
+        "samples": 5
+      },
+      {
+        "active_agents": 8,
+        "aggregate_wall_tps": {
+          "max": 182.58748914331773,
+          "mean": 182.05085237734232,
+          "min": 181.48560017534308,
+          "n": 5,
+          "p50": 182.0045584124211,
+          "p95": 182.53822472312947
+        },
+        "failed_samples": 0,
+        "mean_slot_tps": {
+          "max": 24.697692356263396,
+          "mean": 24.623957793733236,
+          "min": 24.531951515620886,
+          "n": 5,
+          "p50": 24.62525603848914,
+          "p95": 24.69164664641993
+        },
+        "min_slot_tps": {
+          "max": 24.69711782705496,
+          "mean": 24.623181077677724,
+          "min": 24.53112491881252,
+          "n": 5,
+          "p50": 24.624400934496013,
+          "p95": 24.691024447409866
+        },
+        "p95_client_ms": {
+          "max": 11284.376773350596,
+          "mean": 11249.383124959932,
+          "min": 11216.324327049006,
+          "n": 5,
+          "p50": 11252.047568598573,
+          "p95": 11280.038888110648
+        },
+        "samples": 5
+      },
+      {
+        "active_agents": 12,
+        "aggregate_wall_tps": {
+          "max": 195.24240060180898,
+          "mean": 194.1797279183092,
+          "min": 193.22811049315305,
+          "n": 5,
+          "p50": 194.02319477431033,
+          "p95": 195.1773522642518
+        },
+        "failed_samples": 0,
+        "mean_slot_tps": {
+          "max": 17.59834493229371,
+          "mean": 17.496506199479903,
+          "min": 17.409622892565235,
+          "n": 5,
+          "p50": 17.48091929693583,
+          "p95": 17.591936761859216
+        },
+        "min_slot_tps": {
+          "max": 17.598150764319996,
+          "mean": 17.49628045134729,
+          "min": 17.409367749567878,
+          "n": 5,
+          "p50": 17.480775755857476,
+          "p95": 17.591733172618145
+        },
+        "p95_client_ms": {
+          "max": 15897.636959851297,
+          "mean": 15820.07636065995,
+          "min": 15733.764899848029,
+          "n": 5,
+          "p50": 15832.505727452372,
+          "p95": 15893.404746560846
+        },
+        "samples": 5
+      }
+    ],
+    "samples": 30
+  },
+  "warmups": [
+    {
+      "active_agents": 1,
+      "aggregate_wall_tps": 51.47887101119915,
+      "n_predict": 16
+    },
+    {
+      "active_agents": 2,
+      "aggregate_wall_tps": 24.37610089617188,
+      "n_predict": 16
+    },
+    {
+      "active_agents": 4,
+      "aggregate_wall_tps": 69.77596492321459,
+      "n_predict": 16
+    },
+    {
+      "active_agents": 6,
+      "aggregate_wall_tps": 78.82965247714543,
+      "n_predict": 16
+    },
+    {
+      "active_agents": 8,
+      "aggregate_wall_tps": 87.04645882650433,
+      "n_predict": 16
+    },
+    {
+      "active_agents": 12,
+      "aggregate_wall_tps": 94.34201364045778,
+      "n_predict": 16
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+VERSION=0.1.0-rc.3
+ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+REPORT_URL=https://newjordan.github.io/treebeard/
+MODEL_URL=https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF
+
+usage() {
+    cat <<EOF
+Treebeard $VERSION
+
+Usage:
+  treebeard [serve] [llama-server options]  Start the OpenAI-compatible API
+  treebeard doctor                         Check this machine and runtime
+  treebeard verify                         Verify installed package files
+  treebeard status                         Check the local API health endpoint
+  treebeard report                         Print the benchmark report URL
+  treebeard version                        Print the installed version
+  treebeard help                           Show this help
+
+Common settings:
+  TREEBEARD_BACKEND=auto|cpu|sycl|cuda
+  TREEBEARD_PROFILE=quality|throughput|custom
+  TREEBEARD_CONTEXT=<tokens>
+  TREEBEARD_HOST=127.0.0.1
+  TREEBEARD_PORT=8093
+
+Benchmarks: $REPORT_URL
+Model files: $MODEL_URL
+EOF
+}
+
+command=${1:-serve}
+case "$command" in
+    serve)
+        if (( $# > 0 )); then
+            shift
+        fi
+        exec "$ROOT/run.sh" "$@"
+        ;;
+    doctor)
+        printf 'Treebeard %s doctor\n' "$VERSION"
+        printf 'Kernel: %s\n' "$(uname -srmo)"
+        if command -v lscpu >/dev/null 2>&1; then
+            printf 'CPU: %s\n' "$(lscpu | awk -F: '$1 == "Model name" { sub(/^[[:space:]]+/, "", $2); print $2; exit }')"
+        fi
+        awk '$1 == "MemTotal:" { printf "Memory: %.1f GiB\n", $2 / 1048576 }' /proc/meminfo
+        df -Ph "$ROOT" | awk 'NR == 2 { printf "Package filesystem: %s total, %s available\n", $2, $4 }'
+        printf '\nSelected launch command:\n'
+        TREEBEARD_DRY_RUN=1 TREEBEARD_VERIFY=never "$ROOT/run.sh"
+        ;;
+    verify)
+        if [[ -f "$ROOT/INSTALL-SHA256SUMS" ]]; then
+            (cd "$ROOT" && sha256sum --check INSTALL-SHA256SUMS)
+            printf 'installed files verified\n'
+        elif [[ -x "$ROOT/verify.sh" ]]; then
+            exec "$ROOT/verify.sh"
+        else
+            printf 'error: no verification manifest found\n' >&2
+            exit 1
+        fi
+        ;;
+    status)
+        host=${TREEBEARD_HOST:-127.0.0.1}
+        port=${TREEBEARD_PORT:-8093}
+        command -v curl >/dev/null 2>&1 || {
+            printf 'error: curl is required\n' >&2
+            exit 1
+        }
+        exec curl -fsS "http://$host:$port/health"
+        ;;
+    report)
+        printf '%s\n' "$REPORT_URL"
+        ;;
+    version|--version|-V)
+        printf 'Treebeard %s (pkg3)\n' "$VERSION"
+        ;;
+    help|--help|-h)
+        usage
+        ;;
+    -*)
+        exec "$ROOT/run.sh" "$@"
+        ;;
+    *)
+        printf 'error: unknown command: %s\n\n' "$command" >&2
+        usage >&2
+        exit 2
+        ;;
+esac

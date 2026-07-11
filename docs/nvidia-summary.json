@@ -1,0 +1,14 @@
+{
+  "run_id": "2026-07-11T15-59-04.440105Z_bcf766db",
+  "status": "completed",
+  "final_score": 94,
+  "total_points": 130,
+  "max_points": 138,
+  "pass_count": 63,
+  "partial_count": 4,
+  "fail_count": 2,
+  "deployability": 87,
+  "responsiveness": 71,
+  "median_turn_ms": 1645.0,
+  "error_rate": 0.0
+}

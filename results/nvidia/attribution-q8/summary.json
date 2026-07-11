@@ -1,0 +1,51 @@
+{
+  "schema": "treebeard.cuda_attribution.v1",
+  "status": "passed",
+  "hardware": {
+    "gpu": "NVIDIA GB10",
+    "compute_capability": "12.1",
+    "cuda": "13.3",
+    "driver": "580.159.03"
+  },
+  "build": {
+    "number": 9624,
+    "commit": "0424f677f-cuda12",
+    "source_base": "0424f677fbcba1a001fcc115bb405e40e917de85"
+  },
+  "method": {
+    "waves": 7,
+    "order": "alternating fallback/candidate",
+    "fallback_env": "GGML_CUDA_DISABLE_MMVQ_12COL=1",
+    "statistic": "median latency across waves",
+    "lower_is_better": true
+  },
+  "results": [
+    {
+      "name": "Q8_0 direct 12-column MUL_MAT",
+      "shape": "m=512,n=12,k=256",
+      "fallback_us": [5.22, 5.24, 5.25, 5.18, 5.22, 5.22, 5.24],
+      "candidate_us": [3.97, 3.97, 3.92, 3.95, 3.97, 3.95, 3.97],
+      "fallback_median_us": 5.22,
+      "candidate_median_us": 3.97,
+      "speedup_percent": 31.49
+    },
+    {
+      "name": "Q8_0 MoE down MUL_MAT_ID",
+      "shape": "n_mats=256,n_used=8,m=2048,n=12,k=512",
+      "fallback_us": [464.69, 453.67, 461.60, 459.86, 467.36, 463.06, 463.63],
+      "candidate_us": [443.12, 445.12, 444.97, 447.85, 453.00, 446.94, 445.20],
+      "fallback_median_us": 463.06,
+      "candidate_median_us": 445.20,
+      "speedup_percent": 4.01
+    }
+  ],
+  "correctness": {
+    "mul_mat": "1104/1104",
+    "mul_mat_id": "796/796"
+  },
+  "notes": [
+    "The shipping dispatch is restricted to Q8_0 on NVIDIA Blackwell.",
+    "Q5_K and Q6_K remain on the existing fallback path.",
+    "A broader preliminary pass encountered unrelated GPU contention; the focused final series is stable across all seven waves."
+  ]
+}

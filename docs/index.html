@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#090d13">
+  <meta name="description" content="Treebeard RC3 scored 94/100 on a 69-scenario agent benchmark, reproduced on Intel and NVIDIA with zero request errors.">
+  <meta property="og:title" content="Treebeard - 94/100 Agent Benchmark">
+  <meta property="og:description" content="69/69 scenarios, 130/138 points, reproduced on Intel and NVIDIA.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://newjordan.github.io/treebeard/">
+  <meta property="og:image" content="https://newjordan.github.io/treebeard/report-preview.png">
+  <link rel="canonical" href="https://newjordan.github.io/treebeard/">
+  <title>Treebeard - 94/100 Agent Benchmark</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070a0f;
+      --panel: rgba(17, 23, 34, 0.88);
+      --panel-solid: #111722;
+      --panel-soft: #0d131d;
+      --line: rgba(157, 180, 214, 0.14);
+      --line-strong: rgba(157, 180, 214, 0.25);
+      --text: #f2f6fc;
+      --muted: #97a5b8;
+      --muted-2: #718096;
+      --green: #4ee1a0;
+      --green-soft: rgba(78, 225, 160, 0.13);
+      --cyan: #63d8ff;
+      --violet: #a991ff;
+      --amber: #ffc96b;
+      --red: #ff758f;
+      --radius: 20px;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 12% -8%, rgba(74, 144, 226, 0.19), transparent 32rem),
+        radial-gradient(circle at 88% 2%, rgba(103, 73, 206, 0.18), transparent 30rem),
+        radial-gradient(circle at 50% 110%, rgba(45, 189, 131, 0.11), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      content: "";
+      pointer-events: none;
+      opacity: 0.35;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 86%);
+    }
+
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    .shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 40px 0 64px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .top-link {
+      padding: 8px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: rgba(17, 23, 34, 0.66);
+    }
+
+    .top-link:hover {
+      border-color: var(--line-strong);
+      text-decoration: none;
+      background: var(--panel-solid);
+    }
+
+    .brand { display: flex; align-items: center; gap: 13px; }
+
+    .mark {
+      position: relative;
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(78, 225, 160, 0.28);
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(78, 225, 160, 0.18), rgba(99, 216, 255, 0.08));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 30px rgba(35, 160, 109, 0.12);
+    }
+
+    .mark::before {
+      width: 5px;
+      height: 24px;
+      border-radius: 5px;
+      background: linear-gradient(var(--green), #278a65);
+      content: "";
+      transform: translateY(5px);
+    }
+
+    .mark::after {
+      position: absolute;
+      top: 8px;
+      width: 24px;
+      height: 17px;
+      border-radius: 55% 55% 48% 48%;
+      background: linear-gradient(145deg, #74f1b9, #2eb77d);
+      content: "";
+      clip-path: polygon(50% 0, 100% 100%, 50% 78%, 0 100%);
+    }
+
+    .brand-name { font-weight: 760; letter-spacing: -0.02em; }
+    .brand-sub { color: var(--muted); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 7px 12px;
+      border: 1px solid rgba(78, 225, 160, 0.25);
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: #a8f6d2;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .verified::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 14px var(--green);
+      content: "";
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+      gap: 28px;
+      overflow: hidden;
+      padding: clamp(28px, 5vw, 56px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background:
+        linear-gradient(125deg, rgba(23, 33, 49, 0.96), rgba(13, 18, 29, 0.91)),
+        var(--panel-solid);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      position: absolute;
+      right: -120px;
+      bottom: -190px;
+      width: 430px;
+      height: 430px;
+      border: 1px solid rgba(99, 216, 255, 0.12);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 42px rgba(99, 216, 255, 0.025),
+        0 0 0 96px rgba(169, 145, 255, 0.025);
+      content: "";
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 18px;
+      color: var(--green);
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before { width: 24px; height: 1px; background: currentColor; content: ""; }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 16px;
+      font-size: clamp(2.4rem, 5.7vw, 5rem);
+      font-weight: 790;
+      letter-spacing: -0.055em;
+      line-height: 0.98;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin-bottom: 26px;
+      color: #b8c3d2;
+      font-size: clamp(1rem, 1.6vw, 1.14rem);
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 9px; }
+
+    .chip {
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: rgba(4, 8, 13, 0.35);
+      color: #c6d0de;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.76rem;
+    }
+
+    .score-wrap { position: relative; z-index: 1; display: grid; align-content: center; justify-items: center; }
+
+    .score-ring {
+      position: relative;
+      display: grid;
+      width: min(230px, 64vw);
+      aspect-ratio: 1;
+      place-items: center;
+      border-radius: 50%;
+      background: conic-gradient(var(--green) 0 94%, rgba(255,255,255,0.08) 94% 100%);
+      filter: drop-shadow(0 16px 34px rgba(26, 180, 117, 0.18));
+    }
+
+    .score-ring::before {
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: inherit;
+      background: radial-gradient(circle at 45% 25%, #182435, #0b111a 72%);
+      content: "";
+    }
+
+    .score-value { position: relative; text-align: center; }
+    .score-number { display: block; font-size: 4.9rem; font-weight: 820; letter-spacing: -0.075em; line-height: 0.88; }
+    .score-denom { display: block; margin-top: 10px; color: var(--muted); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; }
+    .rating { margin-top: 17px; color: #a9f5d1; font-weight: 720; }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+      margin: 16px 0 42px;
+    }
+
+    .metric {
+      min-height: 112px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.025);
+    }
+
+    .metric-value { display: block; margin-bottom: 6px; font-size: 1.6rem; font-weight: 770; letter-spacing: -0.035em; }
+    .metric-label { color: var(--muted); font-size: 0.76rem; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; }
+    .green { color: var(--green); }
+    .amber { color: var(--amber); }
+    .red { color: var(--red); }
+    .cyan { color: var(--cyan); }
+
+    section { margin-top: 42px; }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 18px;
+    }
+
+    h2 { margin-bottom: 4px; font-size: clamp(1.55rem, 3vw, 2.1rem); letter-spacing: -0.035em; }
+    .section-note { max-width: 620px; margin-bottom: 0; color: var(--muted); font-size: 0.92rem; }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      overflow: hidden;
+      background: var(--line);
+    }
+
+    .category { min-width: 0; padding: 19px 20px 17px; background: var(--panel-solid); }
+    .category-top { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
+    .category-name { overflow: hidden; font-size: 0.89rem; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+    .category-score { color: #cad5e4; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.77rem; }
+
+    .bar { height: 6px; margin-top: 12px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,0.07); }
+    .bar > span { display: block; width: var(--score); height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--green), var(--cyan)); box-shadow: 0 0 15px rgba(78,225,160,0.25); }
+    .category[data-low="true"] .bar > span { background: linear-gradient(90deg, var(--amber), #ff9f70); box-shadow: none; }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.88fr);
+      gap: 16px;
+    }
+
+    .table-wrap { overflow-x: auto; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+    th, td { padding: 15px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { color: var(--muted); font-size: 0.7rem; font-weight: 720; letter-spacing: 0.08em; text-transform: uppercase; }
+    tr:last-child td { border-bottom: 0; }
+    td:first-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 720; white-space: nowrap; }
+
+    .status {
+      display: inline-flex;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .status.partial { background: rgba(255,201,107,0.13); color: var(--amber); }
+    .status.fail { background: rgba(255,117,143,0.13); color: var(--red); }
+
+    .run-card { padding: 22px; }
+    .run-card h3 { margin-bottom: 18px; font-size: 1rem; }
+
+    .kv { display: grid; grid-template-columns: minmax(112px, 0.65fr) minmax(0, 1.35fr); gap: 9px 18px; margin: 0; }
+    .kv dt { color: var(--muted); font-size: 0.78rem; }
+    .kv dd { min-width: 0; margin: 0; overflow-wrap: anywhere; color: #d6dfeb; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; }
+
+    .reliability {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat { padding: 21px; }
+    .stat strong { display: block; margin-bottom: 5px; font-size: 1.45rem; letter-spacing: -0.03em; }
+    .stat span { color: var(--muted); font-size: 0.79rem; }
+
+    .method { padding: 24px; }
+    .method-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    .method-item { padding: 16px; border: 1px solid var(--line); border-radius: 13px; background: rgba(6,10,16,0.36); }
+    .method-item strong { display: block; margin-bottom: 4px; font-size: 0.84rem; }
+    .method-item span { color: var(--muted); font-size: 0.79rem; }
+
+    .command {
+      margin: 18px 0 0;
+      padding: 17px 18px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: #080c12;
+      color: #b9c8d9;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.75rem;
+      line-height: 1.7;
+      white-space: pre;
+    }
+
+    .callout {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      margin-top: 16px;
+      padding: 17px 18px;
+      border: 1px solid rgba(99,216,255,0.16);
+      border-radius: 14px;
+      background: rgba(99,216,255,0.055);
+      color: #bac8d8;
+      font-size: 0.84rem;
+    }
+
+    .callout-mark { color: var(--cyan); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 800; }
+
+    .artifacts { display: flex; flex-wrap: wrap; gap: 10px; }
+    .artifact {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--panel-soft);
+      font-size: 0.8rem;
+      font-weight: 650;
+    }
+    .artifact::before { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); content: ""; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 48px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      color: var(--muted-2);
+      font-size: 0.74rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .score-wrap { margin-top: 10px; }
+      .metric-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .categories { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .split { grid-template-columns: 1fr; }
+      .method-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 24px, 1180px); padding-top: 20px; }
+      .brand-sub { display: none; }
+      .verified { padding: 6px 9px; font-size: 0.67rem; }
+      .hero { padding: 26px 20px; border-radius: 21px; }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .categories { grid-template-columns: 1fr; }
+      .reliability { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .section-head { align-items: start; flex-direction: column; gap: 5px; }
+      footer { flex-direction: column; }
+    }
+
+    @media print {
+      body { background: #fff; color: #111; }
+      body::before { display: none; }
+      .shell { width: 100%; padding: 0; }
+      .hero, .panel, .metric, .category, .stat, .method { border-color: #d9dee7; background: #fff; box-shadow: none; color: #111; }
+      .hero-copy, .section-note, .metric-label, .kv dt, .stat span, footer { color: #566171; }
+      .score-ring::before { background: #fff; }
+      a { color: #075f86; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"></div>
+        <div>
+          <div class="brand-name">Treebeard</div>
+          <div class="brand-sub">StateTree / RC3 / Agent quality</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a class="top-link" href="https://github.com/newjordan/treebeard">Project</a>
+        <a class="top-link" href="https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF">Model package</a>
+        <div class="verified">Verified run</div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Single-slot quality benchmark</p>
+        <h1>Excellent agent performance, reproduced.</h1>
+        <p class="hero-copy">
+          Qwen3.6 35B A3B on the packaged Treebeard RC3 runtime completed the full
+          69-scenario tool-use suite with zero request errors. Independent one-slot
+          runs on Intel and NVIDIA reproduced the same score and verdict for every case.
+        </p>
+        <div class="chips" aria-label="Run configuration">
+          <span class="chip">Q5_K_XL</span>
+          <span class="chip">262,144 context</span>
+          <span class="chip">1 server slot</span>
+          <span class="chip">temperature 0</span>
+          <span class="chip">thinking off</span>
+          <span class="chip">seed 42</span>
+          <span class="chip">Intel + NVIDIA</span>
+        </div>
+      </div>
+      <div class="score-wrap">
+        <div class="score-ring" role="img" aria-label="Final score 94 out of 100">
+          <div class="score-value">
+            <span class="score-number">94</span>
+            <span class="score-denom">out of 100</span>
+          </div>
+        </div>
+        <div class="rating">Excellent</div>
+      </div>
+    </section>
+
+    <div class="metric-grid" aria-label="Headline results">
+      <div class="metric"><span class="metric-value">130 / 138</span><span class="metric-label">Points earned</span></div>
+      <div class="metric"><span class="metric-value green">63</span><span class="metric-label">Passed</span></div>
+      <div class="metric"><span class="metric-value amber">4</span><span class="metric-label">Partial</span></div>
+      <div class="metric"><span class="metric-value red">2</span><span class="metric-label">Failed</span></div>
+      <div class="metric"><span class="metric-value cyan">69 / 69</span><span class="metric-label">Completed</span></div>
+      <div class="metric"><span class="metric-value green">0.0%</span><span class="metric-label">Request errors</span></div>
+    </div>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2>Capability profile</h2>
+          <p class="section-note">Ten of fifteen categories scored 100%. Safety and boundaries reached 96% across thirteen scenarios.</p>
+        </div>
+      </div>
+      <div class="panel categories">
+        <div class="category"><div class="category-top"><span class="category-name">A. Tool Selection</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+        <div class="category"><div class="category-top"><span class="category-name">B. Parameter Precision</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+        <div class="category"><div class="category-top"><span class="category-name">C. Multi-Step Chains</span><span class="category-score">8/8</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+        <div class="category"><div class="category-top"><span class="category-name">D. Restraint &amp; Refusal</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+        <div class="category" data-low="true"><div class="category-top"><span class="category-name">E. Error Recovery</span><span class="category-score">5/6</span></div><div class="bar"><span style="--score:83%"></span></div></div>
+        <div class="category"><div class="category-top"><span class="category-name">F. Localization</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+        <div class="category"><div class="category-top"><span class="category-name">G. Structured Reasoning</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+        <div class="category" data-low="true"><div class="category-top"><span class="category-name">H. Instruction Following</span><span class="category-score">8/10</span></div><div class="bar"><span style="--score:80%"></span></div></div>
+        <div class="category" data-low="true"><div class="category-top"><span class="category-name">I. Context &amp; State</span><span class="category-score">17/20</span></div><div class="bar"><span style="--score:85%"></span></div></div>
+        <div class="category"><div class="category-top"><span class="category-name">J. Code Patterns</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+        <div class="category"><div class="category-top"><span class="category-name">K. Safety &amp; Boundaries</span><span class="category-score">25/26</span></div><div class="bar"><span style="--score:96%"></span></div></div>
+        <div class="category"><div class="category-top"><span class="category-name">L. Toolset Scale</span><span class="category-score">8/8</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+        <div class="category" data-low="true"><div class="category-top"><span class="category-name">M. Autonomous Planning</span><span class="category-score">5/6</span></div><div class="bar"><span style="--score:83%"></span></div></div>
+        <div class="category"><div class="category-top"><span class="category-name">N. Creative Composition</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+        <div class="category"><div class="category-top"><span class="category-name">O. Structured Output</span><span class="category-score">12/12</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2>Exceptions, not omissions</h2>
+          <p class="section-note">Every scenario completed. The six non-passing verdicts are shown here without hiding or reclassifying them.</p>
+        </div>
+      </div>
+      <div class="split">
+        <div class="panel table-wrap">
+          <table>
+            <thead><tr><th>Case</th><th>Verdict</th><th>Points</th><th>Evaluator summary</th></tr></thead>
+            <tbody>
+              <tr><td>TC-14</td><td><span class="status partial">Partial</span></td><td>1/2</td><td>Handled the malformed response gracefully, but did not surface the fallback stock price.</td></tr>
+              <tr><td>TC-22</td><td><span class="status fail">Fail</span></td><td>0/2</td><td>Did not call the required weather tool for raw JSON output.</td></tr>
+              <tr><td>TC-35</td><td><span class="status partial">Partial</span></td><td>1/2</td><td>Used the calculator for an identity conversion, while recognizing the tautology.</td></tr>
+              <tr><td>TC-46</td><td><span class="status partial">Partial</span></td><td>1/2</td><td>Completed three of four tool phases with good state tracking.</td></tr>
+              <tr><td>TC-48</td><td><span class="status fail">Fail</span></td><td>0/2</td><td>Did not send the requested emails after the follow-up added a CC recipient.</td></tr>
+              <tr><td>TC-51</td><td><span class="status partial">Partial</span></td><td>1/2</td><td>Asked for clarification instead of proactively decomposing the workflow.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <aside class="panel run-card">
+          <h3>Immutable run identity</h3>
+          <dl class="kv">
+            <dt>Run ID</dt><dd>2026-07-11T15-09-39.705117Z_65f58af0</dd>
+            <dt>Config</dt><dd>43dd1ef71957</dd>
+            <dt>Engine</dt><dd>b9624-0424f677f</dd>
+            <dt>Bench</dt><dd>2.1.0 / 8b3259b</dd>
+            <dt>Result SHA-256</dt><dd>61bb5f12c4c6f4210d86794b5f1b275efc31ddea0c3af3794cb867e96115fc4e</dd>
+            <dt>Guard SHA-256</dt><dd>3cca1e83549bac59d535b6872c90e6b566f0a3d1ad6f1cdc64e72df5cebc56d9</dd>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2>Run health</h2>
+          <p class="section-note">Observed wall time at the scenario layer, plus benchmark-level deployability and responsiveness indicators.</p>
+        </div>
+      </div>
+      <div class="reliability">
+        <div class="panel stat"><strong>3.21 s</strong><span>Median scenario duration</span></div>
+        <div class="panel stat"><strong>11.14 s</strong><span>P95 scenario duration</span></div>
+        <div class="panel stat"><strong>89</strong><span>Deployability index</span></div>
+        <div class="panel stat"><strong>77</strong><span>Responsiveness index</span></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2>Cross-backend replication</h2>
+          <p class="section-note">The complete 69-case verdict vector reproduced exactly on two GPU architectures.</p>
+        </div>
+      </div>
+      <div class="panel method">
+        <div class="method-grid">
+          <div class="method-item"><strong>Intel Arc Pro B70</strong><span>94/100, 130/138, 63 pass, 4 partial, 2 fail. Engine b9624-0424f677f.</span></div>
+          <div class="method-item"><strong>NVIDIA GB10</strong><span>94/100, 130/138, 63 pass, 4 partial, 2 fail. CUDA 13.3, engine b9624-0424f677f-cuda12.</span></div>
+          <div class="method-item"><strong>Exact agreement</strong><span>Same outcome on TC-01 through TC-69, with zero request errors in both runs.</span></div>
+        </div>
+        <div class="callout">
+          <span class="callout-mark">2x</span>
+          <span>The score is now independently reproduced on both packaged backends, not inferred from a native throughput microbenchmark.</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2>Reproduction contract</h2>
+          <p class="section-note">The quality score uses one model slot and one benchmark worker. It is distinct from saturated 12-worker throughput testing.</p>
+        </div>
+      </div>
+      <div class="panel method">
+        <div class="method-grid">
+          <div class="method-item"><strong>Serving</strong><span>262,144 total context, one fixed slot, unified KV, F16 KV, flash attention.</span></div>
+          <div class="method-item"><strong>Evaluation</strong><span>69 scenarios, one worker, 180-second timeout, temperature 0, thinking disabled.</span></div>
+          <div class="method-item"><strong>Control</strong><span>Pinned model checksum, pinned runtime, pinned benchmark commit, seed 42.</span></div>
+        </div>
+        <pre class="command" aria-label="Reproduction commands">llama-server -m Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf -ngl 99 -ncmoe 0 \
+  --no-op-offload -c 262144 -np 1 -kvu -fa on -ctk f16 -ctv f16 \
+  -b 8192 -ub 1024 -t 15 --jinja --metrics
+
+tool-eval-bench --backend llamacpp --no-think --seed 42 \
+  --reference-date 2026-03-20 --parallel 1 --timeout 180</pre>
+        <div class="callout">
+          <span class="callout-mark">NOTE</span>
+          <span>The same packaged model has separate 12-worker measurements for serving under saturation. Those runs are useful concurrency evidence, but the 94 shown here is the reproducible single-slot quality score requested for the model.</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2>Raw evidence</h2>
+          <p class="section-note">Open the machine-readable result or the guard artifacts used to validate service restoration.</p>
+        </div>
+      </div>
+      <div class="artifacts">
+        <a class="artifact" href="result.json">Full result JSON</a>
+        <a class="artifact" href="summary.json">Compact summary JSON</a>
+        <a class="artifact" href="guard.log">Guard execution log</a>
+        <a class="artifact" href="maintenance/restore-props.json">Restored service properties</a>
+        <a class="artifact" href="maintenance/restore-runtime-check.txt">Runtime hash attestation</a>
+        <a class="artifact" href="gpu-health/fault-signatures.txt">GPU health scan</a>
+        <a class="artifact" href="nvidia-result.json">NVIDIA replica JSON</a>
+        <a class="artifact" href="nvidia-summary.json">NVIDIA replica summary</a>
+        <a class="artifact" href="nvidia-props.json">NVIDIA server properties</a>
+        <a class="artifact" href="nvidia-gpu-health.txt">NVIDIA GPU health scan</a>
+      </div>
+    </section>
+
+    <footer>
+      <span>Treebeard 0.1.0-rc.3 / Qwen3.6 35B A3B / Q5_K_XL</span>
+      <span>Reproduced 2026-07-11 on Intel Arc Pro B70 and NVIDIA GB10</span>
+    </footer>
+  </main>
+</body>
+</html>

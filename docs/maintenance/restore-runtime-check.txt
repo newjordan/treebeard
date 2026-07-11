@@ -1,0 +1,2 @@
+release/turbo-statetree-0.1.0-rc.2/root/opt/turbo-statetree-0.1.0-rc.2/bin/llama-server: OK
+release/turbo-statetree-0.1.0-rc.2/root/opt/turbo-statetree-0.1.0-rc.2/lib/libllama-server-impl.so: OK

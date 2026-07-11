@@ -1,0 +1,6 @@
+7afbd2ced13cacdfabf4bbde557dad5ed165adc970e3a9ace23af0c670ea6a72  ./build-cuda-runtime.sh
+b022223c3767e6590382f7553b55099d94477d4faf3a3e41d2bb9a519fefd37b  ./run-agent-single-slot-tunneled.sh
+e209798266d5ccd4c8615c2ce6d90337e0f45c935d062f30045e682ef26e2ceb  ./run-cuda-attribution-q8-focused.sh
+f68a049318363827e2d3ada6eb6cf25a56555ab180b4718160064112549e5d61  ./run-cuda-attribution.sh
+19a7afc9105b793935bd2ee71d4025dbaebcd8d2db60381839b4f4f5cf4d51ae  ./run-native-bench.sh
+3de1f2b89617b20f220b1f7927875a20a5f348d9eff2bafcc41a019b56ad34e7  ./run-packaged-cuda-smoke.sh

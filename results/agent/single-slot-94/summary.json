@@ -1,0 +1,14 @@
+{
+  "run_id": "2026-07-11T15-09-39.705117Z_65f58af0",
+  "status": "completed",
+  "final_score": 94,
+  "total_points": 130,
+  "max_points": 138,
+  "pass_count": 63,
+  "partial_count": 4,
+  "fail_count": 2,
+  "deployability": 89,
+  "responsiveness": 77,
+  "median_turn_ms": 1319.8,
+  "error_rate": 0.0
+}
