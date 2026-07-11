@@ -5,6 +5,7 @@ Q5_K_XL GGUF, platform runtimes, an OpenAI-compatible server, a one-command
 installer, and the raw data behind its published benchmarks.
 
 **[View the 94/100 benchmark report](https://newjordan.github.io/treebeard/)**
+| **[Explore the MoE routing flow](https://newjordan.github.io/treebeard/moe-routing.html)**
 | **[Download the full model package](https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF)**
 
 ![Treebeard agent benchmark report](docs/report-preview.png)
@@ -71,7 +72,7 @@ Treebeard scored **94/100 (Excellent)** and 130/138 points on a complete
 - exact score and verdict-vector reproduction on Intel Arc Pro B70 and NVIDIA
   GB10.
 
-The dark report links directly to both raw result files. This repository also
+The warm dark-mode report links directly to both raw result files. This repository also
 contains the [complete curated evidence index](results/README.md), including
 NVIDIA correctness and performance, Intel serving data, the CPU package smoke,
 guard logs, hashes, and reproduction scripts.

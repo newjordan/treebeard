@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#090d13">
+  <meta name="theme-color" content="#120c08">
   <meta name="description" content="Treebeard RC3 scored 94/100 on a 69-scenario agent benchmark, reproduced on Intel and NVIDIA with zero request errors.">
   <meta property="og:title" content="Treebeard - 94/100 Agent Benchmark">
   <meta property="og:description" content="69/69 scenarios, 130/138 points, reproduced on Intel and NVIDIA.">
@@ -16,21 +16,21 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #070a0f;
-      --panel: rgba(17, 23, 34, 0.88);
-      --panel-solid: #111722;
-      --panel-soft: #0d131d;
-      --line: rgba(157, 180, 214, 0.14);
-      --line-strong: rgba(157, 180, 214, 0.25);
-      --text: #f2f6fc;
-      --muted: #97a5b8;
-      --muted-2: #718096;
-      --green: #4ee1a0;
-      --green-soft: rgba(78, 225, 160, 0.13);
-      --cyan: #63d8ff;
-      --violet: #a991ff;
-      --amber: #ffc96b;
-      --red: #ff758f;
+      --bg: #120c08;
+      --panel: rgba(37, 25, 17, 0.9);
+      --panel-solid: #24180f;
+      --panel-soft: #1a110c;
+      --line: rgba(226, 177, 116, 0.18);
+      --line-strong: rgba(226, 177, 116, 0.34);
+      --text: #fff3df;
+      --muted: #c4a68a;
+      --muted-2: #90735c;
+      --green: #d8ad52;
+      --green-soft: rgba(216, 173, 82, 0.14);
+      --cyan: #f0b763;
+      --violet: #d98264;
+      --amber: #f2c078;
+      --red: #e56f51;
       --radius: 20px;
       --shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
     }
@@ -43,9 +43,9 @@
       margin: 0;
       min-width: 320px;
       background:
-        radial-gradient(circle at 12% -8%, rgba(74, 144, 226, 0.19), transparent 32rem),
-        radial-gradient(circle at 88% 2%, rgba(103, 73, 206, 0.18), transparent 30rem),
-        radial-gradient(circle at 50% 110%, rgba(45, 189, 131, 0.11), transparent 34rem),
+        radial-gradient(circle at 12% -8%, rgba(187, 101, 42, 0.22), transparent 32rem),
+        radial-gradient(circle at 88% 2%, rgba(137, 65, 38, 0.2), transparent 30rem),
+        radial-gradient(circle at 50% 110%, rgba(194, 141, 57, 0.12), transparent 34rem),
         var(--bg);
       color: var(--text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -100,7 +100,7 @@
       color: var(--text);
       font-size: 0.82rem;
       font-weight: 700;
-      background: rgba(17, 23, 34, 0.66);
+      background: rgba(37, 25, 17, 0.72);
     }
 
     .top-link:hover {
@@ -118,17 +118,17 @@
       height: 44px;
       place-items: center;
       overflow: hidden;
-      border: 1px solid rgba(78, 225, 160, 0.28);
+      border: 1px solid rgba(216, 173, 82, 0.34);
       border-radius: 14px;
-      background: linear-gradient(145deg, rgba(78, 225, 160, 0.18), rgba(99, 216, 255, 0.08));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 30px rgba(35, 160, 109, 0.12);
+      background: linear-gradient(145deg, rgba(216, 173, 82, 0.2), rgba(217, 130, 100, 0.1));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 30px rgba(153, 91, 36, 0.18);
     }
 
     .mark::before {
       width: 5px;
       height: 24px;
       border-radius: 5px;
-      background: linear-gradient(var(--green), #278a65);
+      background: linear-gradient(var(--green), #8b5e28);
       content: "";
       transform: translateY(5px);
     }
@@ -139,7 +139,7 @@
       width: 24px;
       height: 17px;
       border-radius: 55% 55% 48% 48%;
-      background: linear-gradient(145deg, #74f1b9, #2eb77d);
+      background: linear-gradient(145deg, #f0c96d, #b8782d);
       content: "";
       clip-path: polygon(50% 0, 100% 100%, 50% 78%, 0 100%);
     }
@@ -153,10 +153,10 @@
       gap: 8px;
       min-height: 34px;
       padding: 7px 12px;
-      border: 1px solid rgba(78, 225, 160, 0.25);
+      border: 1px solid rgba(216, 173, 82, 0.3);
       border-radius: 999px;
       background: var(--green-soft);
-      color: #a8f6d2;
+      color: #f3d38a;
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.06em;
@@ -182,7 +182,7 @@
       border: 1px solid var(--line);
       border-radius: 28px;
       background:
-        linear-gradient(125deg, rgba(23, 33, 49, 0.96), rgba(13, 18, 29, 0.91)),
+        linear-gradient(125deg, rgba(50, 31, 19, 0.97), rgba(25, 16, 11, 0.93)),
         var(--panel-solid);
       box-shadow: var(--shadow);
     }
@@ -193,11 +193,11 @@
       bottom: -190px;
       width: 430px;
       height: 430px;
-      border: 1px solid rgba(99, 216, 255, 0.12);
+      border: 1px solid rgba(240, 183, 99, 0.14);
       border-radius: 50%;
       box-shadow:
-        0 0 0 42px rgba(99, 216, 255, 0.025),
-        0 0 0 96px rgba(169, 145, 255, 0.025);
+        0 0 0 42px rgba(240, 183, 99, 0.035),
+        0 0 0 96px rgba(217, 130, 100, 0.03);
       content: "";
     }
 
@@ -229,7 +229,7 @@
     .hero-copy {
       max-width: 720px;
       margin-bottom: 26px;
-      color: #b8c3d2;
+      color: #d8c0a6;
       font-size: clamp(1rem, 1.6vw, 1.14rem);
     }
 
@@ -239,8 +239,8 @@
       padding: 7px 11px;
       border: 1px solid var(--line);
       border-radius: 9px;
-      background: rgba(4, 8, 13, 0.35);
-      color: #c6d0de;
+      background: rgba(14, 8, 5, 0.4);
+      color: #e2cbb2;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 0.76rem;
     }
@@ -255,7 +255,7 @@
       place-items: center;
       border-radius: 50%;
       background: conic-gradient(var(--green) 0 94%, rgba(255,255,255,0.08) 94% 100%);
-      filter: drop-shadow(0 16px 34px rgba(26, 180, 117, 0.18));
+      filter: drop-shadow(0 16px 34px rgba(174, 112, 39, 0.22));
     }
 
     .score-ring::before {
@@ -263,14 +263,14 @@
       inset: 12px;
       border: 1px solid rgba(255,255,255,0.07);
       border-radius: inherit;
-      background: radial-gradient(circle at 45% 25%, #182435, #0b111a 72%);
+      background: radial-gradient(circle at 45% 25%, #3a2718, #17100b 72%);
       content: "";
     }
 
     .score-value { position: relative; text-align: center; }
     .score-number { display: block; font-size: 4.9rem; font-weight: 820; letter-spacing: -0.075em; line-height: 0.88; }
     .score-denom { display: block; margin-top: 10px; color: var(--muted); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; }
-    .rating { margin-top: 17px; color: #a9f5d1; font-weight: 720; }
+    .rating { margin-top: 17px; color: #f3d38a; font-weight: 720; }
 
     .metric-grid {
       display: grid;
@@ -326,11 +326,11 @@
     .category { min-width: 0; padding: 19px 20px 17px; background: var(--panel-solid); }
     .category-top { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
     .category-name { overflow: hidden; font-size: 0.89rem; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
-    .category-score { color: #cad5e4; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.77rem; }
+    .category-score { color: #ead6bd; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.77rem; }
 
     .bar { height: 6px; margin-top: 12px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,0.07); }
-    .bar > span { display: block; width: var(--score); height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--green), var(--cyan)); box-shadow: 0 0 15px rgba(78,225,160,0.25); }
-    .category[data-low="true"] .bar > span { background: linear-gradient(90deg, var(--amber), #ff9f70); box-shadow: none; }
+    .bar > span { display: block; width: var(--score); height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--green), var(--cyan)); box-shadow: 0 0 15px rgba(216,173,82,0.25); }
+    .category[data-low="true"] .bar > span { background: linear-gradient(90deg, var(--amber), #dc7652); box-shadow: none; }
 
     .split {
       display: grid;
@@ -357,15 +357,15 @@
       white-space: nowrap;
     }
 
-    .status.partial { background: rgba(255,201,107,0.13); color: var(--amber); }
-    .status.fail { background: rgba(255,117,143,0.13); color: var(--red); }
+    .status.partial { background: rgba(242,192,120,0.13); color: var(--amber); }
+    .status.fail { background: rgba(229,111,81,0.13); color: var(--red); }
 
     .run-card { padding: 22px; }
     .run-card h3 { margin-bottom: 18px; font-size: 1rem; }
 
     .kv { display: grid; grid-template-columns: minmax(112px, 0.65fr) minmax(0, 1.35fr); gap: 9px 18px; margin: 0; }
     .kv dt { color: var(--muted); font-size: 0.78rem; }
-    .kv dd { min-width: 0; margin: 0; overflow-wrap: anywhere; color: #d6dfeb; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; }
+    .kv dd { min-width: 0; margin: 0; overflow-wrap: anywhere; color: #ead8c1; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; }
 
     .reliability {
       display: grid;
@@ -379,7 +379,7 @@
 
     .method { padding: 24px; }
     .method-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
-    .method-item { padding: 16px; border: 1px solid var(--line); border-radius: 13px; background: rgba(6,10,16,0.36); }
+    .method-item { padding: 16px; border: 1px solid var(--line); border-radius: 13px; background: rgba(16,9,5,0.38); }
     .method-item strong { display: block; margin-bottom: 4px; font-size: 0.84rem; }
     .method-item span { color: var(--muted); font-size: 0.79rem; }
 
@@ -389,8 +389,8 @@
       overflow-x: auto;
       border: 1px solid var(--line);
       border-radius: 13px;
-      background: #080c12;
-      color: #b9c8d9;
+      background: #130c08;
+      color: #dec5a9;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 0.75rem;
       line-height: 1.7;
@@ -403,14 +403,104 @@
       gap: 14px;
       margin-top: 16px;
       padding: 17px 18px;
-      border: 1px solid rgba(99,216,255,0.16);
+      border: 1px solid rgba(240,183,99,0.19);
       border-radius: 14px;
-      background: rgba(99,216,255,0.055);
-      color: #bac8d8;
+      background: rgba(240,183,99,0.065);
+      color: #dbc3a8;
       font-size: 0.84rem;
     }
 
     .callout-mark { color: var(--cyan); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 800; }
+
+    .feature {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+      gap: clamp(24px, 4vw, 46px);
+      overflow: hidden;
+      padding: clamp(20px, 4vw, 42px);
+      background:
+        linear-gradient(135deg, rgba(84, 46, 23, 0.33), rgba(27, 18, 12, 0.9)),
+        var(--panel-solid);
+    }
+
+    .feature-media {
+      align-self: center;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      border-radius: 18px;
+      background: #1a100a;
+      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.34);
+    }
+
+    .feature-media a { display: block; }
+
+    .guide-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: transform 220ms ease;
+    }
+
+    .feature-media:hover .guide-image { transform: scale(1.012); }
+
+    .feature-copy { align-self: center; }
+    .feature-copy h2 { margin-bottom: 14px; font-size: clamp(2rem, 4vw, 3.15rem); }
+    .feature-copy > p:not(.eyebrow) { color: var(--muted); }
+
+    .feature-points {
+      display: grid;
+      gap: 10px;
+      margin: 20px 0 26px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .feature-points li { display: grid; grid-template-columns: auto 1fr; gap: 10px; color: #e7d0b4; font-size: 0.9rem; }
+    .feature-points li::before { color: var(--green); content: "✦"; }
+
+    .button-row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 15px;
+      border: 1px solid var(--line-strong);
+      border-radius: 11px;
+      background: var(--panel-soft);
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 750;
+    }
+
+    .button:hover { background: #302016; text-decoration: none; }
+    .button.primary { border-color: rgba(216,173,82,0.45); background: var(--green); color: #1c1209; }
+    .button.primary:hover { background: #e6be65; }
+
+    .routing-card { overflow: hidden; padding: clamp(14px, 3vw, 28px); }
+
+    .chart-frame {
+      display: block;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #120c08;
+    }
+
+    .chart-frame:hover { border-color: var(--line-strong); }
+
+    .chart-image { display: block; width: 100%; height: auto; }
+
+    .routing-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 20px;
+    }
+
+    .routing-footer p { max-width: 650px; margin: 0; color: var(--muted); font-size: 0.84rem; }
 
     .artifacts { display: flex; flex-wrap: wrap; gap: 10px; }
     .artifact {
@@ -444,10 +534,13 @@
       .categories { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .split { grid-template-columns: 1fr; }
       .method-grid { grid-template-columns: 1fr; }
+      .feature { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 620px) {
       .shell { width: min(100% - 24px, 1180px); padding-top: 20px; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .top-actions { justify-content: flex-start; }
       .brand-sub { display: none; }
       .verified { padding: 6px 9px; font-size: 0.67rem; }
       .hero { padding: 26px 20px; border-radius: 21px; }
@@ -455,6 +548,7 @@
       .categories { grid-template-columns: 1fr; }
       .reliability { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .section-head { align-items: start; flex-direction: column; gap: 5px; }
+      .routing-footer { align-items: flex-start; flex-direction: column; }
       footer { flex-direction: column; }
     }
 
@@ -480,6 +574,8 @@
         </div>
       </div>
       <div class="top-actions">
+        <a class="top-link" href="#field-guide">Field guide</a>
+        <a class="top-link" href="moe-routing.html">MoE routing</a>
         <a class="top-link" href="https://github.com/newjordan/treebeard">Project</a>
         <a class="top-link" href="https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF">Model package</a>
         <div class="verified">Verified run</div>
@@ -524,6 +620,32 @@
       <div class="metric"><span class="metric-value cyan">69 / 69</span><span class="metric-label">Completed</span></div>
       <div class="metric"><span class="metric-value green">0.0%</span><span class="metric-label">Request errors</span></div>
     </div>
+
+    <section id="field-guide" class="panel feature">
+      <div class="feature-media">
+        <a href="https://chatgpt.com/s/m_6a5296a2e73c8191961183016fc04e04" aria-label="Open the original illustrated Treebeard field guide">
+          <img class="guide-image" src="assets/treebeard-adventurers-guide.png" width="1448" height="1086" loading="lazy" alt="Illustrated Treebeard benchmark field guide showing an Ent, adventurers, and the 94 out of 100 score">
+        </a>
+      </div>
+      <div class="feature-copy">
+        <p class="eyebrow">Illustrated field guide</p>
+        <h2>Meet Treebeard.</h2>
+        <p>
+          The benchmark story, rendered as a warm forest field guide: a complete
+          single-slot run, an excellent 94/100 score, and matching results across
+          Intel and NVIDIA hardware.
+        </p>
+        <ul class="feature-points">
+          <li>130 of 138 points across all 69 agent scenarios</li>
+          <li>Zero request errors with a 262,144-token context</li>
+          <li>One downloadable Qwen GGUF with packaged Linux runtimes</li>
+        </ul>
+        <div class="button-row">
+          <a class="button primary" href="https://chatgpt.com/s/m_6a5296a2e73c8191961183016fc04e04">Open original guide</a>
+          <a class="button" href="moe-routing.html">Explore MoE routing</a>
+        </div>
+      </div>
+    </section>
 
     <section>
       <div class="section-head">
@@ -643,6 +765,28 @@ tool-eval-bench --backend llamacpp --no-think --seed 42 \
         <div class="callout">
           <span class="callout-mark">NOTE</span>
           <span>The same packaged model has separate 12-worker measurements for serving under saturation. Those runs are useful concurrency evidence, but the 94 shown here is the reproducible single-slot quality score requested for the model.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="moe-routing">
+      <div class="section-head">
+        <div>
+          <h2>How the experts route</h2>
+          <p class="section-note">A source-grounded map of Qwen's top-8 MoE decision and Treebeard's Intel and NVIDIA execution paths.</p>
+        </div>
+      </div>
+      <div class="panel routing-card">
+        <a class="chart-frame" href="moe-routing.html" aria-label="Open the full Treebeard mixture-of-experts routing explainer">
+          <img class="chart-image" src="writeups/moe-routing/treebeard-moe-routing.svg" width="1800" height="2000" loading="lazy" alt="Flowchart of Qwen mixture-of-experts top-8 routing and Treebeard hardware scheduling">
+        </a>
+        <div class="routing-footer">
+          <p>Qwen chooses eight of 256 routed experts per token and adds one separately gated shared expert. Treebeard preserves that decision, then schedules the selected work for Intel SYCL or NVIDIA CUDA.</p>
+          <div class="button-row">
+            <a class="button primary" href="moe-routing.html">Read the explainer</a>
+            <a class="button" href="writeups/moe-routing/treebeard-moe-routing.png">Open PNG</a>
+            <a class="button" href="writeups/moe-routing/treebeard-moe-routing.svg">Open SVG</a>
+          </div>
         </div>
       </div>
     </section>
