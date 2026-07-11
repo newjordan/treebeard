@@ -18,7 +18,7 @@ MMPROJ=mmproj-F16.gguf
 MMPROJ_SIZE=899283680
 MMPROJ_SHA=8971ee4f331ff0a4c609374f32984b3d4e6dc086c0aa35f1d637fad1829e887f
 RUN_SHA=bae9586444cb35f2303f936cd0fffd47a845219e4bebd501a3133d45ffed1831
-CLI_SHA=85a1868db72a0bb03ebe862102b0de28f919728ad45a8e7edc32abf080bf58d9
+CLI_SHA=e372e1c0faba070e61d6412607de6e6149cf0725b1c0a238f96aedbc61d5a3e0
 
 usage() {
     cat <<'EOF'
@@ -237,7 +237,7 @@ else
 fi
 download "$RUNTIME_PATH" "$RUNTIME_SIZE" "$RUNTIME_SHA"
 download run.sh 11651 "$RUN_SHA"
-download treebeard 2820 "$CLI_SHA"
+download treebeard 2926 "$CLI_SHA"
 
 if [[ "$MULTIMODAL" == 1 ]]; then
     if [[ -n "${TREEBEARD_MMPROJ_FILE:-}" ]]; then

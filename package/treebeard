@@ -37,7 +37,7 @@ case "$command" in
         if (( $# > 0 )); then
             shift
         fi
-        exec "$ROOT/run.sh" "$@"
+        exec bash "$ROOT/run.sh" "$@"
         ;;
     doctor)
         printf 'Treebeard %s doctor\n' "$VERSION"
@@ -48,14 +48,16 @@ case "$command" in
         awk '$1 == "MemTotal:" { printf "Memory: %.1f GiB\n", $2 / 1048576 }' /proc/meminfo
         df -Ph "$ROOT" | awk 'NR == 2 { printf "Package filesystem: %s total, %s available\n", $2, $4 }'
         printf '\nSelected launch command:\n'
-        TREEBEARD_DRY_RUN=1 TREEBEARD_VERIFY=never "$ROOT/run.sh"
+        TREEBEARD_DRY_RUN=1 TREEBEARD_VERIFY=never bash "$ROOT/run.sh"
         ;;
     verify)
         if [[ -f "$ROOT/INSTALL-SHA256SUMS" ]]; then
             (cd "$ROOT" && sha256sum --check INSTALL-SHA256SUMS)
             printf 'installed files verified\n'
         elif [[ -x "$ROOT/verify.sh" ]]; then
-            exec "$ROOT/verify.sh"
+            exec bash "$ROOT/verify.sh"
+        elif [[ -f "$ROOT/verify.sh" ]]; then
+            exec bash "$ROOT/verify.sh"
         else
             printf 'error: no verification manifest found\n' >&2
             exit 1
@@ -80,7 +82,7 @@ case "$command" in
         usage
         ;;
     -*)
-        exec "$ROOT/run.sh" "$@"
+        exec bash "$ROOT/run.sh" "$@"
         ;;
     *)
         printf 'error: unknown command: %s\n\n' "$command" >&2

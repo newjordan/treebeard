@@ -18,6 +18,10 @@ The installed `treebeard` command provides `serve`, `doctor`, `verify`,
 `status`, `report`, and `version` commands. `run.sh` remains the direct launcher
 and accepts additional llama-server arguments.
 
+The CLI invokes packaged shell components through `bash`, so full-package
+downloads remain usable when an archive client does not preserve executable
+permission bits. `bash ./treebeard serve` is always a valid entry point.
+
 ## Required root files
 
 - `Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf`;
