@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#120c08">
-  <meta name="description" content="Treebeard RC3 scored 94/100 on a 69-scenario agent benchmark, reproduced on Intel and NVIDIA with zero request errors.">
-  <meta property="og:title" content="Treebeard - 94/100 Agent Benchmark">
+  <meta name="description" content="Treebeard RC3 scored 94/100 on a 69-scenario tool-use evaluation, reproduced on Intel and NVIDIA with zero request errors.">
+  <meta property="og:title" content="Treebeard - 94/100 Tool-Use Evaluation">
   <meta property="og:description" content="69/69 scenarios, 130/138 points, reproduced on Intel and NVIDIA.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://newjordan.github.io/treebeard/">
   <meta property="og:image" content="https://newjordan.github.io/treebeard/report-preview.png">
   <link rel="canonical" href="https://newjordan.github.io/treebeard/">
-  <title>Treebeard - 94/100 Agent Benchmark</title>
+  <title>Treebeard - 94/100 Tool-Use Evaluation</title>
   <style>
     :root {
       color-scheme: dark;
@@ -447,17 +447,6 @@
     .feature-copy h2 { margin-bottom: 14px; font-size: clamp(2rem, 4vw, 3.15rem); }
     .feature-copy > p:not(.eyebrow) { color: var(--muted); }
 
-    .feature-points {
-      display: grid;
-      gap: 10px;
-      margin: 20px 0 26px;
-      padding: 0;
-      list-style: none;
-    }
-
-    .feature-points li { display: grid; grid-template-columns: auto 1fr; gap: 10px; color: #e7d0b4; font-size: 0.9rem; }
-    .feature-points li::before { color: var(--green); content: "✦"; }
-
     .button-row { display: flex; flex-wrap: wrap; gap: 10px; }
 
     .button {
@@ -570,26 +559,26 @@
         <div class="mark" aria-hidden="true"></div>
         <div>
           <div class="brand-name">Treebeard</div>
-          <div class="brand-sub">StateTree / RC3 / Agent quality</div>
+          <div class="brand-sub">RC3 / Model evaluation</div>
         </div>
       </div>
       <div class="top-actions">
-        <a class="top-link" href="#field-guide">Field guide</a>
-        <a class="top-link" href="moe-routing.html">MoE routing</a>
-        <a class="top-link" href="https://github.com/newjordan/treebeard">Project</a>
+        <a class="top-link" href="#overview">Overview</a>
+        <a class="top-link" href="moe-routing.html">MoE algorithm</a>
+        <a class="top-link" href="https://github.com/newjordan/treebeard">GitHub</a>
         <a class="top-link" href="https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF">Model package</a>
-        <div class="verified">Verified run</div>
+        <div class="verified">Reproducible results</div>
       </div>
     </header>
 
     <section class="hero">
       <div>
-        <p class="eyebrow">Single-slot quality benchmark</p>
-        <h1>Excellent agent performance, reproduced.</h1>
+        <p class="eyebrow">Qwen3.6-35B-A3B evaluation</p>
+        <h1>94/100 on a reproducible tool-use benchmark.</h1>
         <p class="hero-copy">
-          Qwen3.6 35B A3B on the packaged Treebeard RC3 runtime completed the full
-          69-scenario tool-use suite with zero request errors. Independent one-slot
-          runs on Intel and NVIDIA reproduced the same score and verdict for every case.
+          The packaged Treebeard RC3 runtime completed all 69 scenarios with zero
+          request errors. Independent single-slot runs on Intel and NVIDIA
+          reproduced the same score and verdict for every case.
         </p>
         <div class="chips" aria-label="Run configuration">
           <span class="chip">Q5_K_XL</span>
@@ -621,28 +610,18 @@
       <div class="metric"><span class="metric-value green">0.0%</span><span class="metric-label">Request errors</span></div>
     </div>
 
-    <section id="field-guide" class="panel feature">
+    <section id="overview" class="panel feature">
       <div class="feature-media">
-        <a href="https://chatgpt.com/s/m_6a5296a2e73c8191961183016fc04e04" aria-label="Open the original illustrated Treebeard field guide">
-          <img class="guide-image" src="assets/treebeard-adventurers-guide.png" width="1448" height="1086" loading="lazy" alt="Illustrated Treebeard benchmark field guide showing an Ent, adventurers, and the 94 out of 100 score">
-        </a>
+        <img class="guide-image" src="assets/treebeard-adventurers-guide.png" width="1448" height="1086" loading="lazy" alt="Treebeard evaluation summary showing a 94 out of 100 score and validated Intel and NVIDIA hardware">
       </div>
       <div class="feature-copy">
-        <p class="eyebrow">Illustrated field guide</p>
-        <h2>Meet Treebeard.</h2>
-        <p>
-          The benchmark story, rendered as a warm forest field guide: a complete
-          single-slot run, an excellent 94/100 score, and matching results across
-          Intel and NVIDIA hardware.
-        </p>
-        <ul class="feature-points">
-          <li>130 of 138 points across all 69 agent scenarios</li>
-          <li>Zero request errors with a 262,144-token context</li>
-          <li>One downloadable Qwen GGUF with packaged Linux runtimes</li>
-        </ul>
+        <p class="eyebrow">Treebeard RC3</p>
+        <h2>Qwen3.6, ready to run.</h2>
+        <p>Download the Linux model package or inspect the source.</p>
         <div class="button-row">
-          <a class="button primary" href="https://chatgpt.com/s/m_6a5296a2e73c8191961183016fc04e04">Open original guide</a>
-          <a class="button" href="moe-routing.html">Explore MoE routing</a>
+          <a class="button primary" href="https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF">Download model</a>
+          <a class="button" href="https://github.com/newjordan/treebeard">GitHub</a>
+          <a class="button" href="moe-routing.html">MoE algorithm</a>
         </div>
       </div>
     </section>
@@ -676,8 +655,8 @@
     <section>
       <div class="section-head">
         <div>
-          <h2>Exceptions, not omissions</h2>
-          <p class="section-note">Every scenario completed. The six non-passing verdicts are shown here without hiding or reclassifying them.</p>
+          <h2>Exceptions and limitations</h2>
+          <p class="section-note">Every scenario completed. The six non-passing verdicts are shown here for a complete and transparent result.</p>
         </div>
       </div>
       <div class="split">
@@ -695,14 +674,12 @@
           </table>
         </div>
         <aside class="panel run-card">
-          <h3>Immutable run identity</h3>
+          <h3>Benchmark provenance</h3>
           <dl class="kv">
-            <dt>Run ID</dt><dd>2026-07-11T15-09-39.705117Z_65f58af0</dd>
             <dt>Config</dt><dd>43dd1ef71957</dd>
             <dt>Engine</dt><dd>b9624-0424f677f</dd>
-            <dt>Bench</dt><dd>2.1.0 / 8b3259b</dd>
+            <dt>Suite</dt><dd>tool-eval-bench 2.1.0 / 8b3259b</dd>
             <dt>Result SHA-256</dt><dd>61bb5f12c4c6f4210d86794b5f1b275efc31ddea0c3af3794cb867e96115fc4e</dd>
-            <dt>Guard SHA-256</dt><dd>3cca1e83549bac59d535b6872c90e6b566f0a3d1ad6f1cdc64e72df5cebc56d9</dd>
           </dl>
         </aside>
       </div>
@@ -711,8 +688,8 @@
     <section>
       <div class="section-head">
         <div>
-          <h2>Run health</h2>
-          <p class="section-note">Observed wall time at the scenario layer, plus benchmark-level deployability and responsiveness indicators.</p>
+          <h2>Evaluation health</h2>
+          <p class="section-note">Observed scenario timing and benchmark-level deployability and responsiveness indicators.</p>
         </div>
       </div>
       <div class="reliability">
@@ -746,14 +723,14 @@
     <section>
       <div class="section-head">
         <div>
-          <h2>Reproduction contract</h2>
-          <p class="section-note">The quality score uses one model slot and one benchmark worker. It is distinct from saturated 12-worker throughput testing.</p>
+          <h2>Evaluation method</h2>
+          <p class="section-note">The quality score uses one model slot and one evaluation worker. It is separate from saturated 12-slot throughput testing.</p>
         </div>
       </div>
       <div class="panel method">
         <div class="method-grid">
           <div class="method-item"><strong>Serving</strong><span>262,144 total context, one fixed slot, unified KV, F16 KV, flash attention.</span></div>
-          <div class="method-item"><strong>Evaluation</strong><span>69 scenarios, one worker, 180-second timeout, temperature 0, thinking disabled.</span></div>
+          <div class="method-item"><strong>Evaluation</strong><span>69 scenarios, one evaluation worker, 180-second timeout, temperature 0, thinking disabled.</span></div>
           <div class="method-item"><strong>Control</strong><span>Pinned model checksum, pinned runtime, pinned benchmark commit, seed 42.</span></div>
         </div>
         <pre class="command" aria-label="Reproduction commands">llama-server -m Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf -ngl 99 -ncmoe 0 \
@@ -764,7 +741,7 @@ tool-eval-bench --backend llamacpp --no-think --seed 42 \
   --reference-date 2026-03-20 --parallel 1 --timeout 180</pre>
         <div class="callout">
           <span class="callout-mark">NOTE</span>
-          <span>The same packaged model has separate 12-worker measurements for serving under saturation. Those runs are useful concurrency evidence, but the 94 shown here is the reproducible single-slot quality score requested for the model.</span>
+          <span>Separate 12-slot measurements characterize serving throughput under concurrency; they are not part of this quality score.</span>
         </div>
       </div>
     </section>
@@ -794,21 +771,16 @@ tool-eval-bench --backend llamacpp --no-think --seed 42 \
     <section>
       <div class="section-head">
         <div>
-          <h2>Raw evidence</h2>
-          <p class="section-note">Open the machine-readable result or the guard artifacts used to validate service restoration.</p>
+          <h2>Supporting evidence</h2>
+          <p class="section-note">Open the machine-readable results and validation summaries behind this report.</p>
         </div>
       </div>
       <div class="artifacts">
         <a class="artifact" href="result.json">Full result JSON</a>
         <a class="artifact" href="summary.json">Compact summary JSON</a>
-        <a class="artifact" href="guard.log">Guard execution log</a>
-        <a class="artifact" href="maintenance/restore-props.json">Restored service properties</a>
-        <a class="artifact" href="maintenance/restore-runtime-check.txt">Runtime hash attestation</a>
-        <a class="artifact" href="gpu-health/fault-signatures.txt">GPU health scan</a>
         <a class="artifact" href="nvidia-result.json">NVIDIA replica JSON</a>
         <a class="artifact" href="nvidia-summary.json">NVIDIA replica summary</a>
-        <a class="artifact" href="nvidia-props.json">NVIDIA server properties</a>
-        <a class="artifact" href="nvidia-gpu-health.txt">NVIDIA GPU health scan</a>
+        <a class="artifact" href="https://github.com/newjordan/treebeard/tree/main/results">Browse all evidence</a>
       </div>
     </section>
 

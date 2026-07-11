@@ -1,5 +1,11 @@
 # NVIDIA validation
 
+Model package: <https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF>
+
+GitHub repository: <https://github.com/newjordan/treebeard>
+
+MoE algorithm explainer: <https://newjordan.github.io/treebeard/moe-routing.html>
+
 ## Target
 
 - NVIDIA GB10, compute capability 12.1;
@@ -47,11 +53,12 @@ cmake --build build --target llama-server llama-bench test-backend-ops -j 12
 | Q8_0 MoE down | 4.01% faster median |
 | pp4096 | 2,422.325 tok/s |
 | tg128 | 59.614 tok/s |
-| Agent quality, one slot | 94 / 100 |
+| Tool-use evaluation, one slot | 94 / 100 |
 | Request errors | 0 / 69 |
 | Packaged vision answer | `94` |
 
-The final seven-wave attribution alternated fallback and candidate order. Set
+Attribution testing compared the fallback and candidate kernels across seven
+runs. Set
 `GGML_CUDA_DISABLE_MMVQ_12COL=1` to select the fallback. The shipping extension
 is restricted to Q8_0 on NVIDIA Blackwell; Q5_K and Q6_K use the existing path.
 
@@ -60,10 +67,9 @@ The CUDA runtime archive SHA-256 is
 It requires system CUDA 13 `libcudart`, cuBLAS, a compatible NVIDIA driver, and
 glibc-compatible Linux ARM64.
 
-The 262,144-token text profile passed the complete agent suite. The bundled
-projector was validated at 32,768 tokens while another 58 GB GPU service was
-resident; this avoided disturbing that unrelated service and completed with a
-clean kernel-health scan.
+The 262,144-token text profile passed the complete tool-use evaluation. The
+bundled projector was validated at 32,768 tokens and completed with a clean
+kernel-health scan.
 
 Final counts, timings, hashes, and logs are recorded under `evidence/nvidia`.
 The standalone public report is <https://newjordan.github.io/treebeard/>.

@@ -1,24 +1,30 @@
 # Benchmarks
 
+Model package: <https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF>
+
+GitHub repository: <https://github.com/newjordan/treebeard>
+
+MoE algorithm explainer: <https://newjordan.github.io/treebeard/moe-routing.html>
+
 Public report: <https://newjordan.github.io/treebeard/>
 
 Public result bundle: <https://github.com/newjordan/treebeard/tree/main/results>
 
-## Agent quality
+## Tool-use evaluation
 
 The release quality headline is 94/100 and 130/138 points:
 
 - 69/69 scenarios completed;
 - 63 pass, 4 partial, 2 fail;
 - zero request errors;
-- one server slot and one benchmark worker;
+- one server slot and one evaluation worker;
 - 262,144 total context tokens;
 - temperature 0, thinking disabled, seed 42;
 - tool-eval-bench 2.1.0 at `8b3259b`;
 - llama.cpp build `b9624-0424f677f`.
 
 The score reproduced exactly on Intel Arc Pro B70 and NVIDIA GB10, including
-the complete 69-case outcome vector. Raw evidence:
+the complete 69-case outcome vector. Supporting evidence:
 
 - `evidence/agent/single-slot-94/result.json`
 - `evidence/agent/single-slot-94/index.html`
@@ -26,9 +32,8 @@ the complete 69-case outcome vector. Raw evidence:
 - `evidence/agent/single-slot-94/nvidia-result.json`
 - `evidence/nvidia/agent-single-slot-94/result.json`
 
-The packaged server was stopped after the run. Production RC2 was restored and
-its health, properties, build identity, slot count, context, and runtime hashes
-were attested before the success marker was written.
+The published result is checksum-pinned and accompanied by the complete
+supporting evidence bundle.
 
 ## Portable CPU package smoke
 
@@ -54,13 +59,14 @@ log, reproduction script, and hashes are under `evidence/cpu-linux-x86_64`.
 
 The released 12-slot profile measured 194.023 aggregate tok/s, 5.152% above
 released RC2. The 8-slot profile measured 182.005 aggregate tok/s, 1.421% above
-released RC2. Single-agent aggregate performance was flat at -0.121%.
+released RC2. Single-session aggregate performance was flat at -0.121%.
 
-The matched same-binary kernel attribution was about +1.12% at 8 agents and
-+1.17% at 12 agents. Native `llama-bench` measured 1143.825 tok/s for pp4096
+The matched same-binary kernel attribution was about +1.12% at 8 concurrent
+sessions and +1.17% at 12 concurrent sessions. Native `llama-bench` measured
+1143.825 tok/s for pp4096
 and 80.909 tok/s for tg128.
 
-Raw evidence is under `evidence/sycl`.
+Supporting evidence is under `evidence/sycl`.
 
 ## NVIDIA
 
@@ -72,7 +78,7 @@ NVIDIA results were produced on one GB10, compute capability 12.1, with CUDA
 - Q8_0 MoE down latency: 463.06 to 445.20 us median, a 4.01% improvement;
 - native pp4096: 2,422.325 tok/s over five samples;
 - native tg128: 59.614 tok/s over five samples;
-- one-slot agent benchmark: 94/100, 130/138, zero request errors;
+- single-slot tool-use evaluation: 94/100, 130/138, zero request errors;
 - packaged tool call: complete `get_weather({"city":"Chicago"})` call;
 - packaged vision: bundled projector read the report score as `94`;
 - final kernel-health scans: no matching Xid, fault, reset, hang, or OOM.

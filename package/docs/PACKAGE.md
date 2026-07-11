@@ -1,5 +1,11 @@
 # Package contract
 
+Model package: <https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF>
+
+GitHub repository: <https://github.com/newjordan/treebeard>
+
+MoE algorithm explainer: <https://newjordan.github.io/treebeard/moe-routing.html>
+
 Treebeard pkg3 follows a standard Hugging Face GGUF layout. The complete GGUF
 model and official Qwen configuration and tokenizer files live at repository
 root. Runtimes, launch tools, and evidence are additive directories.

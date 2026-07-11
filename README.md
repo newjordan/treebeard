@@ -1,14 +1,15 @@
 # Treebeard
 
-Treebeard is a ready-to-run Linux distribution of Qwen3.6-35B-A3B: one
-Q5_K_XL GGUF, platform runtimes, an OpenAI-compatible server, a one-command
-installer, and the raw data behind its published benchmarks.
+Treebeard is a ready-to-run Linux package for Qwen3.6-35B-A3B. It combines a
+Q5_K_XL GGUF model, platform-specific runtimes, an OpenAI-compatible server,
+and a verified one-command installer.
 
-**[View the 94/100 benchmark report](https://newjordan.github.io/treebeard/)**
-| **[Explore the MoE routing flow](https://newjordan.github.io/treebeard/moe-routing.html)**
-| **[Download the full model package](https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF)**
+**[View the 94/100 evaluation report](https://newjordan.github.io/treebeard/)**
+| **[Read the MoE algorithm explainer](https://newjordan.github.io/treebeard/moe-routing.html)**
+| **[Download the model package](https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF)**
+| **[GitHub repository](https://github.com/newjordan/treebeard)**
 
-![Treebeard agent benchmark report](docs/report-preview.png)
+![Treebeard evaluation report](docs/report-preview.png)
 
 ## Install
 
@@ -22,15 +23,15 @@ curl -fsSL https://raw.githubusercontent.com/newjordan/treebeard/main/install.sh
 ```
 
 The text install downloads about 26.7 GB and needs roughly 32 GB of system or
-unified memory. Downloads resume after interruption and every installed file is
-verified by SHA-256. Add the optional 0.9 GB vision projector with:
+unified memory. Downloads resume after interruption, and every installed file
+is verified by SHA-256. Add the optional 0.9 GB vision projector with:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/newjordan/treebeard/main/install.sh | \
   bash -s -- --multimodal
 ```
 
-Then call the local API:
+The installed server exposes an OpenAI-compatible local API:
 
 ```bash
 curl http://127.0.0.1:8093/v1/chat/completions \
@@ -43,7 +44,7 @@ curl http://127.0.0.1:8093/v1/chat/completions \
   }'
 ```
 
-## What works in RC3
+## Validated platforms
 
 | Backend | Platform | Validated hardware | Host requirement |
 | --- | --- | --- | --- |
@@ -51,31 +52,31 @@ curl http://127.0.0.1:8093/v1/chat/completions \
 | Intel SYCL | Linux x86_64 | Intel Arc Pro B70 | oneAPI 2026 and Level Zero |
 | NVIDIA CUDA | Linux ARM64 | NVIDIA GB10 | CUDA 13 runtime, cuBLAS, compatible driver |
 
-The NVIDIA-accelerated package is the ARM64 GB10 path tested for this release.
-NVIDIA x86_64 hosts automatically receive the portable CPU runtime; GPU
-acceleration for that platform is not claimed yet. Hardware outside this table
-is unverified even when it starts.
+The NVIDIA-accelerated package is the ARM64 GB10 path validated for this
+release. NVIDIA x86_64 hosts automatically receive the portable CPU runtime;
+GPU acceleration for that platform is not included in RC3. Hardware outside
+this table is unverified even when it starts successfully.
 
-The model weights themselves are one 26.6 GB GGUF file. Running that file still
-requires architecture-specific software, so Treebeard installs the matching
-runtime beside it rather than marketing a false universal single binary.
+The model weights are one 26.6 GB GGUF file. Running that file still requires
+architecture-specific software, so Treebeard installs the matching runtime
+beside it rather than presenting a universal binary as a platform guarantee.
 
-## Result
+## Evaluation results
 
 Treebeard scored **94/100 (Excellent)** and 130/138 points on a complete
-69-scenario agent and tool-use suite:
+69-scenario tool-use evaluation:
 
 - 63 pass, 4 partial, 2 fail;
-- 69/69 completed with zero request errors;
-- one server slot, one benchmark worker, 262,144-token context;
+- 69/69 scenarios completed with zero request errors;
+- one server slot, one evaluation worker, 262,144-token context;
 - temperature 0, thinking disabled, seed 42;
 - exact score and verdict-vector reproduction on Intel Arc Pro B70 and NVIDIA
   GB10.
 
-The warm dark-mode report links directly to both raw result files. This repository also
-contains the [complete curated evidence index](results/README.md), including
-NVIDIA correctness and performance, Intel serving data, the CPU package smoke,
-guard logs, hashes, and reproduction scripts.
+The [public report](https://newjordan.github.io/treebeard/) includes the
+methodology, exceptions, cross-platform comparison, and machine-readable
+results. The [results index](results/README.md) catalogs the supporting
+performance, correctness, package, and health evidence.
 
 Selected measurements:
 
@@ -95,7 +96,7 @@ treebeard serve       Start the OpenAI-compatible API
 treebeard doctor      Check platform selection and print the launch command
 treebeard verify      Verify installed model, runtime, and launch files
 treebeard status      Query the local health endpoint
-treebeard report      Print the benchmark report URL
+treebeard report      Print the evaluation report URL
 treebeard help
 ```
 
@@ -108,19 +109,19 @@ TREEBEARD_BACKEND=cpu treebeard doctor
 ```
 
 The validated GPU quality profile uses one slot and 262,144 total context
-tokens. The portable CPU default is one slot and 32,768 context tokens. The GPU
-throughput profile uses 12 slots and is not the configuration behind the
-single-slot 94.
+tokens. The portable CPU default is one slot and 32,768 context tokens. The
+GPU throughput profile uses 12 slots and is separate from the single-slot
+evaluation above.
 
 ## Repository map
 
 - `install.sh` - public resumable, verified Linux installer;
 - `package/` - launcher, CLI, profiles, package contract, and benchmark docs;
-- `docs/` - static dark-mode report and directly linked evidence;
-- `results/` - raw agent, CPU, Intel, and NVIDIA results;
+- `docs/` - static evaluation report and MoE routing explainer;
+- `results/` - checksum-pinned performance and evaluation evidence;
 - `source/` - the exact NVIDIA Blackwell CUDA patch used for validation;
 - [Hugging Face model package](https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF)
-  - model, projector, standard Qwen metadata, all runtimes, and full manifests.
+  - model, projector, standard Qwen metadata, runtimes, and manifests.
 
 ## Integrity and provenance
 
@@ -130,16 +131,16 @@ single-slot 94.
 - base model: `Qwen/Qwen3.6-35B-A3B`;
 - GGUF source: `unsloth/Qwen3.6-35B-A3B-GGUF`.
 
-Historical raw evidence retains its original run aliases so its hashes remain
-verifiable. All current product, package, installer, and report surfaces use
-the Treebeard name.
+The published evidence remains checksum-pinned so the reported results can be
+verified independently. Product, package, installer, and report surfaces use
+the Treebeard name consistently.
 
 ## Security and license
 
 The server binds to loopback by default. Do not expose it publicly without an
-authenticated TLS proxy and firewall rules. Agent benchmark tools are
-deterministic mocks; production tools still need authorization, argument
-validation, side-effect confirmation, sandboxing, and audit logs.
+authenticated TLS proxy and firewall rules. The benchmark tool implementations
+are deterministic mocks; production integrations still need authorization,
+argument validation, side-effect confirmation, sandboxing, and audit logs.
 
 Model and tokenizer assets are Apache-2.0. llama.cpp-derived runtimes are MIT.
 See `LICENSE`, `LICENSE-RUNTIME`, and `NOTICE.md`. Treebeard is not an official

@@ -1,8 +1,11 @@
 # How Treebeard routes Qwen3.6 MoE tokens
 
-![Treebeard Qwen3.6 MoE routing flowchart](treebeard-moe-routing.svg)
+[Model package](https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF)
+| [GitHub repository](https://github.com/newjordan/treebeard)
+| [MoE algorithm explainer](https://newjordan.github.io/treebeard/moe-routing.html)
+| [Evaluation report](https://newjordan.github.io/treebeard/)
 
-Suggested figure caption:
+![Treebeard Qwen3.6 MoE routing flowchart](treebeard-moe-routing.svg)
 
 > Qwen3.6 computes a probability distribution over 256 routed experts for each
 > token, selects and renormalizes the top eight, evaluates only those eight
@@ -246,21 +249,19 @@ def qwen36_moe_layer(attention_residual):
 The loop is conceptual. The actual implementation represents the selected
 expert operations as batched tensors and backend-specific `MUL_MAT_ID` kernels.
 
-## Claims to avoid in a writeup
+## Implementation notes
 
-- Do not say the model chooses nine experts. It chooses eight routed experts;
-  the shared expert is a separate always-evaluated branch.
-- Do not say Treebeard changes router scores or expert selection. It changes
+- The router selects eight routed experts; the shared expert is a separate,
+  always-evaluated branch.
+- Treebeard preserves router scores and expert IDs; its optimization changes
   selected-expert execution scheduling.
-- Do not describe 12-column CUDA as top-12 routing. It is top-8 routing across
-  12 concurrent token columns.
-- Do not carry `router_aux_loss_coef` into inference. That is a training-time
-  balancing objective.
-- Do not claim token dropping or a fixed expert capacity. The inference graph
-  routes every token to exactly eight routed experts.
-- Do not equate 8/256 with the whole model's active-parameter fraction. The
-  attention stack, embeddings, output head, and shared expert also contribute
-  to the A3B active footprint.
+- “12-column” CUDA refers to concurrent token columns in the matrix kernel,
+  not to selecting twelve experts.
+- The training-time auxiliary router loss is not part of inference.
+- Inference routes every token to exactly eight routed experts, with no token
+  dropping or fixed capacity limit.
+- The 8/256 routed-expert ratio is not the whole-model active-parameter ratio;
+  attention, embeddings, output head, and the shared branch also contribute.
 
 ## Source map
 
