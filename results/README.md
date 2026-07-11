@@ -8,9 +8,9 @@ MoE algorithm explainer: <https://newjordan.github.io/treebeard/moe-routing.html
 
 This directory contains the checksum-pinned evidence behind the RC3 claims.
 The primary human-readable view is the public dark-mode
-[tool-use evaluation report](https://newjordan.github.io/treebeard/).
+[Agent Bench report](https://newjordan.github.io/treebeard/).
 
-## Tool-use evaluation
+## Agent Bench
 
 - [`agent/single-slot-94/result.json`](agent/single-slot-94/result.json): Intel
   Arc Pro B70 primary 69-scenario result, 94/100;

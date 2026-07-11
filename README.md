@@ -4,12 +4,12 @@ Treebeard is a ready-to-run Linux package for Qwen3.6-35B-A3B. It combines a
 Q5_K_XL GGUF model, platform-specific runtimes, an OpenAI-compatible server,
 and a verified one-command installer.
 
-**[View the 94/100 evaluation report](https://newjordan.github.io/treebeard/)**
+**[View the 94/100 Agent Bench report](https://newjordan.github.io/treebeard/)**
 | **[Read the MoE algorithm explainer](https://newjordan.github.io/treebeard/moe-routing.html)**
 | **[Download the model package](https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF)**
 | **[GitHub repository](https://github.com/newjordan/treebeard)**
 
-![Treebeard evaluation report](docs/report-preview.png)
+![Treebeard Agent Bench report](docs/report-preview.png)
 
 ## Install
 
@@ -61,14 +61,14 @@ The model weights are one 26.6 GB GGUF file. Running that file still requires
 architecture-specific software, so Treebeard installs the matching runtime
 beside it rather than presenting a universal binary as a platform guarantee.
 
-## Evaluation results
+## Agent Bench
 
 Treebeard scored **94/100 (Excellent)** and 130/138 points on a complete
-69-scenario tool-use evaluation:
+69-scenario agent benchmark:
 
 - 63 pass, 4 partial, 2 fail;
 - 69/69 scenarios completed with zero request errors;
-- one server slot, one evaluation worker, 262,144-token context;
+- one server slot, one benchmark worker, 262,144-token context;
 - temperature 0, thinking disabled, seed 42;
 - exact score and verdict-vector reproduction on Intel Arc Pro B70 and NVIDIA
   GB10.
@@ -96,7 +96,7 @@ treebeard serve       Start the OpenAI-compatible API
 treebeard doctor      Check platform selection and print the launch command
 treebeard verify      Verify installed model, runtime, and launch files
 treebeard status      Query the local health endpoint
-treebeard report      Print the evaluation report URL
+treebeard report      Print the agent benchmark URL
 treebeard help
 ```
 
@@ -117,7 +117,7 @@ evaluation above.
 
 - `install.sh` - public resumable, verified Linux installer;
 - `package/` - launcher, CLI, profiles, package contract, and benchmark docs;
-- `docs/` - static evaluation report and MoE routing explainer;
+- `docs/` - static agent benchmark report and MoE routing explainer;
 - `results/` - checksum-pinned performance and evaluation evidence;
 - `source/` - the exact NVIDIA Blackwell CUDA patch used for validation;
 - [Hugging Face model package](https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF)

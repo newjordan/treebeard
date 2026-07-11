@@ -10,14 +10,14 @@ Public report: <https://newjordan.github.io/treebeard/>
 
 Public result bundle: <https://github.com/newjordan/treebeard/tree/main/results>
 
-## Tool-use evaluation
+## Agent Bench
 
 The release quality headline is 94/100 and 130/138 points:
 
 - 69/69 scenarios completed;
 - 63 pass, 4 partial, 2 fail;
 - zero request errors;
-- one server slot and one evaluation worker;
+- one server slot and one benchmark worker;
 - 262,144 total context tokens;
 - temperature 0, thinking disabled, seed 42;
 - tool-eval-bench 2.1.0 at `8b3259b`;
@@ -78,7 +78,7 @@ NVIDIA results were produced on one GB10, compute capability 12.1, with CUDA
 - Q8_0 MoE down latency: 463.06 to 445.20 us median, a 4.01% improvement;
 - native pp4096: 2,422.325 tok/s over five samples;
 - native tg128: 59.614 tok/s over five samples;
-- single-slot tool-use evaluation: 94/100, 130/138, zero request errors;
+- single-slot agent benchmark: 94/100, 130/138, zero request errors;
 - packaged tool call: complete `get_weather({"city":"Chicago"})` call;
 - packaged vision: bundled projector read the report score as `94`;
 - final kernel-health scans: no matching Xid, fault, reset, hang, or OOM.

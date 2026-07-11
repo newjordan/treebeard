@@ -3,7 +3,7 @@
 [Model package](https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF)
 | [GitHub repository](https://github.com/newjordan/treebeard)
 | [MoE algorithm explainer](https://newjordan.github.io/treebeard/moe-routing.html)
-| [Evaluation report](https://newjordan.github.io/treebeard/)
+| [Agent Bench report](https://newjordan.github.io/treebeard/)
 
 ![Treebeard Qwen3.6 MoE routing flowchart](treebeard-moe-routing.svg)
 

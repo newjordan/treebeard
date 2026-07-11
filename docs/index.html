@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#120c08">
-  <meta name="description" content="Treebeard RC3 scored 94/100 on a 69-scenario tool-use evaluation, reproduced on Intel and NVIDIA with zero request errors.">
-  <meta property="og:title" content="Treebeard - 94/100 Tool-Use Evaluation">
+  <meta name="description" content="Treebeard RC3 scored 94/100 on a 69-scenario agent benchmark, reproduced on Intel and NVIDIA with zero request errors.">
+  <meta property="og:title" content="Treebeard Agent Bench - 94/100">
   <meta property="og:description" content="69/69 scenarios, 130/138 points, reproduced on Intel and NVIDIA.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://newjordan.github.io/treebeard/">
   <meta property="og:image" content="https://newjordan.github.io/treebeard/report-preview.png">
   <link rel="canonical" href="https://newjordan.github.io/treebeard/">
-  <title>Treebeard - 94/100 Tool-Use Evaluation</title>
+  <title>Treebeard Agent Bench - 94/100</title>
   <style>
     :root {
       color-scheme: dark;
@@ -559,7 +559,7 @@
         <div class="mark" aria-hidden="true"></div>
         <div>
           <div class="brand-name">Treebeard</div>
-          <div class="brand-sub">RC3 / Model evaluation</div>
+          <div class="brand-sub">RC3 / Agent Bench</div>
         </div>
       </div>
       <div class="top-actions">
@@ -573,12 +573,11 @@
 
     <section class="hero">
       <div>
-        <p class="eyebrow">Qwen3.6-35B-A3B evaluation</p>
-        <h1>94/100 on a reproducible tool-use benchmark.</h1>
+        <p class="eyebrow">Qwen3.6-35B-A3B · Treebeard RC3</p>
+        <h1>94/100 on Agent Bench.</h1>
         <p class="hero-copy">
-          The packaged Treebeard RC3 runtime completed all 69 scenarios with zero
-          request errors. Independent single-slot runs on Intel and NVIDIA
-          reproduced the same score and verdict for every case.
+          69/69 scenarios · 130/138 points · zero request errors.<br>
+          Exact result reproduced on Intel Arc Pro B70 and NVIDIA GB10.
         </p>
         <div class="chips" aria-label="Run configuration">
           <span class="chip">Q5_K_XL</span>
@@ -612,7 +611,7 @@
 
     <section id="overview" class="panel feature">
       <div class="feature-media">
-        <img class="guide-image" src="assets/treebeard-adventurers-guide.png" width="1448" height="1086" loading="lazy" alt="Treebeard evaluation summary showing a 94 out of 100 score and validated Intel and NVIDIA hardware">
+        <img class="guide-image" src="assets/treebeard-adventurers-guide.png" width="1448" height="1086" loading="lazy" alt="Treebeard Agent Bench summary showing a 94 out of 100 score and validated Intel and NVIDIA hardware">
       </div>
       <div class="feature-copy">
         <p class="eyebrow">Treebeard RC3</p>
@@ -688,7 +687,7 @@
     <section>
       <div class="section-head">
         <div>
-          <h2>Evaluation health</h2>
+          <h2>Benchmark health</h2>
           <p class="section-note">Observed scenario timing and benchmark-level deployability and responsiveness indicators.</p>
         </div>
       </div>
@@ -723,14 +722,14 @@
     <section>
       <div class="section-head">
         <div>
-          <h2>Evaluation method</h2>
-          <p class="section-note">The quality score uses one model slot and one evaluation worker. It is separate from saturated 12-slot throughput testing.</p>
+          <h2>Benchmark method</h2>
+          <p class="section-note">The quality score uses one model slot and one benchmark worker. It is separate from saturated 12-slot throughput testing.</p>
         </div>
       </div>
       <div class="panel method">
         <div class="method-grid">
           <div class="method-item"><strong>Serving</strong><span>262,144 total context, one fixed slot, unified KV, F16 KV, flash attention.</span></div>
-          <div class="method-item"><strong>Evaluation</strong><span>69 scenarios, one evaluation worker, 180-second timeout, temperature 0, thinking disabled.</span></div>
+          <div class="method-item"><strong>Benchmark</strong><span>69 agent scenarios, one benchmark worker, 180-second timeout, temperature 0, thinking disabled.</span></div>
           <div class="method-item"><strong>Control</strong><span>Pinned model checksum, pinned runtime, pinned benchmark commit, seed 42.</span></div>
         </div>
         <pre class="command" aria-label="Reproduction commands">llama-server -m Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf -ngl 99 -ncmoe 0 \

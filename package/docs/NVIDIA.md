@@ -53,7 +53,7 @@ cmake --build build --target llama-server llama-bench test-backend-ops -j 12
 | Q8_0 MoE down | 4.01% faster median |
 | pp4096 | 2,422.325 tok/s |
 | tg128 | 59.614 tok/s |
-| Tool-use evaluation, one slot | 94 / 100 |
+| Agent Bench, one slot | 94 / 100 |
 | Request errors | 0 / 69 |
 | Packaged vision answer | `94` |
 
@@ -67,7 +67,7 @@ The CUDA runtime archive SHA-256 is
 It requires system CUDA 13 `libcudart`, cuBLAS, a compatible NVIDIA driver, and
 glibc-compatible Linux ARM64.
 
-The 262,144-token text profile passed the complete tool-use evaluation. The
+The 262,144-token text profile passed the complete agent benchmark. The
 bundled projector was validated at 32,768 tokens and completed with a clean
 kernel-health scan.
 
