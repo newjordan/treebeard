@@ -3,7 +3,7 @@ efc91f319aef7a32c311a4d0f058dd87c92c1b96352fc322966c8ce2ed6fd4eb  ./LEGACY-RUN-I
 61d625200b9fe49fe4b2f0aaaf8baec03a2dcbe46d308a4fcf80f91ad4a91f9d  ./assets/treebeard-adventurers-guide.png
 63ce4fca6d4c51a635619c9e1c69036cc8a255c14d7a382c3758943e71bfcc5b  ./gpu-health/fault-signatures.txt
 b98a11e33314c367dc2b1a7bd4a1ad683241d6eb46d4d70ccb8c84873d390f09  ./guard.log
-48ff943dac858cf2a7ed68f919718a029a437851ab02500d486ecdc76c41812d  ./index.html
+defdba8ff6a729fafafddb30ce679b7a36bacabd62e4f8cb3f066d401dbcf494  ./index.html
 c4a385a570d49ef7a605439867cbbc816d64e7bac1deb47ad0731b0a3feb2373  ./maintenance/restore-props.json
 0833692add8618dcf6ee005b51e67c449d02c54f117ed0708a3861c206893188  ./maintenance/restore-runtime-check.txt
 0953628113d4ddc9446dbc346e13654b01affdaf6ec9b9977649fe63ceb1df16  ./moe-routing.html

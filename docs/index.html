@@ -332,41 +332,6 @@
     .bar > span { display: block; width: var(--score); height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--green), var(--cyan)); box-shadow: 0 0 15px rgba(216,173,82,0.25); }
     .category[data-low="true"] .bar > span { background: linear-gradient(90deg, var(--amber), #dc7652); box-shadow: none; }
 
-    .split {
-      display: grid;
-      grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.88fr);
-      gap: 16px;
-    }
-
-    .table-wrap { overflow-x: auto; }
-
-    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
-    th, td { padding: 15px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
-    th { color: var(--muted); font-size: 0.7rem; font-weight: 720; letter-spacing: 0.08em; text-transform: uppercase; }
-    tr:last-child td { border-bottom: 0; }
-    td:first-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 720; white-space: nowrap; }
-
-    .status {
-      display: inline-flex;
-      padding: 3px 8px;
-      border-radius: 999px;
-      font-size: 0.68rem;
-      font-weight: 750;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .status.partial { background: rgba(242,192,120,0.13); color: var(--amber); }
-    .status.fail { background: rgba(229,111,81,0.13); color: var(--red); }
-
-    .run-card { padding: 22px; }
-    .run-card h3 { margin-bottom: 18px; font-size: 1rem; }
-
-    .kv { display: grid; grid-template-columns: minmax(112px, 0.65fr) minmax(0, 1.35fr); gap: 9px 18px; margin: 0; }
-    .kv dt { color: var(--muted); font-size: 0.78rem; }
-    .kv dd { min-width: 0; margin: 0; overflow-wrap: anywhere; color: #ead8c1; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; }
-
     .reliability {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -521,7 +486,6 @@
       .score-wrap { margin-top: 10px; }
       .metric-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
       .categories { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .split { grid-template-columns: 1fr; }
       .method-grid { grid-template-columns: 1fr; }
       .feature { grid-template-columns: 1fr; }
     }
@@ -546,7 +510,7 @@
       body::before { display: none; }
       .shell { width: 100%; padding: 0; }
       .hero, .panel, .metric, .category, .stat, .method { border-color: #d9dee7; background: #fff; box-shadow: none; color: #111; }
-      .hero-copy, .section-note, .metric-label, .kv dt, .stat span, footer { color: #566171; }
+      .hero-copy, .section-note, .metric-label, .stat span, footer { color: #566171; }
       .score-ring::before { background: #fff; }
       a { color: #075f86; }
     }
@@ -648,39 +612,6 @@
         <div class="category" data-low="true"><div class="category-top"><span class="category-name">M. Autonomous Planning</span><span class="category-score">5/6</span></div><div class="bar"><span style="--score:83%"></span></div></div>
         <div class="category"><div class="category-top"><span class="category-name">N. Creative Composition</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
         <div class="category"><div class="category-top"><span class="category-name">O. Structured Output</span><span class="category-score">12/12</span></div><div class="bar"><span style="--score:100%"></span></div></div>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <div>
-          <h2>Exceptions and limitations</h2>
-          <p class="section-note">Every scenario completed. The six non-passing verdicts are shown here for a complete and transparent result.</p>
-        </div>
-      </div>
-      <div class="split">
-        <div class="panel table-wrap">
-          <table>
-            <thead><tr><th>Case</th><th>Verdict</th><th>Points</th><th>Evaluator summary</th></tr></thead>
-            <tbody>
-              <tr><td>TC-14</td><td><span class="status partial">Partial</span></td><td>1/2</td><td>Handled the malformed response gracefully, but did not surface the fallback stock price.</td></tr>
-              <tr><td>TC-22</td><td><span class="status fail">Fail</span></td><td>0/2</td><td>Did not call the required weather tool for raw JSON output.</td></tr>
-              <tr><td>TC-35</td><td><span class="status partial">Partial</span></td><td>1/2</td><td>Used the calculator for an identity conversion, while recognizing the tautology.</td></tr>
-              <tr><td>TC-46</td><td><span class="status partial">Partial</span></td><td>1/2</td><td>Completed three of four tool phases with good state tracking.</td></tr>
-              <tr><td>TC-48</td><td><span class="status fail">Fail</span></td><td>0/2</td><td>Did not send the requested emails after the follow-up added a CC recipient.</td></tr>
-              <tr><td>TC-51</td><td><span class="status partial">Partial</span></td><td>1/2</td><td>Asked for clarification instead of proactively decomposing the workflow.</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <aside class="panel run-card">
-          <h3>Benchmark provenance</h3>
-          <dl class="kv">
-            <dt>Config</dt><dd>43dd1ef71957</dd>
-            <dt>Engine</dt><dd>b9624-0424f677f</dd>
-            <dt>Suite</dt><dd>tool-eval-bench 2.1.0 / 8b3259b</dd>
-            <dt>Result SHA-256</dt><dd>61bb5f12c4c6f4210d86794b5f1b275efc31ddea0c3af3794cb867e96115fc4e</dd>
-          </dl>
-        </aside>
       </div>
     </section>
 
