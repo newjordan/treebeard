@@ -147,31 +147,6 @@
     .brand-name { font-weight: 760; letter-spacing: -0.02em; }
     .brand-sub { color: var(--muted); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; }
 
-    .verified {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 34px;
-      padding: 7px 12px;
-      border: 1px solid rgba(216, 173, 82, 0.3);
-      border-radius: 999px;
-      background: var(--green-soft);
-      color: #f3d38a;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .verified::before {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 14px var(--green);
-      content: "";
-    }
-
     .hero {
       position: relative;
       display: grid;
@@ -362,21 +337,6 @@
       white-space: pre;
     }
 
-    .callout {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 14px;
-      margin-top: 16px;
-      padding: 17px 18px;
-      border: 1px solid rgba(240,183,99,0.19);
-      border-radius: 14px;
-      background: rgba(240,183,99,0.065);
-      color: #dbc3a8;
-      font-size: 0.84rem;
-    }
-
-    .callout-mark { color: var(--cyan); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 800; }
-
     .feature {
       display: grid;
       grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
@@ -495,7 +455,6 @@
       .topbar { align-items: flex-start; flex-direction: column; }
       .top-actions { justify-content: flex-start; }
       .brand-sub { display: none; }
-      .verified { padding: 6px 9px; font-size: 0.67rem; }
       .hero { padding: 26px 20px; border-radius: 21px; }
       .metric-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .categories { grid-template-columns: 1fr; }
@@ -527,11 +486,9 @@
         </div>
       </div>
       <div class="top-actions">
-        <a class="top-link" href="#overview">Overview</a>
         <a class="top-link" href="moe-routing.html">MoE algorithm</a>
         <a class="top-link" href="https://github.com/newjordan/treebeard">GitHub</a>
         <a class="top-link" href="https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF">Model package</a>
-        <div class="verified">Reproducible results</div>
       </div>
     </header>
 
@@ -578,7 +535,6 @@
         <img class="guide-image" src="assets/treebeard-adventurers-guide.png" width="1448" height="1086" loading="lazy" alt="Treebeard Agent Bench summary showing a 94 out of 100 score and validated Intel and NVIDIA hardware">
       </div>
       <div class="feature-copy">
-        <p class="eyebrow">Treebeard RC3</p>
         <h2>Qwen3.6, ready to run.</h2>
         <p>Download the Linux model package or inspect the source.</p>
         <div class="button-row">
@@ -643,10 +599,6 @@
           <div class="method-item"><strong>NVIDIA GB10</strong><span>94/100, 130/138, 63 pass, 4 partial, 2 fail. CUDA 13.3, engine b9624-0424f677f-cuda12.</span></div>
           <div class="method-item"><strong>Exact agreement</strong><span>Same outcome on TC-01 through TC-69, with zero request errors in both runs.</span></div>
         </div>
-        <div class="callout">
-          <span class="callout-mark">2x</span>
-          <span>The score is now independently reproduced on both packaged backends, not inferred from a native throughput microbenchmark.</span>
-        </div>
       </div>
     </section>
 
@@ -669,10 +621,6 @@
 
 tool-eval-bench --backend llamacpp --no-think --seed 42 \
   --reference-date 2026-03-20 --parallel 1 --timeout 180</pre>
-        <div class="callout">
-          <span class="callout-mark">NOTE</span>
-          <span>Separate 12-slot measurements characterize serving throughput under concurrency; they are not part of this quality score.</span>
-        </div>
       </div>
     </section>
 
