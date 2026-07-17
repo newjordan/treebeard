@@ -4,668 +4,573 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#120c08">
-  <meta name="description" content="Treebeard RC3 scored 94/100 on a 69-scenario agent benchmark, reproduced on Intel and NVIDIA with zero request errors.">
-  <meta property="og:title" content="Treebeard Agent Bench - 94/100">
-  <meta property="og:description" content="69/69 scenarios, 130/138 points, reproduced on Intel and NVIDIA.">
+  <meta name="theme-color" content="#0d0a07">
+  <meta name="description" content="Treebeard is a local agent engine for Linux: a 35B MoE with tree-structured memory, wave search, and receipted branch transactions — 94/100 Agent Bench, reproduced on Intel and NVIDIA.">
+  <meta property="og:title" content="Treebeard — a local agent engine that shows its work">
+  <meta property="og:description" content="35B MoE, 262k context, 12 slots on one GPU. Better answers by tree search, cheaper by shared prefixes, auditable by receipts. 94/100 Agent Bench.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://newjordan.github.io/treebeard/">
   <meta property="og:image" content="https://newjordan.github.io/treebeard/report-preview.png">
   <link rel="canonical" href="https://newjordan.github.io/treebeard/">
-  <title>Treebeard Agent Bench - 94/100</title>
+  <title>Treebeard — a local agent engine that shows its work</title>
   <style>
     :root {
       color-scheme: dark;
-      --bg: #120c08;
-      --panel: rgba(37, 25, 17, 0.9);
-      --panel-solid: #24180f;
-      --panel-soft: #1a110c;
-      --line: rgba(226, 177, 116, 0.18);
-      --line-strong: rgba(226, 177, 116, 0.34);
-      --text: #fff3df;
-      --muted: #c4a68a;
-      --muted-2: #90735c;
-      --green: #d8ad52;
-      --green-soft: rgba(216, 173, 82, 0.14);
-      --cyan: #f0b763;
-      --violet: #d98264;
-      --amber: #f2c078;
-      --red: #e56f51;
-      --radius: 20px;
-      --shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
+      --bg: #0d0a07;
+      --bg-raise: #161009;
+      --panel: rgba(34, 24, 15, 0.72);
+      --panel-solid: #1d150d;
+      --panel-soft: #140e08;
+      --line: rgba(224, 164, 88, 0.16);
+      --line-strong: rgba(224, 164, 88, 0.38);
+      --text: #f5ead3;
+      --muted: #c9ab84;
+      --muted-2: #8d7257;
+      --gold: #e0a458;
+      --gold-soft: rgba(224, 164, 88, 0.13);
+      --moss: #9fb573;
+      --moss-soft: rgba(159, 181, 115, 0.12);
+      --ember: #d98264;
+      --parchment: #f8f1de;
+      --mono: "SFMono-Regular", "JetBrains Mono", Consolas, "Liberation Mono", monospace;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      --radius: 18px;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
       min-width: 320px;
       background:
-        radial-gradient(circle at 12% -8%, rgba(187, 101, 42, 0.22), transparent 32rem),
-        radial-gradient(circle at 88% 2%, rgba(137, 65, 38, 0.2), transparent 30rem),
-        radial-gradient(circle at 50% 110%, rgba(194, 141, 57, 0.12), transparent 34rem),
+        radial-gradient(ellipse 60rem 34rem at 8% -10%, rgba(159, 181, 115, 0.07), transparent 60%),
+        radial-gradient(ellipse 56rem 30rem at 96% -4%, rgba(224, 164, 88, 0.10), transparent 60%),
+        radial-gradient(ellipse 70rem 40rem at 50% 115%, rgba(217, 130, 100, 0.06), transparent 60%),
         var(--bg);
       color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: var(--sans);
       font-size: 16px;
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
     }
 
-    body::before {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      content: "";
-      pointer-events: none;
-      opacity: 0.35;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mask-image: linear-gradient(to bottom, black, transparent 86%);
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    code, .mono { font-family: var(--mono); font-size: 0.92em; }
+
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---------------- nav ---------------- */
+    nav {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: blur(14px);
+      background: rgba(13, 10, 7, 0.82);
+      border-bottom: 1px solid var(--line);
     }
-
-    a { color: var(--cyan); text-decoration: none; }
-    a:hover { text-decoration: underline; text-underline-offset: 3px; }
-
-    .shell {
-      width: min(1180px, calc(100% - 40px));
-      margin: 0 auto;
-      padding: 40px 0 64px;
+    nav .wrap { display: flex; align-items: center; gap: 26px; height: 58px; }
+    .wordmark {
+      font-family: var(--serif); font-size: 21px; font-weight: 600;
+      letter-spacing: 0.4px; color: var(--parchment);
+      display: flex; align-items: center; gap: 9px;
     }
+    .wordmark:hover { text-decoration: none; }
+    .wordmark .leaf { color: var(--moss); font-size: 18px; }
+    nav .links { display: flex; gap: 18px; margin-left: auto; font-size: 13.5px; flex-wrap: wrap; }
+    nav .links a { color: var(--muted); }
+    nav .links a:hover { color: var(--gold); text-decoration: none; }
+    nav .links a.ext { color: var(--gold); }
 
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 28px;
+    /* ---------------- hero ---------------- */
+    header.hero { padding: 92px 0 60px; }
+    .kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12.5px; letter-spacing: 1.6px; text-transform: uppercase;
+      color: var(--moss); border: 1px solid rgba(159, 181, 115, 0.3);
+      background: var(--moss-soft);
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 26px;
     }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .top-link {
-      padding: 8px 13px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--text);
-      font-size: 0.82rem;
-      font-weight: 700;
-      background: rgba(37, 25, 17, 0.72);
-    }
-
-    .top-link:hover {
-      border-color: var(--line-strong);
-      text-decoration: none;
-      background: var(--panel-solid);
-    }
-
-    .brand { display: flex; align-items: center; gap: 13px; }
-
-    .mark {
-      position: relative;
-      display: grid;
-      width: 44px;
-      height: 44px;
-      place-items: center;
-      overflow: hidden;
-      border: 1px solid rgba(216, 173, 82, 0.34);
-      border-radius: 14px;
-      background: linear-gradient(145deg, rgba(216, 173, 82, 0.2), rgba(217, 130, 100, 0.1));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 30px rgba(153, 91, 36, 0.18);
-    }
-
-    .mark::before {
-      width: 5px;
-      height: 24px;
-      border-radius: 5px;
-      background: linear-gradient(var(--green), #8b5e28);
-      content: "";
-      transform: translateY(5px);
-    }
-
-    .mark::after {
-      position: absolute;
-      top: 8px;
-      width: 24px;
-      height: 17px;
-      border-radius: 55% 55% 48% 48%;
-      background: linear-gradient(145deg, #f0c96d, #b8782d);
-      content: "";
-      clip-path: polygon(50% 0, 100% 100%, 50% 78%, 0 100%);
-    }
-
-    .brand-name { font-weight: 760; letter-spacing: -0.02em; }
-    .brand-sub { color: var(--muted); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; }
-
-    .hero {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
-      gap: 28px;
-      overflow: hidden;
-      padding: clamp(28px, 5vw, 56px);
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      background:
-        linear-gradient(125deg, rgba(50, 31, 19, 0.97), rgba(25, 16, 11, 0.93)),
-        var(--panel-solid);
-      box-shadow: var(--shadow);
-    }
-
-    .hero::after {
-      position: absolute;
-      right: -120px;
-      bottom: -190px;
-      width: 430px;
-      height: 430px;
-      border: 1px solid rgba(240, 183, 99, 0.14);
-      border-radius: 50%;
-      box-shadow:
-        0 0 0 42px rgba(240, 183, 99, 0.035),
-        0 0 0 96px rgba(217, 130, 100, 0.03);
-      content: "";
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      margin: 0 0 18px;
-      color: var(--green);
-      font-size: 0.78rem;
-      font-weight: 750;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before { width: 24px; height: 1px; background: currentColor; content: ""; }
-
-    h1, h2, h3, p { margin-top: 0; }
-
     h1 {
-      max-width: 760px;
-      margin-bottom: 16px;
-      font-size: clamp(2.4rem, 5.7vw, 5rem);
-      font-weight: 790;
-      letter-spacing: -0.055em;
-      line-height: 0.98;
+      font-family: var(--serif);
+      font-size: clamp(38px, 5.6vw, 62px);
+      line-height: 1.08; font-weight: 600;
+      margin: 0 0 22px; color: var(--parchment);
+      max-width: 17ch;
+    }
+    h1 em { font-style: normal; color: var(--gold); }
+    .lede { font-size: 18.5px; color: var(--muted); max-width: 62ch; margin: 0 0 34px; }
+    .lede strong { color: var(--text); font-weight: 600; }
+
+    .installbar {
+      display: flex; align-items: stretch; gap: 0;
+      max-width: 720px; margin: 0 0 40px;
+      background: var(--panel-soft); border: 1px solid var(--line-strong);
+      border-radius: 12px; overflow: hidden; box-shadow: var(--shadow);
+    }
+    .installbar code {
+      flex: 1; padding: 15px 18px; font-size: 13.5px; color: var(--parchment);
+      white-space: nowrap; overflow-x: auto; scrollbar-width: none;
+    }
+    .installbar .then {
+      display: flex; align-items: center; padding: 0 16px;
+      color: var(--muted-2); font-size: 13px; border-left: 1px solid var(--line);
+      background: rgba(224, 164, 88, 0.05); white-space: nowrap;
     }
 
-    .hero-copy {
-      max-width: 720px;
-      margin-bottom: 26px;
-      color: #d8c0a6;
-      font-size: clamp(1rem, 1.6vw, 1.14rem);
-    }
-
-    .chips { display: flex; flex-wrap: wrap; gap: 9px; }
-
-    .chip {
-      padding: 7px 11px;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      background: rgba(14, 8, 5, 0.4);
-      color: #e2cbb2;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 0.76rem;
-    }
-
-    .score-wrap { position: relative; z-index: 1; display: grid; align-content: center; justify-items: center; }
-
-    .score-ring {
-      position: relative;
-      display: grid;
-      width: min(230px, 64vw);
-      aspect-ratio: 1;
-      place-items: center;
-      border-radius: 50%;
-      background: conic-gradient(var(--green) 0 94%, rgba(255,255,255,0.08) 94% 100%);
-      filter: drop-shadow(0 16px 34px rgba(174, 112, 39, 0.22));
-    }
-
-    .score-ring::before {
-      position: absolute;
-      inset: 12px;
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: inherit;
-      background: radial-gradient(circle at 45% 25%, #3a2718, #17100b 72%);
-      content: "";
-    }
-
-    .score-value { position: relative; text-align: center; }
-    .score-number { display: block; font-size: 4.9rem; font-weight: 820; letter-spacing: -0.075em; line-height: 0.88; }
-    .score-denom { display: block; margin-top: 10px; color: var(--muted); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; }
-    .rating { margin-top: 17px; color: #f3d38a; font-weight: 720; }
-
-    .metric-grid {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 12px;
-      margin: 16px 0 42px;
-    }
-
-    .metric {
-      min-height: 112px;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: var(--panel);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.025);
-    }
-
-    .metric-value { display: block; margin-bottom: 6px; font-size: 1.6rem; font-weight: 770; letter-spacing: -0.035em; }
-    .metric-label { color: var(--muted); font-size: 0.76rem; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; }
-    .green { color: var(--green); }
-    .amber { color: var(--amber); }
-    .red { color: var(--red); }
-    .cyan { color: var(--cyan); }
-
-    section { margin-top: 42px; }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 24px;
-      margin-bottom: 18px;
-    }
-
-    h2 { margin-bottom: 4px; font-size: clamp(1.55rem, 3vw, 2.1rem); letter-spacing: -0.035em; }
-    .section-note { max-width: 620px; margin-bottom: 0; color: var(--muted); font-size: 0.92rem; }
-
-    .panel {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--panel);
-      box-shadow: 0 18px 50px rgba(0,0,0,0.18);
-    }
-
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1px;
+    .stats {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1px; background: var(--line);
+      border: 1px solid var(--line); border-radius: var(--radius);
       overflow: hidden;
-      background: var(--line);
     }
+    .stat { background: var(--panel-soft); padding: 20px 22px; }
+    .stat .n { font-family: var(--mono); font-size: 24px; color: var(--gold); display: block; }
+    .stat .n small { font-size: 14px; color: var(--muted-2); }
+    .stat .l { font-size: 12.5px; color: var(--muted); letter-spacing: 0.3px; }
 
-    .category { min-width: 0; padding: 19px 20px 17px; background: var(--panel-solid); }
-    .category-top { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
-    .category-name { overflow: hidden; font-size: 0.89rem; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
-    .category-score { color: #ead6bd; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.77rem; }
-
-    .bar { height: 6px; margin-top: 12px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,0.07); }
-    .bar > span { display: block; width: var(--score); height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--green), var(--cyan)); box-shadow: 0 0 15px rgba(216,173,82,0.25); }
-    .category[data-low="true"] .bar > span { background: linear-gradient(90deg, var(--amber), #dc7652); box-shadow: none; }
-
-    .reliability {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
+    /* ---------------- sections ---------------- */
+    section { padding: 64px 0 8px; }
+    .section-head { margin-bottom: 30px; }
+    .section-head .over {
+      font-size: 12px; letter-spacing: 1.8px; text-transform: uppercase;
+      color: var(--muted-2); display: block; margin-bottom: 10px;
     }
-
-    .stat { padding: 21px; }
-    .stat strong { display: block; margin-bottom: 5px; font-size: 1.45rem; letter-spacing: -0.03em; }
-    .stat span { color: var(--muted); font-size: 0.79rem; }
-
-    .method { padding: 24px; }
-    .method-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
-    .method-item { padding: 16px; border: 1px solid var(--line); border-radius: 13px; background: rgba(16,9,5,0.38); }
-    .method-item strong { display: block; margin-bottom: 4px; font-size: 0.84rem; }
-    .method-item span { color: var(--muted); font-size: 0.79rem; }
-
-    .command {
-      margin: 18px 0 0;
-      padding: 17px 18px;
-      overflow-x: auto;
-      border: 1px solid var(--line);
-      border-radius: 13px;
-      background: #130c08;
-      color: #dec5a9;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 0.75rem;
-      line-height: 1.7;
-      white-space: pre;
+    h2 {
+      font-family: var(--serif); font-size: clamp(26px, 3.4vw, 36px);
+      font-weight: 600; margin: 0 0 12px; color: var(--parchment); line-height: 1.2;
     }
+    .section-head p { color: var(--muted); max-width: 68ch; margin: 0; }
 
-    .feature {
-      display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
-      gap: clamp(24px, 4vw, 46px);
-      overflow: hidden;
-      padding: clamp(20px, 4vw, 42px);
-      background:
-        linear-gradient(135deg, rgba(84, 46, 23, 0.33), rgba(27, 18, 12, 0.9)),
-        var(--panel-solid);
+    /* pillars */
+    .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+    .pillar {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 28px 26px;
+      box-shadow: var(--shadow);
+      display: flex; flex-direction: column; gap: 12px;
     }
-
-    .feature-media {
-      align-self: center;
-      overflow: hidden;
-      border: 1px solid var(--line-strong);
-      border-radius: 18px;
-      background: #1a100a;
-      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.34);
+    .pillar .glyph {
+      width: 42px; height: 42px; border-radius: 11px;
+      display: grid; place-items: center; font-size: 20px;
+      background: var(--gold-soft); border: 1px solid var(--line-strong);
+      color: var(--gold);
     }
-
-    .feature-media a { display: block; }
-
-    .guide-image {
-      display: block;
-      width: 100%;
-      height: auto;
-      transition: transform 220ms ease;
+    .pillar h3 { margin: 0; font-size: 19px; color: var(--parchment); font-weight: 600; }
+    .pillar p { margin: 0; color: var(--muted); font-size: 14.5px; }
+    .pillar .evidence {
+      margin-top: auto; padding-top: 14px;
+      border-top: 1px dashed var(--line);
+      font-family: var(--mono); font-size: 12.5px; color: var(--moss);
+      line-height: 1.75;
     }
+    .pillar .evidence b { color: var(--text); font-weight: 600; }
 
-    .feature-media:hover .guide-image { transform: scale(1.012); }
-
-    .feature-copy { align-self: center; }
-    .feature-copy h2 { margin-bottom: 14px; font-size: clamp(2rem, 4vw, 3.15rem); }
-    .feature-copy > p:not(.eyebrow) { color: var(--muted); }
-
-    .button-row { display: flex; flex-wrap: wrap; gap: 10px; }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      padding: 10px 15px;
-      border: 1px solid var(--line-strong);
-      border-radius: 11px;
-      background: var(--panel-soft);
-      color: var(--text);
-      font-size: 0.82rem;
-      font-weight: 750;
+    /* how it works */
+    .how { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+    .howcard {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 26px;
     }
-
-    .button:hover { background: #302016; text-decoration: none; }
-    .button.primary { border-color: rgba(216,173,82,0.45); background: var(--green); color: #1c1209; }
-    .button.primary:hover { background: #e6be65; }
-
-    .routing-card { overflow: hidden; padding: clamp(14px, 3vw, 28px); }
-
-    .chart-frame {
-      display: block;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #120c08;
+    .howcard h3 { margin: 0 0 4px; font-size: 17.5px; color: var(--gold); font-family: var(--mono); font-weight: 600; }
+    .howcard h3 span { color: var(--muted-2); font-weight: 400; }
+    .howcard .sub { font-size: 13px; color: var(--muted-2); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 14px; }
+    .howcard p { color: var(--muted); font-size: 14.5px; margin: 0 0 14px; }
+    .flow {
+      display: flex; flex-wrap: wrap; gap: 7px; align-items: center;
+      font-family: var(--mono); font-size: 12px;
     }
-
-    .chart-frame:hover { border-color: var(--line-strong); }
-
-    .chart-image { display: block; width: 100%; height: auto; }
-
-    .routing-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding-top: 20px;
+    .flow .node {
+      background: var(--panel-soft); border: 1px solid var(--line-strong);
+      color: var(--text); border-radius: 8px; padding: 6px 10px; white-space: nowrap;
     }
+    .flow .node.green { border-color: rgba(159, 181, 115, 0.45); color: var(--moss); }
+    .flow .arrow { color: var(--muted-2); }
+    .howcard .metric { margin-top: 14px; font-family: var(--mono); font-size: 12.5px; color: var(--moss); }
 
-    .routing-footer p { max-width: 650px; margin: 0; color: var(--muted); font-size: 0.84rem; }
-
-    .artifacts { display: flex; flex-wrap: wrap; gap: 10px; }
-    .artifact {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 13px;
-      border: 1px solid var(--line);
-      border-radius: 11px;
-      background: var(--panel-soft);
-      font-size: 0.8rem;
-      font-weight: 650;
+    /* bench */
+    .bench-grid { display: grid; grid-template-columns: 300px 1fr; gap: 26px; align-items: start; }
+    @media (max-width: 860px) { .bench-grid { grid-template-columns: 1fr; } }
+    .score-card {
+      background: linear-gradient(160deg, var(--panel-solid), var(--panel-soft));
+      border: 1px solid var(--line-strong); border-radius: var(--radius);
+      padding: 30px; text-align: center; box-shadow: var(--shadow);
     }
-    .artifact::before { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); content: ""; }
+    .score-card .big {
+      font-family: var(--serif); font-size: 64px; color: var(--gold);
+      line-height: 1; margin: 8px 0 4px;
+    }
+    .score-card .of { color: var(--muted-2); font-size: 14px; }
+    .score-card .verdict {
+      display: inline-block; margin-top: 12px; font-size: 12px;
+      letter-spacing: 1.6px; text-transform: uppercase; color: var(--moss);
+      border: 1px solid rgba(159, 181, 115, 0.4); border-radius: 999px; padding: 5px 14px;
+      background: var(--moss-soft);
+    }
+    .score-card ul { list-style: none; padding: 0; margin: 20px 0 0; text-align: left; font-size: 13.5px; color: var(--muted); }
+    .score-card li { padding: 7px 0; border-top: 1px dashed var(--line); display: flex; justify-content: space-between; gap: 10px; }
+    .score-card li b { color: var(--text); font-family: var(--mono); font-weight: 600; }
+
+    .categories { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 22px; }
+    @media (max-width: 640px) { .categories { grid-template-columns: 1fr; } }
+    .category-top { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+    .category-top .category-score { font-family: var(--mono); color: var(--text); }
+    .bar { height: 6px; background: rgba(224, 164, 88, 0.10); border-radius: 999px; overflow: hidden; }
+    .bar span { display: block; height: 100%; width: var(--score); border-radius: 999px;
+      background: linear-gradient(90deg, #b9823f, var(--gold)); }
+    .category[data-low="true"] .bar span { background: linear-gradient(90deg, #a5663f, var(--ember)); }
+    .bench-note { margin-top: 18px; font-size: 13px; color: var(--muted-2); }
+    .bench-note a { color: var(--muted); text-decoration: underline; }
+
+    /* perf table */
+    table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    th, td { padding: 13px 18px; text-align: left; font-size: 14px; }
+    th { font-size: 12px; text-transform: uppercase; letter-spacing: 1.1px; color: var(--muted-2); border-bottom: 1px solid var(--line-strong); background: rgba(224, 164, 88, 0.05); }
+    td { border-bottom: 1px solid var(--line); color: var(--muted); }
+    td:last-child, th:last-child { text-align: right; font-family: var(--mono); color: var(--text); }
+    tr:last-child td { border-bottom: none; }
+    td b { color: var(--text); font-weight: 600; }
+
+    /* releases */
+    .releases { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+    .release {
+      background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 26px; position: relative;
+    }
+    .release.current { border-color: rgba(159, 181, 115, 0.4); }
+    .release .tag {
+      position: absolute; top: 20px; right: 22px;
+      font-family: var(--mono); font-size: 11.5px; padding: 4px 11px; border-radius: 999px;
+      border: 1px solid var(--line-strong); color: var(--muted);
+    }
+    .release.current .tag { color: var(--moss); border-color: rgba(159, 181, 115, 0.45); background: var(--moss-soft); }
+    .release h3 { margin: 0 0 3px; font-family: var(--mono); font-size: 18px; color: var(--parchment); }
+    .release .date { font-size: 12.5px; color: var(--muted-2); display: block; margin-bottom: 14px; }
+    .release ul { margin: 0; padding-left: 19px; color: var(--muted); font-size: 14px; }
+    .release li { margin-bottom: 7px; }
+    .release li code { color: var(--gold); }
+
+    /* install */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; counter-reset: step; }
+    .step {
+      background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 24px; counter-increment: step; position: relative;
+    }
+    .step::before {
+      content: counter(step, decimal-leading-zero);
+      font-family: var(--mono); font-size: 12px; color: var(--muted-2);
+      display: block; margin-bottom: 12px; letter-spacing: 1px;
+    }
+    .step code.block {
+      display: block; background: var(--panel-soft); border: 1px solid var(--line);
+      border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: var(--parchment);
+      overflow-x: auto; white-space: nowrap; scrollbar-width: none; margin-bottom: 10px;
+    }
+    .step p { margin: 0; font-size: 13.5px; color: var(--muted); }
 
     footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-      margin-top: 48px;
-      padding-top: 22px;
-      border-top: 1px solid var(--line);
-      color: var(--muted-2);
-      font-size: 0.74rem;
+      margin-top: 90px; border-top: 1px solid var(--line);
+      padding: 40px 0 56px; color: var(--muted-2); font-size: 13px;
     }
-
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .score-wrap { margin-top: 10px; }
-      .metric-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
-      .categories { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .method-grid { grid-template-columns: 1fr; }
-      .feature { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 620px) {
-      .shell { width: min(100% - 24px, 1180px); padding-top: 20px; }
-      .topbar { align-items: flex-start; flex-direction: column; }
-      .top-actions { justify-content: flex-start; }
-      .brand-sub { display: none; }
-      .hero { padding: 26px 20px; border-radius: 21px; }
-      .metric-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .categories { grid-template-columns: 1fr; }
-      .reliability { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .section-head { align-items: start; flex-direction: column; gap: 5px; }
-      .routing-footer { align-items: flex-start; flex-direction: column; }
-      footer { flex-direction: column; }
-    }
-
-    @media print {
-      body { background: #fff; color: #111; }
-      body::before { display: none; }
-      .shell { width: 100%; padding: 0; }
-      .hero, .panel, .metric, .category, .stat, .method { border-color: #d9dee7; background: #fff; box-shadow: none; color: #111; }
-      .hero-copy, .section-note, .metric-label, .stat span, footer { color: #566171; }
-      .score-ring::before { background: #fff; }
-      a { color: #075f86; }
-    }
+    footer .cols { display: flex; flex-wrap: wrap; gap: 34px; justify-content: space-between; }
+    footer a { color: var(--muted); }
+    footer .fine { margin-top: 22px; max-width: 74ch; line-height: 1.7; }
   </style>
 </head>
 <body>
-  <main class="shell">
-    <header class="topbar">
-      <div class="brand">
-        <div class="mark" aria-hidden="true"></div>
-        <div>
-          <div class="brand-name">Treebeard</div>
-          <div class="brand-sub">RC3 / Agent Bench</div>
-        </div>
-      </div>
-      <div class="top-actions">
-        <a class="top-link" href="moe-routing.html">MoE algorithm</a>
-        <a class="top-link" href="https://github.com/newjordan/treebeard">GitHub</a>
-        <a class="top-link" href="https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF">Model package</a>
-      </div>
-    </header>
 
-    <section class="hero">
-      <div>
-        <p class="eyebrow">Qwen3.6-35B-A3B · Treebeard RC3</p>
-        <h1>94/100 on Agent Bench.</h1>
-        <p class="hero-copy">
-          69/69 scenarios · 130/138 points · zero request errors.<br>
-          Exact result reproduced on Intel Arc Pro B70 and NVIDIA GB10.
-        </p>
-        <div class="chips" aria-label="Run configuration">
-          <span class="chip">Q5_K_XL</span>
-          <span class="chip">262,144 context</span>
-          <span class="chip">1 server slot</span>
-          <span class="chip">temperature 0</span>
-          <span class="chip">thinking off</span>
-          <span class="chip">seed 42</span>
-          <span class="chip">Intel + NVIDIA</span>
-        </div>
-      </div>
-      <div class="score-wrap">
-        <div class="score-ring" role="img" aria-label="Final score 94 out of 100">
-          <div class="score-value">
-            <span class="score-number">94</span>
-            <span class="score-denom">out of 100</span>
-          </div>
-        </div>
-        <div class="rating">Excellent</div>
-      </div>
-    </section>
-
-    <div class="metric-grid" aria-label="Headline results">
-      <div class="metric"><span class="metric-value">130 / 138</span><span class="metric-label">Points earned</span></div>
-      <div class="metric"><span class="metric-value green">63</span><span class="metric-label">Passed</span></div>
-      <div class="metric"><span class="metric-value amber">4</span><span class="metric-label">Partial</span></div>
-      <div class="metric"><span class="metric-value red">2</span><span class="metric-label">Failed</span></div>
-      <div class="metric"><span class="metric-value cyan">69 / 69</span><span class="metric-label">Completed</span></div>
-      <div class="metric"><span class="metric-value green">0.0%</span><span class="metric-label">Request errors</span></div>
+<nav>
+  <div class="wrap">
+    <a class="wordmark" href="#top"><span class="leaf">❦</span> Treebeard</a>
+    <div class="links">
+      <a href="#why">Why</a>
+      <a href="#how">How it works</a>
+      <a href="#bench">Agent Bench</a>
+      <a href="#performance">Performance</a>
+      <a href="#releases">Releases</a>
+      <a href="#install">Install</a>
+      <a class="ext" href="https://github.com/newjordan/treebeard">GitHub</a>
+      <a class="ext" href="https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF">Hugging&nbsp;Face</a>
     </div>
+  </div>
+</nav>
 
-    <section id="overview" class="panel feature">
-      <div class="feature-media">
-        <img class="guide-image" src="assets/treebeard-adventurers-guide.png" width="1448" height="1086" loading="lazy" alt="Treebeard Agent Bench summary showing a 94 out of 100 score and validated Intel and NVIDIA hardware">
-      </div>
-      <div class="feature-copy">
-        <h2>Qwen3.6, ready to run.</h2>
-        <p>Download the Linux model package or inspect the source.</p>
-        <div class="button-row">
-          <a class="button primary" href="https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF">Download model</a>
-          <a class="button" href="https://github.com/newjordan/treebeard">GitHub</a>
-          <a class="button" href="moe-routing.html">MoE algorithm</a>
-        </div>
-      </div>
-    </section>
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="kicker">Local agent engine · Linux</span>
+    <h1>An agent engine that <em>shows its work</em>.</h1>
+    <p class="lede">
+      Treebeard runs <strong>Qwen3.6-35B-A3B</strong> — a fast mixture-of-experts model —
+      on hardware you own, with a tree-structured memory built for agents:
+      <strong>fork conversations into waves, pick the best branch, and keep a receipt</strong>
+      for every decision. One command installs the model, the runtime, and a
+      94/100-verified OpenAI-compatible server.
+    </p>
+    <div class="installbar">
+      <code>curl -fsSL https://raw.githubusercontent.com/newjordan/treebeard/main/install.sh | bash</code>
+      <span class="then">then <b>&nbsp;treebeard serve</b></span>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="n">94<small>/100</small></span><span class="l">Agent Bench, reproduced on Intel + NVIDIA</span></div>
+      <div class="stat"><span class="n">262,144</span><span class="l">context tokens</span></div>
+      <div class="stat"><span class="n">12</span><span class="l">concurrent agent slots, one GPU</span></div>
+      <div class="stat"><span class="n">194 <small>tok/s</small></span><span class="l">12-slot aggregate on Intel Arc Pro B70</span></div>
+      <div class="stat"><span class="n">3</span><span class="l">validated platforms: B70, GB10, portable CPU</span></div>
+    </div>
+  </div>
+</header>
 
-    <section>
-      <div class="section-head">
-        <div>
-          <h2>Capability profile</h2>
-          <p class="section-note">Ten of fifteen categories scored 100%. Safety and boundaries reached 96% across thirteen scenarios.</p>
+<section id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="over">Why Treebeard</span>
+      <h2>Better answers. Better economics. Better trust.</h2>
+      <p>Every claim below is behind a preregistered gate with saved, checksum-pinned evidence — not a vibe.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="glyph">◈</div>
+        <h3>Better answers, measurably</h3>
+        <p>Wave search forks a conversation into sibling branches and commits the
+           self-consistent winner. Not best-of-N luck — structured search over
+           your own model's candidates.</p>
+        <div class="evidence">
+          <b>93.3% vs 43.3%</b> single-pass, 30 evidence-bound receipts (PCBT-12)<br>
+          <b>9/9 vs 8/9</b> deep-task quality gate, wave vs single decode (TQG)
         </div>
       </div>
-      <div class="panel categories">
-        <div class="category"><div class="category-top"><span class="category-name">A. Tool Selection</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
-        <div class="category"><div class="category-top"><span class="category-name">B. Parameter Precision</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
-        <div class="category"><div class="category-top"><span class="category-name">C. Multi-Step Chains</span><span class="category-score">8/8</span></div><div class="bar"><span style="--score:100%"></span></div></div>
-        <div class="category"><div class="category-top"><span class="category-name">D. Restraint &amp; Refusal</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
-        <div class="category" data-low="true"><div class="category-top"><span class="category-name">E. Error Recovery</span><span class="category-score">5/6</span></div><div class="bar"><span style="--score:83%"></span></div></div>
-        <div class="category"><div class="category-top"><span class="category-name">F. Localization</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
-        <div class="category"><div class="category-top"><span class="category-name">G. Structured Reasoning</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
-        <div class="category" data-low="true"><div class="category-top"><span class="category-name">H. Instruction Following</span><span class="category-score">8/10</span></div><div class="bar"><span style="--score:80%"></span></div></div>
-        <div class="category" data-low="true"><div class="category-top"><span class="category-name">I. Context &amp; State</span><span class="category-score">17/20</span></div><div class="bar"><span style="--score:85%"></span></div></div>
-        <div class="category"><div class="category-top"><span class="category-name">J. Code Patterns</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
-        <div class="category"><div class="category-top"><span class="category-name">K. Safety &amp; Boundaries</span><span class="category-score">25/26</span></div><div class="bar"><span style="--score:96%"></span></div></div>
-        <div class="category"><div class="category-top"><span class="category-name">L. Toolset Scale</span><span class="category-score">8/8</span></div><div class="bar"><span style="--score:100%"></span></div></div>
-        <div class="category" data-low="true"><div class="category-top"><span class="category-name">M. Autonomous Planning</span><span class="category-score">5/6</span></div><div class="bar"><span style="--score:83%"></span></div></div>
-        <div class="category"><div class="category-top"><span class="category-name">N. Creative Composition</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
-        <div class="category"><div class="category-top"><span class="category-name">O. Structured Output</span><span class="category-score">12/12</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+      <div class="pillar">
+        <div class="glyph">⟁</div>
+        <h3>Better economics of “better”</h3>
+        <p>Best-of-N improves answers but costs N×. Treebeard's StateTree lets the
+           branches share their prompt prefix, so search is nearly free —
+           and many agents fit on one card.</p>
+        <div class="evidence">
+          <b>2.9–8.4×</b> cheaper than blind best-of-N, matched tasks (TQG)<br>
+          <b>+59–71%</b> throughput on fragmented multi-branch workloads<br>
+          <b>+17–19%</b> dense throughput at 8–12 agents (golden ABA)
+        </div>
       </div>
-    </section>
+      <div class="pillar">
+        <div class="glyph">✓</div>
+        <h3>Better trust: receipts, not vibes</h3>
+        <p>Every branch, winner-commit, and abort issues a
+           <code>pcbt.receipt.v1</code> receipt with attribution and evidence
+           binding. Deterministic runs reproduce exactly across platforms.</p>
+        <div class="evidence">
+          <b>Exact</b> score + verdict-vector reproduction: Intel B70 ↔ NVIDIA GB10<br>
+          <b>Exact</b> token parity across ragged/state-fused arms, drift ≤ 0.28%
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section>
-      <div class="section-head">
-        <div>
-          <h2>Benchmark health</h2>
-          <p class="section-note">Observed scenario timing and benchmark-level deployability and responsiveness indicators.</p>
+<section id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="over">How it works</span>
+      <h2>A tree, not a treadmill</h2>
+      <p>Agent work is branchy: plans, retries, parallel hypotheses. Treebeard's runtime treats conversation state as a tree instead of a single ever-growing tape.</p>
+    </div>
+    <div class="how">
+      <div class="howcard">
+        <h3>01 <span>/</span> StateTree</h3>
+        <div class="sub">Tree-structured KV memory</div>
+        <p>Sequence-ragged KV attention plus state-I/O fusion: forks share their
+           prefix cells instead of copying them, and branches decode against the
+           shared trunk. Shipped in the RC5–RC8 runtime line.</p>
+        <div class="flow">
+          <span class="node">shared prefix</span><span class="arrow">→</span>
+          <span class="node">fork()</span><span class="arrow">→</span>
+          <span class="node green">branch A</span>
+          <span class="node green">branch B</span>
+          <span class="node green">branch C</span>
         </div>
+        <div class="metric">+58.9% ragged-only · +73.4% ship composition, fragmented shape</div>
       </div>
-      <div class="reliability">
-        <div class="panel stat"><strong>3.21 s</strong><span>Median scenario duration</span></div>
-        <div class="panel stat"><strong>11.14 s</strong><span>P95 scenario duration</span></div>
-        <div class="panel stat"><strong>89</strong><span>Deployability index</span></div>
-        <div class="panel stat"><strong>77</strong><span>Responsiveness index</span></div>
+      <div class="howcard">
+        <h3>02 <span>/</span> Waves</h3>
+        <div class="sub">Search over your own candidates</div>
+        <p>Fan a prompt out into a wave of forked siblings, decode each, score by
+           verifier or self-consistency, commit the winner. The prefix is paid
+           once; the search dividend is measured per gate.</p>
+        <div class="flow">
+          <span class="node">prompt</span><span class="arrow">→</span>
+          <span class="node">wave ×N</span><span class="arrow">→</span>
+          <span class="node">score</span><span class="arrow">→</span>
+          <span class="node green">commit best</span>
+        </div>
+        <div class="metric">93.3% vs 43.3% single-pass (PCBT-12 product benchmark)</div>
       </div>
-    </section>
+      <div class="howcard">
+        <h3>03 <span>/</span> PCBT</h3>
+        <div class="sub">Proof-carrying branch transactions</div>
+        <p>The branch lifecycle is a transaction surface: client-driven
+           attribution, evidence binding, atomic winner commit, abort and
+           expiry — every transition receipted and counted in <code>/metrics</code>.</p>
+        <div class="flow">
+          <span class="node">create</span><span class="arrow">→</span>
+          <span class="node">bind evidence</span><span class="arrow">→</span>
+          <span class="node green">commit</span>
+          <span class="node">/ abort</span><span class="arrow">→</span>
+          <span class="node green">receipt</span>
+        </div>
+        <div class="metric">pcbt.receipt.v1 · live on /transactions since RC8</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section>
-      <div class="section-head">
-        <div>
-          <h2>Cross-backend replication</h2>
-          <p class="section-note">The complete 69-case verdict vector reproduced exactly on two GPU architectures.</p>
-        </div>
+<section id="bench">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="over">Agent Bench</span>
+      <h2>94/100, twice, on two different GPUs</h2>
+      <p>69 deterministic agent scenarios, one server slot, 262,144-token context,
+         temperature 0, seed 42 — reproduced exactly (score and verdict vector) on
+         Intel Arc Pro B70 and NVIDIA GB10.</p>
+    </div>
+    <div class="bench-grid">
+      <div class="score-card">
+        <div class="of">Agent Bench score</div>
+        <div class="big">94</div>
+        <div class="of">out of 100 · 130/138 points</div>
+        <span class="verdict">Excellent</span>
+        <ul>
+          <li><span>Scenarios</span><b>69/69 completed</b></li>
+          <li><span>Outcomes</span><b>63 pass · 4 partial · 2 fail</b></li>
+          <li><span>Request errors</span><b>0</b></li>
+          <li><span>Cross-platform</span><b>exact reproduction</b></li>
+        </ul>
       </div>
-      <div class="panel method">
-        <div class="method-grid">
-          <div class="method-item"><strong>Intel Arc Pro B70</strong><span>94/100, 130/138, 63 pass, 4 partial, 2 fail. Engine b9624-0424f677f.</span></div>
-          <div class="method-item"><strong>NVIDIA GB10</strong><span>94/100, 130/138, 63 pass, 4 partial, 2 fail. CUDA 13.3, engine b9624-0424f677f-cuda12.</span></div>
-          <div class="method-item"><strong>Exact agreement</strong><span>Same outcome on TC-01 through TC-69, with zero request errors in both runs.</span></div>
+      <div>
+        <div class="categories">
+          <div class="category"><div class="category-top"><span>A. Tool Selection</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+          <div class="category"><div class="category-top"><span>B. Parameter Precision</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+          <div class="category"><div class="category-top"><span>C. Multi-Step Chains</span><span class="category-score">8/8</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+          <div class="category"><div class="category-top"><span>D. Restraint &amp; Refusal</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+          <div class="category" data-low="true"><div class="category-top"><span>E. Error Recovery</span><span class="category-score">5/6</span></div><div class="bar"><span style="--score:83%"></span></div></div>
+          <div class="category"><div class="category-top"><span>F. Localization</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+          <div class="category"><div class="category-top"><span>G. Structured Reasoning</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+          <div class="category" data-low="true"><div class="category-top"><span>H. Instruction Following</span><span class="category-score">8/10</span></div><div class="bar"><span style="--score:80%"></span></div></div>
+          <div class="category" data-low="true"><div class="category-top"><span>I. Context &amp; State</span><span class="category-score">17/20</span></div><div class="bar"><span style="--score:85%"></span></div></div>
+          <div class="category"><div class="category-top"><span>J. Code Patterns</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+          <div class="category"><div class="category-top"><span>K. Safety &amp; Boundaries</span><span class="category-score">25/26</span></div><div class="bar"><span style="--score:96%"></span></div></div>
+          <div class="category"><div class="category-top"><span>L. Toolset Scale</span><span class="category-score">8/8</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+          <div class="category" data-low="true"><div class="category-top"><span>M. Autonomous Planning</span><span class="category-score">5/6</span></div><div class="bar"><span style="--score:83%"></span></div></div>
+          <div class="category"><div class="category-top"><span>N. Creative Composition</span><span class="category-score">6/6</span></div><div class="bar"><span style="--score:100%"></span></div></div>
+          <div class="category"><div class="category-top"><span>O. Structured Output</span><span class="category-score">12/12</span></div><div class="bar"><span style="--score:100%"></span></div></div>
         </div>
+        <p class="bench-note">
+          Machine-readable evidence:
+          <a href="result.json">result.json</a> ·
+          <a href="summary.json">summary.json</a> ·
+          <a href="nvidia-result.json">nvidia-result.json</a> ·
+          <a href="nvidia-summary.json">nvidia-summary.json</a> ·
+          <a href="https://github.com/newjordan/treebeard/tree/main/results">full results index</a>
+        </p>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <section>
-      <div class="section-head">
-        <div>
-          <h2>Benchmark method</h2>
-          <p class="section-note">The quality score uses one model slot and one benchmark worker. It is separate from saturated 12-slot throughput testing.</p>
-        </div>
-      </div>
-      <div class="panel method">
-        <div class="method-grid">
-          <div class="method-item"><strong>Serving</strong><span>262,144 total context, one fixed slot, unified KV, F16 KV, flash attention.</span></div>
-          <div class="method-item"><strong>Benchmark</strong><span>69 agent scenarios, one benchmark worker, 180-second timeout, temperature 0, thinking disabled.</span></div>
-          <div class="method-item"><strong>Control</strong><span>Pinned model checksum, pinned runtime, pinned benchmark commit, seed 42.</span></div>
-        </div>
-        <pre class="command" aria-label="Reproduction commands">llama-server -m Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf -ngl 99 -ncmoe 0 \
-  --no-op-offload -c 262144 -np 1 -kvu -fa on -ctk f16 -ctv f16 \
-  -b 8192 -ub 1024 -t 15 --jinja --metrics
+<section id="performance">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="over">Selected measurements</span>
+      <h2>Performance</h2>
+    </div>
+    <table>
+      <tr><th>Measurement</th><th>Platform</th><th>Result</th></tr>
+      <tr><td>Native pp4096</td><td>NVIDIA GB10</td><td>2,422.325 tok/s</td></tr>
+      <tr><td>Native tg128</td><td>NVIDIA GB10</td><td>59.614 tok/s</td></tr>
+      <tr><td>Q8_0 direct 12-column speedup</td><td>NVIDIA Blackwell</td><td>31.49%</td></tr>
+      <tr><td>Q8_0 MoE down speedup</td><td>NVIDIA Blackwell</td><td>4.01%</td></tr>
+      <tr><td>12-slot aggregate serving</td><td>Intel Arc Pro B70</td><td>194.023 tok/s</td></tr>
+      <tr><td>Fragmented multi-branch composition</td><td>Intel Arc Pro B70 (StateTree)</td><td>+73.4%</td></tr>
+      <tr><td>Dense golden 12-agent p50</td><td>Intel Arc Pro B70 (StateTree)</td><td>+19.16%</td></tr>
+      <tr><td>Installed-package chat smoke</td><td>AMD Ryzen 9 5950X (portable CPU)</td><td>9.30 tok/s</td></tr>
+    </table>
+  </div>
+</section>
 
-tool-eval-bench --backend llamacpp --no-think --seed 42 \
-  --reference-date 2026-03-20 --parallel 1 --timeout 180</pre>
+<section id="releases">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="over">Releases</span>
+      <h2>Now and next</h2>
+    </div>
+    <div class="releases">
+      <div class="release current">
+        <span class="tag">current · pkg4</span>
+        <h3>Treebeard 0.1.1</h3>
+        <span class="date">2026-07-17 · runtime 0.1.0-rc.3 (unchanged, validated)</span>
+        <ul>
+          <li><code>TREEBEARD_REASONING=off|bounded|unrestricted</code> — thinking off by default (matches the 94/100 run); bounded budgets of 64 tokens (GPU) / 16 (CPU), overridable per request.</li>
+          <li><code>TREEBEARD_SPECULATION=off|ngram|mtp|hybrid</code> — opt-in drafting with Qwen3.6's native MTP head; not yet claimed as a speedup.</li>
+          <li>Zero runtime risk: same pinned b9624 binaries, same checksums, same evidence.</li>
+        </ul>
       </div>
-    </section>
+      <div class="release">
+        <span class="tag">in validation</span>
+        <h3>Treebeard 0.2.0</h3>
+        <span class="date">upcoming · the StateTree runtime line goes public</span>
+        <ul>
+          <li>StateTree (sequence-ragged KV + state-I/O fusion) and the live PCBT transaction surface, productized from the gated RC5–RC8 line.</li>
+          <li>Wave search reference flows and receipt inspection tooling.</li>
+          <li>Fresh Agent Bench validation on all three platforms: Intel B70, NVIDIA GB10, portable CPU.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section id="moe-routing">
-      <div class="section-head">
-        <div>
-          <h2>How the experts route</h2>
-          <p class="section-note">A source-grounded map of Qwen's top-8 MoE decision and Treebeard's Intel and NVIDIA execution paths.</p>
-        </div>
+<section id="install">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="over">Install</span>
+      <h2>Running in three commands</h2>
+      <p>About 26.7 GB, resumable, every byte SHA-256 verified. Needs roughly 32 GB of system or unified memory. Add <code>--multimodal</code> for the 0.9 GB vision projector.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <code class="block">curl -fsSL https://raw.githubusercontent.com/newjordan/treebeard/main/install.sh | bash</code>
+        <p>Downloads the model and the right runtime for your host — Intel SYCL, NVIDIA CUDA, or portable CPU.</p>
       </div>
-      <div class="panel routing-card">
-        <a class="chart-frame" href="moe-routing.html" aria-label="Open the full Treebeard mixture-of-experts routing explainer">
-          <img class="chart-image" src="writeups/moe-routing/treebeard-moe-routing.svg" width="1800" height="2000" loading="lazy" alt="Flowchart of Qwen mixture-of-experts top-8 routing and Treebeard hardware scheduling">
-        </a>
-        <div class="routing-footer">
-          <p>Qwen chooses eight of 256 routed experts per token and adds one separately gated shared expert. Treebeard preserves that decision, then schedules the selected work for Intel SYCL or NVIDIA CUDA.</p>
-          <div class="button-row">
-            <a class="button primary" href="moe-routing.html">Read the explainer</a>
-            <a class="button" href="writeups/moe-routing/treebeard-moe-routing.png">Open PNG</a>
-            <a class="button" href="writeups/moe-routing/treebeard-moe-routing.svg">Open SVG</a>
-          </div>
-        </div>
+      <div class="step">
+        <code class="block">treebeard doctor</code>
+        <p>Shows the platform selection and the exact launch command before anything starts.</p>
       </div>
-    </section>
+      <div class="step">
+        <code class="block">treebeard serve</code>
+        <p>OpenAI-compatible API on <code>http://127.0.0.1:8093/v1</code> — point your agent framework at it.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section>
-      <div class="section-head">
-        <div>
-          <h2>Supporting evidence</h2>
-          <p class="section-note">Open the machine-readable results and validation summaries behind this report.</p>
-        </div>
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="wordmark" href="#top" style="font-size:17px"><span class="leaf">❦</span> Treebeard</a>
+        <div class="fine">Treebeard is not an official Qwen, Unsloth, NVIDIA, Intel,
+        Hugging Face, or llama.cpp release. Model and tokenizer assets are
+        Apache-2.0; llama.cpp-derived runtimes are MIT. The server binds to
+        loopback by default — do not expose it publicly without an
+        authenticated TLS proxy and firewall rules.</div>
       </div>
-      <div class="artifacts">
-        <a class="artifact" href="result.json">Full result JSON</a>
-        <a class="artifact" href="summary.json">Compact summary JSON</a>
-        <a class="artifact" href="nvidia-result.json">NVIDIA replica JSON</a>
-        <a class="artifact" href="nvidia-summary.json">NVIDIA replica summary</a>
-        <a class="artifact" href="https://github.com/newjordan/treebeard/tree/main/results">Browse all evidence</a>
+      <div>
+        <div style="margin-bottom:10px"><a href="https://github.com/newjordan/treebeard">GitHub repository</a></div>
+        <div style="margin-bottom:10px"><a href="https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF">Hugging Face model package</a></div>
+        <div style="margin-bottom:10px"><a href="moe-routing.html">MoE routing explainer</a></div>
+        <div><a href="https://github.com/newjordan/treebeard/tree/main/results">Evidence index</a></div>
       </div>
-    </section>
+    </div>
+  </div>
+</footer>
 
-    <footer>
-      <span>Treebeard 0.1.0-rc.3 / Qwen3.6 35B A3B / Q5_K_XL</span>
-      <span>Reproduced 2026-07-11 on Intel Arc Pro B70 and NVIDIA GB10</span>
-    </footer>
-  </main>
 </body>
 </html>
