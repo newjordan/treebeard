@@ -22,6 +22,9 @@ Usage:
 Common settings:
   TREEBEARD_BACKEND=auto|cpu|sycl|cuda
   TREEBEARD_PROFILE=quality|throughput|custom
+  TREEBEARD_REASONING=off|bounded|unrestricted
+  TREEBEARD_REASONING_BUDGET=<tokens>  Bounded default: GPU 64, CPU 16
+  TREEBEARD_SPECULATION=off|ngram|mtp|hybrid
   TREEBEARD_CONTEXT=<tokens>
   TREEBEARD_HOST=127.0.0.1
   TREEBEARD_PORT=8093

@@ -94,3 +94,40 @@ correctness where applicable, and a real server/API package smoke test.
 The model supports up to 262,144 context tokens, but actual usable context is
 bounded by available device or system memory. The launcher exposes overrides
 instead of claiming every host can sustain the maximum profile.
+
+## Reasoning and speculative decoding
+
+The validated profiles retain their existing context, slot, batch, and KV
+settings. Reasoning and speculation are independent, explicit controls layered
+on those resource profiles:
+
+| Setting | Behavior |
+| --- | --- |
+| `TREEBEARD_REASONING=off` | Default. Disables thinking in the server template while preserving explicit per-request overrides. |
+| `TREEBEARD_REASONING=bounded` | Enables thinking with a default 64-token GPU or 16-token CPU budget. |
+| `TREEBEARD_REASONING=unrestricted` | Enables thinking without a token budget. |
+| `TREEBEARD_SPECULATION=off` | Default. Leaves the runtime's no-speculation default unchanged. |
+| `TREEBEARD_SPECULATION=ngram` | Conservative `ngram-map-k` prompt-reuse drafting. |
+| `TREEBEARD_SPECULATION=mtp` | Conservative two-token drafting with the model's native MTP head. |
+| `TREEBEARD_SPECULATION=hybrid` | Tries n-gram drafting first, then native MTP. |
+
+Set `TREEBEARD_REASONING_BUDGET` to a positive integer to override the bounded
+default. The off setting is the server default; API clients can still opt an
+individual request into thinking with request-level chat-template and budget
+controls. Qwen3.6's native one-layer MTP head is carried by the GGUF, so `mtp`
+and `hybrid` do not require another model. Additional `llama-server` arguments
+may still be appended after `treebeard serve` for controlled experiments.
+
+On the pinned b9624 runtime, selective OpenAI-compatible thinking must set both
+`chat_template_kwargs.enable_thinking=true` and `thinking_budget_tokens=N` on
+the request while the launcher remains in its default `off` mode. The request's
+`max_tokens` limit includes both thought and answer tokens, and every model
+turn after a tool result starts with a fresh budget. Global bounded reasoning
+works on b9624, but overriding that global budget with a smaller request budget
+requires the newer request-precedence fix. The packaged RC3 binaries also
+predate newer Anthropic thinking-control translations; they require a runtime
+rebuild and are not claimed by this launcher-only change.
+
+The package makes no default speculative speed claim. N-gram hit rate, MTP
+acceptance, verification cost, memory pressure, and reasoning quality are
+workload-dependent and need matched evaluation before deployment.

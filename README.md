@@ -106,12 +106,55 @@ Quality mode is the default. Use environment variables to tune it:
 TREEBEARD_CONTEXT=8192 TREEBEARD_PORT=8080 treebeard serve
 TREEBEARD_PROFILE=throughput treebeard serve
 TREEBEARD_BACKEND=cpu treebeard doctor
+TREEBEARD_REASONING=bounded treebeard serve
+TREEBEARD_SPECULATION=ngram treebeard serve
 ```
 
 The validated GPU quality profile uses one slot and 262,144 total context
 tokens. The portable CPU default is one slot and 32,768 context tokens. The
 GPU throughput profile uses 12 slots and is separate from the single-slot
 evaluation above.
+
+Reasoning is explicitly off by default, matching the validated 94/100 agent
+benchmark. `TREEBEARD_REASONING=bounded` enables a small thinking allowance:
+64 tokens on GPU or 16 on CPU. Override it with a positive integer in
+`TREEBEARD_REASONING_BUDGET`. `TREEBEARD_REASONING=unrestricted` removes the
+budget and can substantially increase latency and generated-token cost. API
+clients can still opt individual requests into thinking with request-level
+chat-template and thinking-budget controls.
+
+For selective thinking on the default-off server, enable and bound the exact
+OpenAI-compatible request:
+
+```bash
+curl -s http://127.0.0.1:8093/v1/chat/completions \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "model": "treebeard",
+    "messages": [{"role": "user", "content": "Check this plan for a subtle race."}],
+    "max_tokens": 256,
+    "chat_template_kwargs": {"enable_thinking": true},
+    "thinking_budget_tokens": 64
+  }'
+```
+
+`max_tokens` covers the reasoning tokens and final answer together. Agentic
+tool loops issue another completion after each tool result, so each model turn
+receives a fresh thinking budget; budget the full loop, not just one request.
+The pinned b9624 runtime honors the selective example because the default-off
+launcher leaves the global budget unrestricted for explicit requests. A
+globally bounded server works, but a smaller per-request override of that
+global budget requires a rebuilt runtime with the newer request-precedence
+fix. Newer Anthropic thinking-control translations likewise are not present in
+the packaged RC3 binaries; the example above is the supported selective path.
+
+Speculative decoding is also opt-in through
+`TREEBEARD_SPECULATION=off|ngram|mtp|hybrid`. The `ngram` mode uses a
+conservative prompt-reuse configuration. `mtp` uses Qwen3.6's native one-layer
+MTP head, and `hybrid` tries n-gram reuse before MTP. These modes use features
+present in the packaged b9624 runtime, but they have not been validated as a
+Treebeard speedup. Acceptance rate, latency, memory use, and quality must be
+measured on the intended workload.
 
 ## Repository map
 

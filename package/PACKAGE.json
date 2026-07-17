@@ -3,7 +3,7 @@
   "name": "Treebeard-Qwen3.6-35B-A3B-GGUF",
   "product": "Treebeard",
   "version": "0.1.0-rc.3",
-  "packaging_revision": "pkg3",
+  "packaging_revision": "pkg4",
   "visibility": "public",
   "created_date": "2026-07-11",
   "publication": {
@@ -101,6 +101,31 @@
     "validated_multimodal": {
       "context_tokens": 32768,
       "server_slots": 1
+    }
+  },
+  "optional_controls": {
+    "reasoning": {
+      "default": "off",
+      "modes": [
+        "off",
+        "bounded",
+        "unrestricted"
+      ],
+      "bounded_budget_tokens": {
+        "gpu": 64,
+        "cpu": 16
+      }
+    },
+    "speculation": {
+      "default": "off",
+      "modes": [
+        "off",
+        "ngram",
+        "mtp",
+        "hybrid"
+      ],
+      "native_mtp_layers": 1,
+      "validated_speedup": false
     }
   },
   "agent_benchmark": {

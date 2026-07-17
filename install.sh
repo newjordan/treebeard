@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 VERSION=0.1.0-rc.3
-REVISION=pkg3
+REVISION=pkg4
 MODEL_REPO=Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF
 ASSET_BASE=${TREEBEARD_ASSET_BASE:-https://huggingface.co/$MODEL_REPO/resolve/main}
 INSTALL_ROOT=${TREEBEARD_INSTALL_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/treebeard/$VERSION-$REVISION}
@@ -17,8 +17,8 @@ MODEL_SHA=25233af7642e3a91bd52cc4aeefdbd4a117479088e06cf1aea5b6bedb443c506
 MMPROJ=mmproj-F16.gguf
 MMPROJ_SIZE=899283680
 MMPROJ_SHA=8971ee4f331ff0a4c609374f32984b3d4e6dc086c0aa35f1d637fad1829e887f
-RUN_SHA=bae9586444cb35f2303f936cd0fffd47a845219e4bebd501a3133d45ffed1831
-CLI_SHA=e372e1c0faba070e61d6412607de6e6149cf0725b1c0a238f96aedbc61d5a3e0
+RUN_SHA=acd5c33ea206ba86814c5c739647a08f80b693332354c7a753a1eac9bade9206
+CLI_SHA=16eb404820fb872f14460a546e79f3cf99c98d2314b40167c105ed08f2f1c132
 
 usage() {
     cat <<'EOF'
@@ -236,8 +236,8 @@ else
     download "$MODEL" "$MODEL_SIZE" "$MODEL_SHA"
 fi
 download "$RUNTIME_PATH" "$RUNTIME_SIZE" "$RUNTIME_SHA"
-download run.sh 11651 "$RUN_SHA"
-download treebeard 2926 "$CLI_SHA"
+download run.sh 14341 "$RUN_SHA"
+download treebeard 3089 "$CLI_SHA"
 
 if [[ "$MULTIMODAL" == 1 ]]; then
     if [[ -n "${TREEBEARD_MMPROJ_FILE:-}" ]]; then

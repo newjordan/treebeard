@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 VERSION=0.1.0-rc.3
-PACKAGING_REVISION=pkg3
+PACKAGING_REVISION=pkg4
 MODEL_NAME=Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf
 MODEL_SHA256=25233af7642e3a91bd52cc4aeefdbd4a117479088e06cf1aea5b6bedb443c506
 MODEL_SIZE=26592508896
@@ -257,6 +257,15 @@ HOST="${TREEBEARD_HOST:-127.0.0.1}"
 PORT="${TREEBEARD_PORT:-8093}"
 MULTIMODAL="${TREEBEARD_MULTIMODAL:-0}"
 DRY_RUN="${TREEBEARD_DRY_RUN:-0}"
+REASONING="${TREEBEARD_REASONING:-off}"
+SPECULATION="${TREEBEARD_SPECULATION:-off}"
+
+if [[ "$BACKEND" == cpu ]]; then
+    DEFAULT_REASONING_BUDGET=16
+else
+    DEFAULT_REASONING_BUDGET=64
+fi
+REASONING_BUDGET="${TREEBEARD_REASONING_BUDGET:-$DEFAULT_REASONING_BUDGET}"
 
 require_positive_integer TREEBEARD_CONTEXT "$CONTEXT"
 require_positive_integer TREEBEARD_PARALLEL "$PARALLEL"
@@ -271,6 +280,25 @@ require_positive_integer TREEBEARD_PORT "$PORT"
 [[ "$DRY_RUN" == 0 || "$DRY_RUN" == 1 ]] || fail "TREEBEARD_DRY_RUN must be 0 or 1"
 [[ "$FLASH_ATTN" == on || "$FLASH_ATTN" == off || "$FLASH_ATTN" == auto ]] ||
     fail "TREEBEARD_FLASH_ATTN must be on, off, or auto"
+
+case "$REASONING" in
+    off|unrestricted)
+        ;;
+    bounded)
+        require_positive_integer TREEBEARD_REASONING_BUDGET "$REASONING_BUDGET"
+        ;;
+    *)
+        fail "TREEBEARD_REASONING must be off, bounded, or unrestricted"
+        ;;
+esac
+
+case "$SPECULATION" in
+    off|ngram|mtp|hybrid)
+        ;;
+    *)
+        fail "TREEBEARD_SPECULATION must be off, ngram, mtp, or hybrid"
+        ;;
+esac
 
 mkdir -p "$CACHE_ROOT"
 chmod 700 "$CACHE_ROOT"
@@ -325,6 +353,63 @@ args+=(
     -a "treebeard-$VERSION-Qwen3.6-35B-A3B-Q5-${BACKEND}-c${CONTEXT}-np${PARALLEL}"
 )
 
+case "$REASONING" in
+    off)
+        # Preserve the validated no-thinking server default. Clients can still
+        # opt individual requests into thinking with request-level controls.
+        args+=(--reasoning off --reasoning-budget -1)
+        REASONING_DETAIL=off
+        ;;
+    bounded)
+        args+=(--reasoning on --reasoning-budget "$REASONING_BUDGET")
+        REASONING_DETAIL="$REASONING_BUDGET"
+        ;;
+    unrestricted)
+        args+=(--reasoning on --reasoning-budget -1)
+        REASONING_DETAIL=unlimited
+        ;;
+esac
+
+case "$SPECULATION" in
+    off)
+        # The pinned runtime already defaults to one NONE sentinel. Do not add
+        # another --spec-type none entry on its append-style parser.
+        ;;
+    ngram)
+        # Short drafts and two required prompt hits are deliberately
+        # conservative; acceptance and speed remain workload-dependent.
+        args+=(
+            --spec-type ngram-map-k
+            --spec-ngram-map-k-size-n 12
+            --spec-ngram-map-k-size-m 16
+            --spec-ngram-map-k-min-hits 2
+        )
+        ;;
+    mtp|hybrid)
+        spec_types=draft-mtp
+        if [[ "$SPECULATION" == hybrid ]]; then
+            spec_types=ngram-map-k,draft-mtp
+            args+=(
+                --spec-ngram-map-k-size-n 12
+                --spec-ngram-map-k-size-m 16
+                --spec-ngram-map-k-min-hits 2
+            )
+        fi
+        # Qwen3.6's native one-layer MTP head is carried by the model GGUF.
+        # Keep the verification batch narrow until a workload proves a larger
+        # draft profitable on its backend and concurrency shape.
+        args+=(
+            --spec-type "$spec_types"
+            --spec-draft-n-max 2
+            --spec-draft-n-min 1
+            --spec-draft-p-min 0.20
+            --spec-draft-mtp-branch-k 1
+            --spec-draft-mtp-tree-width 1
+            --spec-draft-mtp-tree-depth 2
+        )
+        ;;
+esac
+
 if [[ "$BACKEND" == sycl ]]; then
     args+=(--no-op-offload)
 fi
@@ -333,8 +418,9 @@ if [[ "$MULTIMODAL" == 1 ]]; then
 fi
 args+=("$@")
 
-printf 'Treebeard %s %s: backend=%s profile=%s context=%s slots=%s multimodal=%s\n' \
-    "$VERSION" "$PACKAGING_REVISION" "$BACKEND" "$PROFILE" "$CONTEXT" "$PARALLEL" "$MULTIMODAL"
+printf 'Treebeard %s %s: backend=%s profile=%s context=%s slots=%s multimodal=%s reasoning=%s(%s) speculation=%s\n' \
+    "$VERSION" "$PACKAGING_REVISION" "$BACKEND" "$PROFILE" "$CONTEXT" "$PARALLEL" "$MULTIMODAL" \
+    "$REASONING" "$REASONING_DETAIL" "$SPECULATION"
 
 if [[ "$DRY_RUN" == 1 ]]; then
     printf 'Command:'
