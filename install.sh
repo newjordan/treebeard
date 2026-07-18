@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-VERSION=0.1.0-rc.3
-REVISION=pkg4
+VERSION=0.2.0-rc.1
+REVISION=pkg5
 MODEL_REPO=Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF
 ASSET_BASE=${TREEBEARD_ASSET_BASE:-https://huggingface.co/$MODEL_REPO/resolve/main}
 INSTALL_ROOT=${TREEBEARD_INSTALL_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/treebeard/$VERSION-$REVISION}
@@ -17,8 +17,8 @@ MODEL_SHA=25233af7642e3a91bd52cc4aeefdbd4a117479088e06cf1aea5b6bedb443c506
 MMPROJ=mmproj-F16.gguf
 MMPROJ_SIZE=899283680
 MMPROJ_SHA=8971ee4f331ff0a4c609374f32984b3d4e6dc086c0aa35f1d637fad1829e887f
-RUN_SHA=acd5c33ea206ba86814c5c739647a08f80b693332354c7a753a1eac9bade9206
-CLI_SHA=16eb404820fb872f14460a546e79f3cf99c98d2314b40167c105ed08f2f1c132
+RUN_SHA=5fb38ce53cc788d5a19c8ad167ac1b63e66da5f450f8a713c2ca2bad33dde06f
+CLI_SHA=f647171d502f19098b68f4a266e484cab5bf92235d5762ae107457591128eee9
 
 usage() {
     cat <<'EOF'
@@ -138,19 +138,19 @@ select_backend() {
 BACKEND=$(select_backend "$BACKEND")
 case "$BACKEND" in
     cpu)
-        RUNTIME_PATH=runtime/cpu-linux-x86_64/treebeard-0.1.0-rc.3-b9624-pkg3-cpu-ubuntu22.04-linux-x86_64.tar.gz
-        RUNTIME_SIZE=11033535
-        RUNTIME_SHA=51497d7a72cfe8cdf3d66fcbf3ba36f8d5130084cc339cdc49995ec131126732
+        RUNTIME_PATH=runtime/cpu-linux-x86_64/treebeard-0.2.0-rc.1-c7091b65b-pkg1-cpu-ubuntu22.04-linux-x86_64.tar.gz
+        RUNTIME_SIZE=11186288
+        RUNTIME_SHA=e91174c51f547344e35e5569542346fce35052b3dc213cf152abbfd45a777df5
         ;;
     sycl)
-        RUNTIME_PATH=runtime/sycl-linux-x86_64/treebeard-0.1.0-rc.3-b9624-pkg2-sycl-oneapi2026-linux-x86_64.tar.gz
-        RUNTIME_SIZE=21576232
-        RUNTIME_SHA=beec6bd316cc5285481d1545e66b31f984b1eb93e69fe05c7d0b1c5e1bafc756
+        RUNTIME_PATH=runtime/sycl-linux-x86_64/treebeard-0.2.0-rc.1-c7091b65b-pkg1-sycl-oneapi2026-linux-x86_64.tar.gz
+        RUNTIME_SIZE=50310098
+        RUNTIME_SHA=d844ff9a21a60f7f3283d396bf4a83ef092eaf4ffec781a40d830a17e27e3358
         ;;
     cuda)
-        RUNTIME_PATH=runtime/cuda-linux-aarch64/treebeard-0.1.0-rc.3-b9624-pkg2-cuda13.3-linux-aarch64.tar.gz
-        RUNTIME_SIZE=51818280
-        RUNTIME_SHA=0dfadb9ed53c66ab5a23b6731988d833b223af4e51c8f11ad9522a95eb0f04f3
+        RUNTIME_PATH=runtime/cuda-linux-aarch64/treebeard-0.2.0-rc.1-c7091b65b-pkg1-cuda13.3-linux-aarch64.tar.gz
+        RUNTIME_SIZE=49426845
+        RUNTIME_SHA=e7221ed3e1e61d0158fb58d6c9152cd1217d0eecb6ad0779c81f3bc5b1f3fdc0
         ;;
 esac
 

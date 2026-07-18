@@ -118,15 +118,15 @@ controls. Qwen3.6's native one-layer MTP head is carried by the GGUF, so `mtp`
 and `hybrid` do not require another model. Additional `llama-server` arguments
 may still be appended after `treebeard serve` for controlled experiments.
 
-On the pinned b9624 runtime, selective OpenAI-compatible thinking must set both
+On the packaged runtime, selective OpenAI-compatible thinking must set both
 `chat_template_kwargs.enable_thinking=true` and `thinking_budget_tokens=N` on
 the request while the launcher remains in its default `off` mode. The request's
 `max_tokens` limit includes both thought and answer tokens, and every model
 turn after a tool result starts with a fresh budget. Global bounded reasoning
-works on b9624, but overriding that global budget with a smaller request budget
-requires the newer request-precedence fix. The packaged RC3 binaries also
-predate newer Anthropic thinking-control translations; they require a runtime
-rebuild and are not claimed by this launcher-only change.
+works here, but overriding that global budget with a smaller request budget
+requires the newer request-precedence fix. The packaged runtime also
+predates newer Anthropic thinking-control translations; they are not claimed
+for this release.
 
 The package makes no default speculative speed claim. N-gram hit rate, MTP
 acceptance, verification cost, memory pressure, and reasoning quality are

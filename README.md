@@ -82,10 +82,10 @@ Selected measurements:
 
 | Measurement | Result |
 | --- | ---: |
-| NVIDIA GB10 native pp4096 | 2,422.325 tok/s |
-| NVIDIA GB10 native tg128 | 59.614 tok/s |
-| NVIDIA Blackwell Q8_0 direct 12-column speedup | 31.49% |
-| NVIDIA Blackwell Q8_0 MoE down speedup | 4.01% |
+| NVIDIA GB10 native pp4096 | 2,026.9 tok/s |
+| NVIDIA GB10 native tg128 | 52.5 tok/s |
+| NVIDIA Blackwell Q8_0 direct 12-column speedup | 33.0% |
+| NVIDIA Blackwell Q8_0 MoE down speedup | 3.4% |
 | Intel B70 12-slot aggregate serving | 194.023 tok/s |
 | Ryzen 5950X installed-package chat smoke | 9.30 tok/s |
 
@@ -141,18 +141,18 @@ curl -s http://127.0.0.1:8093/v1/chat/completions \
 `max_tokens` covers the reasoning tokens and final answer together. Agentic
 tool loops issue another completion after each tool result, so each model turn
 receives a fresh thinking budget; budget the full loop, not just one request.
-The pinned b9624 runtime honors the selective example because the default-off
+The packaged runtime honors the selective example because the default-off
 launcher leaves the global budget unrestricted for explicit requests. A
 globally bounded server works, but a smaller per-request override of that
 global budget requires a rebuilt runtime with the newer request-precedence
 fix. Newer Anthropic thinking-control translations likewise are not present in
-the packaged RC3 binaries; the example above is the supported selective path.
+the packaged runtime; the example above is the supported selective path.
 
 Speculative decoding is also opt-in through
 `TREEBEARD_SPECULATION=off|ngram|mtp|hybrid`. The `ngram` mode uses a
 conservative prompt-reuse configuration. `mtp` uses Qwen3.6's native one-layer
 MTP head, and `hybrid` tries n-gram reuse before MTP. These modes use features
-present in the packaged b9624 runtime, but they have not been validated as a
+present in the packaged runtime, but they have not been validated as a
 Treebeard speedup. Acceptance rate, latency, memory use, and quality must be
 measured on the intended workload.
 
@@ -168,7 +168,7 @@ measured on the intended workload.
 
 ## Integrity and provenance
 
-- Treebeard integration commit: `6a6dc2def952fe5e9b2da81e638968653b6be3db`;
+- Treebeard integration commit: `c7091b65be49a3208e110b303433992c390a088f`;
 - model SHA-256: `25233af7642e3a91bd52cc4aeefdbd4a117479088e06cf1aea5b6bedb443c506`;
 - NVIDIA patch SHA-256: `c1e0780c96432059ea7a517f6ab2db935f1083da065ed0a9009a00d944c3415f`;
 - base model: `Qwen/Qwen3.6-35B-A3B`;

@@ -336,8 +336,8 @@
            self-consistent winner. Not best-of-N luck — structured search over
            your own model's candidates.</p>
         <div class="evidence">
-          <b>93.3% vs 43.3%</b> single-pass, 30 evidence-bound receipts (PCBT-12)<br>
-          <b>9/9 vs 8/9</b> deep-task quality gate, wave vs single decode (TQG)
+          <b>97.8% vs 53.6/63.6%</b> single-pass, 30 evidence-bound receipts (PCBT-12)<br>
+          <b>0 regret</b> deep-task quality gates — wave never loses to single decode (TQG-5)
         </div>
       </div>
       <div class="pillar">
@@ -402,7 +402,7 @@
           <span class="node">score</span><span class="arrow">→</span>
           <span class="node green">commit best</span>
         </div>
-        <div class="metric">93.3% vs 43.3% single-pass (PCBT-12 product benchmark)</div>
+        <div class="metric">97.8% vs 53.6/63.6% single-pass (PCBT-12 product benchmark)</div>
       </div>
       <div class="howcard">
         <h3>03 <span>/</span> PCBT</h3>
@@ -484,10 +484,10 @@
     </div>
     <table>
       <tr><th>Measurement</th><th>Platform</th><th>Result</th></tr>
-      <tr><td>Native pp4096</td><td>NVIDIA GB10</td><td>2,422.325 tok/s</td></tr>
-      <tr><td>Native tg128</td><td>NVIDIA GB10</td><td>59.614 tok/s</td></tr>
-      <tr><td>Q8_0 direct 12-column speedup</td><td>NVIDIA Blackwell</td><td>31.49%</td></tr>
-      <tr><td>Q8_0 MoE down speedup</td><td>NVIDIA Blackwell</td><td>4.01%</td></tr>
+      <tr><td>Native pp4096</td><td>NVIDIA GB10</td><td>2,026.9 tok/s</td></tr>
+      <tr><td>Native tg128</td><td>NVIDIA GB10</td><td>52.5 tok/s</td></tr>
+      <tr><td>Q8_0 direct 12-column speedup</td><td>NVIDIA Blackwell</td><td>33.0%</td></tr>
+      <tr><td>Q8_0 MoE down speedup</td><td>NVIDIA Blackwell</td><td>3.4%</td></tr>
       <tr><td>12-slot aggregate serving</td><td>Intel Arc Pro B70</td><td>194.023 tok/s</td></tr>
       <tr><td>Fragmented multi-branch composition</td><td>Intel Arc Pro B70 (StateTree)</td><td>+73.4%</td></tr>
       <tr><td>Dense golden 12-agent p50</td><td>Intel Arc Pro B70 (StateTree)</td><td>+19.16%</td></tr>
@@ -504,23 +504,23 @@
     </div>
     <div class="releases">
       <div class="release current">
-        <span class="tag">current · pkg4</span>
-        <h3>Treebeard 0.1.1</h3>
-        <span class="date">2026-07-17 · runtime 0.1.0-rc.3 (unchanged, validated)</span>
+        <span class="tag">current · pkg5</span>
+        <h3>Treebeard 0.2.0</h3>
+        <span class="date">2026-07-18 · runtime 0.2.0-rc.1 · <a href="https://github.com/newjordan/treebeard/releases/tag/v0.2.0">release notes</a></span>
         <ul>
-          <li><code>TREEBEARD_REASONING=off|bounded|unrestricted</code> — thinking off by default (matches the 94/100 run); bounded budgets of 64 tokens (GPU) / 16 (CPU), overridable per request.</li>
-          <li><code>TREEBEARD_SPECULATION=off|ngram|mtp|hybrid</code> — opt-in drafting with Qwen3.6's native MTP head; not yet claimed as a speedup.</li>
-          <li>Zero runtime risk: same pinned b9624 binaries, same checksums, same evidence.</li>
+          <li>The StateTree runtime line goes public: sequence-ragged KV + state-I/O fusion, and the live PCBT transaction surface (<code>pcbt.receipt.v1</code>, <code>/transactions</code>).</li>
+          <li>Agent Bench <b>94/100 revalidated 2026-07-17</b> on Intel B70 and NVIDIA GB10 (exact score + verdict-vector reproduction); portable CPU build with perf parity.</li>
+          <li>PCBT-12 wave benchmark: <b>97.8%</b> vs 53.6/63.6% single-pass; deep-task gates at <b>0 regret</b> under the TQG-5 distinct-variant selector.</li>
+          <li>GB10 token generation at parity with the 0.1 line within host drift (three-point bisect, interleaved re-measurement).</li>
         </ul>
       </div>
       <div class="release">
-        <span class="tag">in validation</span>
-        <h3>Treebeard 0.2.0</h3>
-        <span class="date">upcoming · the StateTree runtime line goes public</span>
+        <span class="tag">previous · pkg4</span>
+        <h3>Treebeard 0.1.1</h3>
+        <span class="date">2026-07-17 · runtime 0.1.0-rc.3 (launcher-only controls)</span>
         <ul>
-          <li>StateTree (sequence-ragged KV + state-I/O fusion) and the live PCBT transaction surface, productized from the gated RC5–RC8 line.</li>
-          <li>Wave search reference flows and receipt inspection tooling.</li>
-          <li>Fresh Agent Bench validation on all three platforms: Intel B70, NVIDIA GB10, portable CPU.</li>
+          <li><code>TREEBEARD_REASONING=off|bounded|unrestricted</code> — thinking off by default (matches the 94/100 run); bounded budgets of 64 tokens (GPU) / 16 (CPU), overridable per request.</li>
+          <li><code>TREEBEARD_SPECULATION=off|ngram|mtp|hybrid</code> — opt-in drafting with Qwen3.6's native MTP head; not yet claimed as a speedup.</li>
         </ul>
       </div>
     </div>

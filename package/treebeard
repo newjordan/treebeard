@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-VERSION=0.1.0-rc.3
+VERSION=0.2.0-rc.1
 ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
 REPORT_URL=https://newjordan.github.io/treebeard/
 MODEL_URL=https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF
@@ -79,7 +79,7 @@ case "$command" in
         printf '%s\n' "$REPORT_URL"
         ;;
     version|--version|-V)
-        printf 'Treebeard %s (pkg3)\n' "$VERSION"
+        printf 'Treebeard %s (pkg5)\n' "$VERSION"
         ;;
     help|--help|-h)
         usage

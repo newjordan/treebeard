@@ -2,10 +2,10 @@
   "schema": "treebeard.model_package.v1",
   "name": "Treebeard-Qwen3.6-35B-A3B-GGUF",
   "product": "Treebeard",
-  "version": "0.1.0-rc.3",
-  "packaging_revision": "pkg4",
+  "version": "0.2.0-rc.1",
+  "packaging_revision": "pkg5",
   "visibility": "public",
-  "created_date": "2026-07-11",
+  "created_date": "2026-07-18",
   "publication": {
     "project": "https://github.com/newjordan/treebeard",
     "report": "https://newjordan.github.io/treebeard/",
@@ -14,7 +14,7 @@
   "installer": {
     "path": "install.sh",
     "platform": "linux",
-    "default_install_root": "~/.local/share/treebeard/0.1.0-rc.3-pkg3",
+    "default_install_root": "~/.local/share/treebeard/0.2.0-rc.1-pkg5",
     "default_command": "~/.local/bin/treebeard",
     "resumable_downloads": true,
     "verified_install": true
@@ -40,21 +40,22 @@
     }
   },
   "source": {
-    "integration_commit": "6a6dc2def952fe5e9b2da81e638968653b6be3db",
-    "gpu_runtime_base_commit": "0424f677fbcba1a001fcc115bb405e40e917de85",
+    "integration_commit": "c7091b65be49a3208e110b303433992c390a088f",
+    "gpu_runtime_base_commit": "c7091b65be49a3208e110b303433992c390a088f",
     "baseline": "3799687213eddbdc1389994f110fac0fa01f3e36",
     "nvidia_patch": "evidence/nvidia/source/treebeard-cuda-blackwell-12col.patch",
-    "nvidia_patch_sha256": "c1e0780c96432059ea7a517f6ab2db935f1083da065ed0a9009a00d944c3415f"
+    "nvidia_patch_sha256": "c1e0780c96432059ea7a517f6ab2db935f1083da065ed0a9009a00d944c3415f",
+    "upstream_merge_base": "ac4cddeb0"
   },
   "runtimes": [
     {
       "backend": "cpu",
       "target": "linux-x86_64",
       "minimum_glibc": "2.35",
-      "build": "b9624-6a6dc2def-cpu",
-      "archive": "runtime/cpu-linux-x86_64/treebeard-0.1.0-rc.3-b9624-pkg3-cpu-ubuntu22.04-linux-x86_64.tar.gz",
-      "size_bytes": 11033535,
-      "sha256": "51497d7a72cfe8cdf3d66fcbf3ba36f8d5130084cc339cdc49995ec131126732",
+      "build": "b9743-c7091b65b-cpu",
+      "archive": "runtime/cpu-linux-x86_64/treebeard-0.2.0-rc.1-c7091b65b-pkg1-cpu-ubuntu22.04-linux-x86_64.tar.gz",
+      "size_bytes": 11186288,
+      "sha256": "e91174c51f547344e35e5569542346fce35052b3dc213cf152abbfd45a777df5",
       "cpu_variants": 14,
       "validated_device": "AMD Ryzen 9 5950X",
       "host_requirement": "Linux x86_64 with glibc 2.35 or newer"
@@ -62,20 +63,20 @@
     {
       "backend": "sycl",
       "target": "linux-x86_64",
-      "build": "b9624-0424f677f",
-      "archive": "runtime/sycl-linux-x86_64/treebeard-0.1.0-rc.3-b9624-pkg2-sycl-oneapi2026-linux-x86_64.tar.gz",
-      "size_bytes": 21576232,
-      "sha256": "beec6bd316cc5285481d1545e66b31f984b1eb93e69fe05c7d0b1c5e1bafc756",
+      "build": "b9743-c7091b65b",
+      "archive": "runtime/sycl-linux-x86_64/treebeard-0.2.0-rc.1-c7091b65b-pkg1-sycl-oneapi2026-linux-x86_64.tar.gz",
+      "size_bytes": 50310098,
+      "sha256": "d844ff9a21a60f7f3283d396bf4a83ef092eaf4ffec781a40d830a17e27e3358",
       "validated_device": "Intel Arc Pro B70 32 GB",
       "host_requirement": "Intel oneAPI 2026 with Level Zero"
     },
     {
       "backend": "cuda",
       "target": "linux-aarch64",
-      "build": "b9624-0424f677f-cuda12",
-      "archive": "runtime/cuda-linux-aarch64/treebeard-0.1.0-rc.3-b9624-pkg2-cuda13.3-linux-aarch64.tar.gz",
-      "size_bytes": 51818280,
-      "sha256": "0dfadb9ed53c66ab5a23b6731988d833b223af4e51c8f11ad9522a95eb0f04f3",
+      "build": "b9743-c7091b65b-cuda13",
+      "archive": "runtime/cuda-linux-aarch64/treebeard-0.2.0-rc.1-c7091b65b-pkg1-cuda13.3-linux-aarch64.tar.gz",
+      "size_bytes": 49426845,
+      "sha256": "e7221ed3e1e61d0158fb58d6c9152cd1217d0eecb6ad0779c81f3bc5b1f3fdc0",
       "validated_device": "NVIDIA GB10 128 GB unified memory",
       "host_requirement": "CUDA 13 runtime and cuBLAS with a compatible NVIDIA driver"
     }
@@ -152,7 +153,8 @@
       "config_fingerprint": "ba9b0d77c0e4",
       "result": "evidence/nvidia/agent-single-slot-94/result.json",
       "result_sha256": "e987f8dc3190b91dc30d3ac61adb497bf24836eeb6ad8296c59525af6c6614e8"
-    }
+    },
+    "revalidated_date": "2026-07-17"
   },
   "cpu_package_smoke": {
     "status": "passed",
@@ -167,13 +169,14 @@
       "mul_mat": "1104/1104",
       "mul_mat_id": "796/796"
     },
-    "q8_0_direct_12col_speedup_percent": 31.49,
-    "q8_0_moe_down_speedup_percent": 4.01,
-    "pp4096_tokens_per_second": 2422.324859,
-    "tg128_tokens_per_second": 59.613725,
+    "q8_0_direct_12col_speedup_percent": 33.0,
+    "q8_0_moe_down_speedup_percent": 3.4,
+    "pp4096_tokens_per_second": 2026.94,
+    "tg128_tokens_per_second": 52.53,
     "packaged_tool_call": true,
     "packaged_vision_answer": "94",
-    "final_gpu_health_gate": "passed"
+    "final_gpu_health_gate": "passed",
+    "tg128_note": "tg at parity with 0.1 line within +/-5% host drift (three-point bisect 2026-07-18)"
   },
   "manifests": {
     "package": "SHA256SUMS",
