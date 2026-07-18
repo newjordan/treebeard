@@ -143,6 +143,13 @@
     }
     .section-head p { color: var(--muted); max-width: 68ch; margin: 0; }
 
+    /* demo */
+    .demo-frame {
+      border: 1px solid var(--line-strong); border-radius: var(--radius);
+      overflow: hidden; box-shadow: var(--shadow); background: var(--panel-soft);
+    }
+    .demo-frame img { display: block; width: 100%; height: auto; }
+
     /* pillars */
     .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
     .pillar {
@@ -320,6 +327,16 @@
     </div>
   </div>
 </header>
+
+<section id="demo">
+  <div class="wrap">
+    <div class="demo-frame">
+      <img src="assets/treebeard-demo-45s.webp"
+           alt="Terminal demo: one-command Treebeard install, treebeard doctor showing 0.2.0-rc.1 pkg5 on Intel Arc Pro B70, treebeard serve starting the local API, and a first chat completion answering from the forest."
+           loading="lazy">
+    </div>
+  </div>
+</section>
 
 <section id="why">
   <div class="wrap">
