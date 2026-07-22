@@ -6,7 +6,7 @@ b98a11e33314c367dc2b1a7bd4a1ad683241d6eb46d4d70ccb8c84873d390f09  ./guard.log
 91c1f50f1be1cf1ec813eb1bb2e392aca06ede870a440f49b99fdbc827640dbd  ./index.html
 c4a385a570d49ef7a605439867cbbc816d64e7bac1deb47ad0731b0a3feb2373  ./maintenance/restore-props.json
 0833692add8618dcf6ee005b51e67c449d02c54f117ed0708a3861c206893188  ./maintenance/restore-runtime-check.txt
-c1576e08694f641ff37e99ac02b611cf8f00c4c1a0eeabea42c999cd9f8a699a  ./moe-routing.html
+ae34adb61e8a073a95bf433b2888834ee5088f43f3dded580080465a32236590  ./moe-routing.html
 e76d2009e521c477928670b06210180bb193199d5cf31d2ce95f9e325d490204  ./nvidia-gpu-health.txt
 49d7c0679ff8065bdd43bd18db98958fc2c965c4febdf52bd8565b4d973ccc8d  ./nvidia-props.json
 e987f8dc3190b91dc30d3ac61adb497bf24836eeb6ad8296c59525af6c6614e8  ./nvidia-result.json

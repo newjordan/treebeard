@@ -175,7 +175,7 @@
     <section class="hero">
       <p class="eyebrow">Treebeard / Qwen3.6-35B-A3B</p>
       <h1>Mixture-of-experts routing, from decision to device.</h1>
-      <p class="lede">Qwen chooses the experts. Treebeard preserves that choice and makes the selected work efficient on Intel SYCL and NVIDIA CUDA. This is the full inference path, separated into model semantics and backend scheduling.</p>
+      <p class="lede">Qwen chooses the experts. Treebeard keeps that choice and schedules the selected work on Intel SYCL and NVIDIA CUDA. Model semantics first, backend scheduling second.</p>
     </section>
 
     <div class="constants" aria-label="Model routing constants">
@@ -190,13 +190,13 @@
       <div class="section-head">
         <div>
           <h2>The complete routing flow</h2>
-          <p class="section-note">The upper stage is Qwen's computation. The lower stage is Treebeard's hardware execution. Keeping that boundary explicit is the key to reading the optimization correctly.</p>
+          <p class="section-note">The upper stage is Qwen's computation. The lower stage is Treebeard's hardware execution. The boundary is what makes the optimization safe: nothing above it changes.</p>
         </div>
       </div>
       <div class="panel chart">
         <img src="writeups/moe-routing/treebeard-moe-routing.svg" width="1200" height="1180" alt="Detailed flowchart of top-8 Qwen mixture-of-experts routing followed by Treebeard Intel SYCL and NVIDIA CUDA scheduling">
         <div class="download-row">
-          <a class="button primary" href="writeups/moe-routing/treebeard-moe-routing.png">Open 1800px PNG</a>
+          <a class="button primary" href="writeups/moe-routing/treebeard-moe-routing.png">Open legacy PNG</a>
           <a class="button" href="writeups/moe-routing/treebeard-moe-routing.svg">Open editable SVG</a>
           <a class="button" href="writeups/moe-routing/MOE-ROUTING.md">Read technical notes</a>
         </div>
@@ -215,8 +215,8 @@
           <h3>Routed branch</h3>
           <ol class="steps">
             <li><b>1</b><span>Project the 2,048-wide token state into <code>256</code> router logits.</span></li>
-            <li><b>2</b><span>Apply softmax across every routed expert to obtain probabilities.</span></li>
-            <li><b>3</b><span>Select the eight highest-probability expert IDs with <code>TopK</code>.</span></li>
+            <li><b>2</b><span>Apply softmax across every routed expert to get probabilities.</span></li>
+            <li><b>3</b><span>Take the eight highest-probability expert IDs with <code>TopK</code>.</span></li>
             <li><b>4</b><span>Renormalize those eight weights so the selected weights sum to one.</span></li>
             <li><b>5</b><span>Run only the selected experts' 2,048 → 512 → 2,048 SwiGLU MLPs.</span></li>
             <li><b>6</b><span>Weight and sum the eight expert outputs into <code>y_routed</code>.</span></li>
@@ -225,8 +225,8 @@
         <article class="panel explain">
           <h3>Shared branch</h3>
           <ol class="steps">
-            <li><b>1</b><span>Compute one independent sigmoid gate from the same normalized token state.</span></li>
-            <li><b>2</b><span>Always evaluate the single shared SwiGLU expert; it does not compete in top-8 selection.</span></li>
+            <li><b>1</b><span>Compute one sigmoid gate from the same normalized token state.</span></li>
+            <li><b>2</b><span>Always run the single shared SwiGLU expert. It sits outside the top-8 race.</span></li>
             <li><b>3</b><span>Scale that output with the sigmoid gate to produce <code>y_shared</code>.</span></li>
             <li><b>4</b><span>Add <code>y_routed + y_shared</code>, then add the FFN residual for the next block state.</span></li>
           </ol>
@@ -238,7 +238,7 @@
       <div class="section-head">
         <div>
           <h2>What Treebeard optimizes</h2>
-          <p class="section-note">The selected IDs and weights are already fixed when the backend receives the operation. Treebeard optimizes how those token/expert pairs reach the matrix kernels.</p>
+          <p class="section-note">The selected IDs and weights are fixed by the time the backend receives the operation. Treebeard optimizes how those token/expert pairs reach the matrix kernels.</p>
         </div>
       </div>
       <div class="backend-grid">
@@ -257,11 +257,11 @@
 
     <section class="panel invariant">
       <strong>The invariant</strong>
-      <p>Exactly eight routed experts plus one shared branch are evaluated per token. Treebeard does not rescore, replace, drop, or increase the selected experts; it changes execution scheduling after Qwen has made the routing decision.</p>
+      <p>Every token runs exactly eight routed experts plus one shared branch. Treebeard never rescores, replaces, drops, or adds experts. It reschedules execution after Qwen has made the routing decision.</p>
     </section>
 
     <footer>
-      <span>Treebeard 0.1.0-rc.3 / source-grounded inference flow</span>
+      <span>Treebeard 0.2.0 / source-grounded inference flow</span>
       <span>Intel SYCL + NVIDIA CUDA</span>
     </footer>
   </main>
