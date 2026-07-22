@@ -1,197 +1,195 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="2000" viewBox="0 0 1800 2000" role="img" aria-labelledby="title desc">
-  <title id="title">Treebeard Qwen3.6 mixture-of-experts routing flow</title>
-  <desc id="desc">A two-stage flowchart. First, Qwen computes softmax scores over 256 routed experts, selects and renormalizes the top eight, executes their SwiGLU networks, and adds a separately gated shared expert. Second, Treebeard schedules the selected token and expert pairs efficiently on Intel SYCL or NVIDIA CUDA without changing the routing decision.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1180" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif">
   <defs>
-    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#120c08"/>
-      <stop offset="0.52" stop-color="#19100b"/>
-      <stop offset="1" stop-color="#100a07"/>
+    <linearGradient id="tok" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b1c11"/><stop offset="1" stop-color="#231610"/>
     </linearGradient>
-    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#f0b763" stop-opacity="0.2"/>
-      <stop offset="0.55" stop-color="#d8ad52" stop-opacity="0.12"/>
-      <stop offset="1" stop-color="#d98264" stop-opacity="0.2"/>
+    <linearGradient id="hot" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e0905a"/><stop offset="1" stop-color="#d98264"/>
     </linearGradient>
-    <linearGradient id="routedFill" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#392416"/>
-      <stop offset="1" stop-color="#1f150e"/>
+    <linearGradient id="out" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b2415"/><stop offset="1" stop-color="#221b12"/>
     </linearGradient>
-    <linearGradient id="sharedFill" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#3b2018"/>
-      <stop offset="1" stop-color="#1c120f"/>
-    </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="14" stdDeviation="20" flood-color="#000000" flood-opacity="0.34"/>
-    </filter>
-    <marker id="arrowCyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f0b763"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c4a68a"/>
     </marker>
-    <marker id="arrowViolet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d98264"/>
+    <marker id="arrGold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f0b763"/>
     </marker>
-    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d8ad52"/>
+    <marker id="arrEmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e0905a"/>
     </marker>
     <style>
-      .title { font: 800 52px Inter, ui-sans-serif, system-ui, sans-serif; fill: #fff3df; letter-spacing: -1px; }
-      .subtitle { font: 500 22px Inter, ui-sans-serif, system-ui, sans-serif; fill: #c4a68a; }
-      .eyebrow { font: 800 15px Inter, ui-sans-serif, system-ui, sans-serif; fill: #f0b763; letter-spacing: 2.6px; }
-      .section-title { font: 800 25px Inter, ui-sans-serif, system-ui, sans-serif; fill: #fff3df; }
-      .section-note { font: 500 16px Inter, ui-sans-serif, system-ui, sans-serif; fill: #aa8b70; }
-      .card-title { font: 800 21px Inter, ui-sans-serif, system-ui, sans-serif; fill: #fff3df; }
-      .node-title { font: 750 18px Inter, ui-sans-serif, system-ui, sans-serif; fill: #fff3df; }
-      .body { font: 500 16px Inter, ui-sans-serif, system-ui, sans-serif; fill: #d4b89b; }
-      .small { font: 500 14px Inter, ui-sans-serif, system-ui, sans-serif; fill: #aa8d73; }
-      .mono { font: 600 16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #f3ddbd; }
-      .mono-small { font: 600 14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #ead2b5; }
-      .pill { font: 700 14px Inter, ui-sans-serif, system-ui, sans-serif; fill: #f3ddbd; }
-      .cyan { fill: #f0b763; }
-      .violet { fill: #e69a7d; }
-      .green { fill: #d8ad52; }
-      .amber { fill: #f2c078; }
-      .line-cyan { fill: none; stroke: #f0b763; stroke-width: 3; marker-end: url(#arrowCyan); }
-      .line-violet { fill: none; stroke: #d98264; stroke-width: 3; marker-end: url(#arrowViolet); }
-      .line-green { fill: none; stroke: #d8ad52; stroke-width: 3; marker-end: url(#arrowGreen); }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      .h    { fill:#f0b763; font-size:12px; font-weight:800; letter-spacing:.16em; }
+      .t    { fill:#fff3df; font-size:14px; font-weight:600; }
+      .s    { fill:#c4a68a; font-size:11.5px; }
+      .m    { fill:#fff3df; font-size:13px; font-weight:600; }
+      .lane { fill:rgba(240,183,99,.03); stroke:rgba(226,177,116,.2); stroke-width:1; rx:18; }
+      .box  { fill:url(#tok); stroke:rgba(226,177,116,.32); stroke-width:1.2; rx:12; }
+      .stage{ fill:#1c1209; stroke:rgba(240,183,99,.28); stroke-width:1.2; rx:10; }
+      .wire { stroke:#c4a68a; stroke-width:1.4; fill:none; marker-end:url(#arr); }
+      .wireG{ stroke:#f0b763; stroke-width:1.6; fill:none; marker-end:url(#arrGold); }
+      .wireE{ stroke:#e0905a; stroke-width:1.6; fill:none; marker-end:url(#arrEmber); }
     </style>
   </defs>
 
-  <rect width="1800" height="2000" fill="url(#background)"/>
-  <circle cx="120" cy="90" r="350" fill="#d17a32" opacity="0.09"/>
-  <circle cx="1710" cy="120" r="390" fill="#a84f35" opacity="0.1"/>
-  <circle cx="900" cy="1980" r="500" fill="#c78e38" opacity="0.07"/>
+  <!-- background -->
+  <rect width="1200" height="1180" fill="#120c08"/>
+  <rect width="1200" height="1180" fill="none" stroke="none"/>
 
-  <text x="80" y="72" class="eyebrow">TREEBEARD / QWEN3.6-35B-A3B</text>
-  <text x="80" y="135" class="title">Mixture-of-Experts routing flow</text>
-  <text x="80" y="178" class="subtitle">Model semantics first. Hardware scheduling second. Treebeard changes the second, not the first.</text>
+  <!-- title -->
+  <text class="mono h" x="40" y="52">TREEBEARD / INTERNAL ROUTING</text>
+  <text x="40" y="90" fill="#fff3df" font-size="30" font-weight="800" letter-spacing="-.02em">Top-8 of 256 experts — and how Treebeard reschedules it</text>
+  <text class="s" x="40" y="116">Qwen3.6-35B-A3B · per token · ×40 decoder layers · semantics preserved bit-identical, scheduling changed</text>
 
-  <g transform="translate(1220 64)">
-    <rect x="0" y="0" width="116" height="38" rx="19" fill="#3a2516" stroke="#f0b763" stroke-opacity="0.42"/>
-    <text x="58" y="25" text-anchor="middle" class="pill">256 experts</text>
-    <rect x="128" y="0" width="86" height="38" rx="19" fill="#302615" stroke="#d8ad52" stroke-opacity="0.42"/>
-    <text x="171" y="25" text-anchor="middle" class="pill">top 8</text>
-    <rect x="226" y="0" width="126" height="38" rx="19" fill="#3a2019" stroke="#d98264" stroke-opacity="0.42"/>
-    <text x="289" y="25" text-anchor="middle" class="pill">1 shared</text>
-    <rect x="364" y="0" width="112" height="38" rx="19" fill="#3b2b17" stroke="#f2c078" stroke-opacity="0.42"/>
-    <text x="420" y="25" text-anchor="middle" class="pill">40 layers</text>
+  <!-- LANE 1: model semantics -->
+  <rect class="lane" x="24" y="140" width="1152" height="620"/>
+  <text class="mono h" x="46" y="174">1 · MODEL SEMANTICS — QWEN CHOOSES</text>
+
+  <!-- token state box -->
+  <rect class="box" x="46" y="192" width="270" height="72"/>
+  <text class="t mono" x="62" y="222">x_t  ∈  R^2048</text>
+  <text class="s" x="62" y="246">normalized hidden state</text>
+
+  <!-- shared expert box (right) -->
+  <rect class="box" x="884" y="192" width="270" height="72"/>
+  <text class="t" x="900" y="216">Shared expert — always on</text>
+  <text class="s" x="900" y="238">sigmoid gate σ(w_s^T x_t)</text>
+  <text class="s" x="900" y="256">does not compete in top-8</text>
+
+  <!-- router stages -->
+  <rect class="stage" x="40" y="304" width="262" height="66"/>
+  <text class="m mono" x="56" y="332">z = W_r^T x_t  ∈  R^256</text>
+  <text class="s" x="56" y="354">router projection</text>
+
+  <rect class="stage" x="334" y="304" width="252" height="66"/>
+  <text class="m mono" x="350" y="332">p = softmax(z)</text>
+  <text class="s" x="350" y="354">probabilities over 256</text>
+
+  <rect class="stage" x="618" y="304" width="256" height="66"/>
+  <text class="m mono" x="634" y="332">TopK(p, 8)</text>
+  <text class="s" x="634" y="354">ids + probabilities</text>
+
+  <rect class="stage" x="906" y="304" width="254" height="66"/>
+  <text class="m mono" x="922" y="332">α_i = p_i / Σ_I p</text>
+  <text class="s" x="922" y="354">renormalize the 8</text>
+
+  <!-- wires between router stages -->
+  <path class="wire" d="M302,337 H334"/>
+  <path class="wire" d="M586,337 H618"/>
+  <path class="wire" d="M874,337 H906"/>
+
+  <!-- wires from x_t to router + shared -->
+  <path class="wire" d="M181,264 V337 H302" marker-end="none"/>
+  <path class="wire" d="M181,264 V337" />
+  <path class="wire" d="M250,228 H884"/>
+
+  <!-- simplification callout -->
+  <rect x="334" y="392" width="540" height="42" fill="rgba(216,173,82,.07)" stroke="rgba(216,173,82,.3)" stroke-dasharray="4 3"/>
+  <text class="s" x="350" y="418" fill="#d8ad52">softmax is monotone ⇒ top-8 of p = top-8 of z; the global softmax denominator cancels in α</text>
+
+  <!-- expert bank -->
+  <g>
+    <!-- dim tiles row 1 -->
+    <g fill="#241a12" stroke="rgba(226,177,116,.18)">
+      <rect x="44"  y="456" width="46" height="30"/><rect x="98"  y="456" width="46" height="30"/><rect x="152" y="456" width="46" height="30"/>
+      <rect x="260" y="456" width="46" height="30"/><rect x="314" y="456" width="46" height="30"/><rect x="368" y="456" width="46" height="30"/>
+      <rect x="476" y="456" width="46" height="30"/><rect x="530" y="456" width="46" height="30"/><rect x="584" y="456" width="46" height="30"/>
+      <rect x="692" y="456" width="46" height="30"/><rect x="746" y="456" width="46" height="30"/><rect x="800" y="456" width="46" height="30"/>
+      <rect x="908" y="456" width="46" height="30"/><rect x="962" y="456" width="46" height="30"/><rect x="1016" y="456" width="46" height="30"/>
+      <rect x="1124" y="456" width="30" height="30"/>
+    </g>
+    <!-- dim tiles row 2 -->
+    <g fill="#241a12" stroke="rgba(226,177,116,.18)">
+      <rect x="44"  y="492" width="46" height="30"/><rect x="98"  y="492" width="46" height="30"/><rect x="152" y="492" width="46" height="30"/>
+      <rect x="260" y="492" width="46" height="30"/><rect x="314" y="492" width="46" height="30"/><rect x="368" y="492" width="46" height="30"/>
+      <rect x="476" y="492" width="46" height="30"/><rect x="530" y="492" width="46" height="30"/><rect x="584" y="492" width="46" height="30"/>
+      <rect x="692" y="492" width="46" height="30"/><rect x="746" y="492" width="46" height="30"/><rect x="800" y="492" width="46" height="30"/>
+      <rect x="908" y="492" width="46" height="30"/><rect x="962" y="492" width="46" height="30"/><rect x="1016" y="492" width="46" height="30"/>
+    </g>
+    <!-- hot selected tiles -->
+    <g fill="url(#hot)" stroke="#f0c9a8" stroke-width="1">
+      <rect x="206" y="456" width="46" height="30"/><rect x="422" y="456" width="46" height="30"/><rect x="638" y="456" width="46" height="30"/><rect x="854" y="456" width="46" height="30"/>
+      <rect x="152" y="492" width="46" height="30"/><rect x="368" y="492" width="46" height="30"/><rect x="692" y="492" width="46" height="30"/><rect x="1070" y="492" width="46" height="30"/>
+    </g>
+    <!-- weight labels on hot tiles -->
+    <g class="mono" font-size="10" fill="#1c1209" font-weight="700" text-anchor="middle">
+      <text x="229" y="475">.18</text><text x="445" y="475">.15</text><text x="661" y="475">.14</text><text x="877" y="475">.12</text>
+      <text x="175" y="511">.11</text><text x="391" y="511">.10</text><text x="715" y="511">.08</text><text x="1093" y="511">.07</text>
+    </g>
+    <text class="s" x="44" y="446">bank of 256 routed experts — 8 selected per token (3.125% active)</text>
+    <!-- SwiGLU caption -->
+    <text class="s mono" x="44" y="544">each expert: SwiGLU MLP 2048 → 512 → 2048 · only the 8 selected experts run · weighted sum y_routed = Σ α_i e_i(x_t)</text>
   </g>
 
-  <rect x="70" y="225" width="1660" height="1245" rx="30" fill="#1a110c" stroke="#d5ad82" stroke-opacity="0.18" filter="url(#shadow)"/>
-  <rect x="70" y="225" width="1660" height="72" rx="30" fill="url(#hero)"/>
-  <text x="110" y="271" class="section-title">1. Qwen routing semantics - repeated in every decoder block</text>
+  <!-- wires: TopK/renorm down to bank -->
+  <path class="wireE" d="M746,370 V392 H229 V456"/>
+  <path class="wireE" d="M1033,370 V392 H877 V456"/>
+  <path class="wireE" d="M661,370 V456"/>
+  <path class="wireE" d="M391,414 V492"/>
+  <path class="wireE" d="M715,414 V492"/>
 
-  <rect x="550" y="330" width="700" height="100" rx="18" fill="#2a1c13" stroke="#d5ad82" stroke-opacity="0.28"/>
-  <text x="900" y="369" text-anchor="middle" class="node-title">Post-attention residual and normalization</text>
-  <text x="900" y="401" text-anchor="middle" class="mono">r[t]  -&gt;  x = RMSNorm(r[t])  in R^2048</text>
+  <!-- merge + output -->
+  <rect class="box" x="46" y="592" width="390" height="58" style="fill:url(#out); stroke:rgba(216,173,82,.4)"/>
+  <text class="t mono" x="62" y="618">y = y_routed + σ(w_s^T x_t) · y_shared</text>
+  <text class="s" x="62" y="638">merge branches</text>
 
-  <path d="M 900 430 L 900 458 L 575 458 L 575 482" class="line-cyan"/>
-  <path d="M 900 430 L 900 458 L 1430 458 L 1430 482" class="line-violet"/>
+  <rect class="box" x="486" y="592" width="300" height="58" style="fill:url(#out); stroke:rgba(216,173,82,.4)"/>
+  <text class="t mono" x="502" y="618">+ FFN residual</text>
+  <text class="s" x="502" y="638">next block state → next layer</text>
 
-  <rect x="110" y="480" width="980" height="700" rx="24" fill="url(#routedFill)" stroke="#f0b763" stroke-opacity="0.34"/>
-  <text x="150" y="526" class="card-title cyan">ROUTED BRANCH</text>
-  <text x="1045" y="526" text-anchor="end" class="small">8 of 256 experts per token</text>
+  <path class="wireG" d="M436,621 H486"/>
+  <path class="wireG" d="M600,522 V560 H330 V592"/>
+  <path class="wireG" d="M1019,264 V560 H390 V592" style="stroke:#c4a68a; stroke-width:1.3; fill:none" marker-end="url(#arr)"/>
 
-  <rect x="150" y="555" width="405" height="108" rx="16" fill="#26180f" stroke="#f0b763" stroke-opacity="0.32"/>
-  <text x="176" y="587" class="node-title">Router projection</text>
-  <text x="176" y="616" class="mono">z = W_router^T x</text>
-  <text x="176" y="642" class="small">2048 -&gt; 256 logits; no expert groups</text>
+  <!-- invariant pill -->
+  <rect x="826" y="592" width="328" height="58" fill="rgba(217,130,100,.07)" stroke="rgba(217,130,100,.35)" stroke-dasharray="4 3" rx="10"/>
+  <text class="s" x="842" y="616" fill="#e69a7d">no grouping · no selection bias · no capacity limit</text>
+  <text class="s" x="842" y="636" fill="#e69a7d">· no token dropping</text>
 
-  <path d="M 555 609 L 626 609" class="line-cyan"/>
+  <!-- LANE 2: treebeard scheduling -->
+  <rect class="lane" x="24" y="790" width="1152" height="330" style="stroke:rgba(217,130,100,.28)"/>
+  <text class="mono h" x="46" y="824" fill="#e69a7d">2 · TREEBEARD SCHEDULING — AFTER THE DECISION</text>
+  <text class="s" x="46" y="846">inputs are already fixed: expert ids [T,8] + weights [T,8]. None of the math above is re-derived.</text>
 
-  <rect x="630" y="555" width="420" height="108" rx="16" fill="#26180f" stroke="#f0b763" stroke-opacity="0.32"/>
-  <text x="656" y="587" class="node-title">Probability distribution</text>
-  <text x="656" y="616" class="mono">p = softmax(z)</text>
-  <text x="656" y="642" class="small">Softmax spans all 256 routed experts</text>
+  <rect class="stage" x="40" y="870" width="340" height="76"/>
+  <text class="m" x="56" y="896">Contiguous expert-major plan</text>
+  <text class="s" x="56" y="918">token/expert pairs bucketed by expert,</text>
+  <text class="s" x="56" y="936">weights fetched once per expert</text>
 
-  <path d="M 840 663 L 840 697 L 555 697 L 555 721" class="line-cyan"/>
+  <rect class="stage" x="420" y="870" width="340" height="76"/>
+  <text class="m mono" x="436" y="896">one stable argsort — T×8</text>
+  <text class="s" x="436" y="918">gives the ids→row permutation</text>
+  <text class="s" x="436" y="936">on device, no host readback</text>
 
-  <rect x="150" y="720" width="405" height="112" rx="16" fill="#26180f" stroke="#f0b763" stroke-opacity="0.32"/>
-  <text x="176" y="752" class="node-title">Sparse selection</text>
-  <text x="176" y="781" class="mono">I = TopK(p, k=8)</text>
-  <text x="176" y="807" class="small">Expert IDs have shape [8, tokens]</text>
+  <rect class="stage" x="800" y="870" width="354" height="76"/>
+  <text class="m mono" x="816" y="896">fused argsort (expert, weight)</text>
+  <text class="s" x="816" y="918">emits permutation + row scales together</text>
+  <text class="s" x="816" y="936">one kernel replaces two</text>
 
-  <path d="M 555 776 L 626 776" class="line-cyan"/>
+  <path class="wireG" d="M380,908 H420"/>
+  <path class="wireG" d="M760,908 H800"/>
 
-  <rect x="630" y="720" width="420" height="112" rx="16" fill="#26180f" stroke="#f0b763" stroke-opacity="0.32"/>
-  <text x="656" y="752" class="node-title">Top-8 renormalization</text>
-  <text x="656" y="781" class="mono-small">alpha[i] = p[i] / max(sum p[j], 2^-14)</text>
-  <text x="656" y="807" class="small">j in I; selected weights sum to 1</text>
+  <!-- backends -->
+  <rect class="box" x="40" y="984" width="340" height="72"/>
+  <text class="mono h" x="56" y="1010" font-size="10">INTEL SYCL</text>
+  <text class="s" x="56" y="1030">bucket ≥4 tokens/pass · shape-aware workgroups</text>
+  <text class="s" x="56" y="1048">(1 subgroup gate/up, 4 for the down proj)</text>
 
-  <path d="M 840 832 L 840 866" class="line-cyan"/>
+  <rect class="box" x="420" y="984" width="340" height="72"/>
+  <text class="mono h" x="436" y="1010" font-size="10" fill="#e69a7d">NVIDIA CUDA</text>
+  <text class="s" x="436" y="1030">stays on MMVQ/MMQ · Blackwell direct 12-col path</text>
+  <text class="s" x="436" y="1048">(12 columns = tokens, not experts)</text>
 
-  <rect x="150" y="865" width="900" height="190" rx="18" fill="#302014" stroke="#f0b763" stroke-opacity="0.42"/>
-  <text x="176" y="900" class="node-title">Execute only the selected expert MLPs</text>
-  <text x="176" y="934" class="mono-small">for each i in I:</text>
-  <text x="206" y="964" class="mono-small">g[i] = W_gate[i]^T x        2048 -&gt; 512</text>
-  <text x="206" y="992" class="mono-small">u[i] = W_up[i]^T x          2048 -&gt; 512</text>
-  <text x="206" y="1020" class="mono-small">e[i] = W_down[i]^T (SiLU(g[i]) * u[i])   512 -&gt; 2048</text>
-  <text x="1020" y="900" text-anchor="end" class="small">SwiGLU</text>
+  <rect class="box" x="800" y="984" width="354" height="72" style="stroke:rgba(216,173,82,.45)"/>
+  <text class="mono h" x="816" y="1010" font-size="10">INVARIANT</text>
+  <text class="s" x="816" y="1030">no rescore / replace / drop / add —</text>
+  <text class="s" x="816" y="1048">bit-identical outputs, cheaper schedule</text>
 
-  <path d="M 600 1055 L 600 1080" class="line-cyan"/>
-  <rect x="300" y="1080" width="600" height="78" rx="16" fill="#392416" stroke="#f0b763" stroke-opacity="0.46"/>
-  <text x="600" y="1113" text-anchor="middle" class="node-title">Weighted routed reduction</text>
-  <text x="600" y="1141" text-anchor="middle" class="mono">y_routed = sum alpha[i] * e[i]</text>
+  <path class="wireG" d="M210,946 V984"/>
+  <path class="wireG" d="M590,946 V984"/>
+  <path class="wireG" d="M977,946 V984"/>
 
-  <rect x="1140" y="480" width="550" height="700" rx="24" fill="url(#sharedFill)" stroke="#d98264" stroke-opacity="0.36"/>
-  <text x="1180" y="526" class="card-title violet">SHARED BRANCH</text>
-  <text x="1650" y="526" text-anchor="end" class="small">Always evaluated</text>
-
-  <rect x="1180" y="555" width="470" height="108" rx="16" fill="#2b1714" stroke="#d98264" stroke-opacity="0.34"/>
-  <text x="1206" y="587" class="node-title">Independent scalar gate</text>
-  <text x="1206" y="616" class="mono">s = sigmoid(w_shared^T x)</text>
-  <text x="1206" y="642" class="small">One value per token; not part of top-8</text>
-
-  <path d="M 1415 663 L 1415 702" class="line-violet"/>
-
-  <rect x="1180" y="700" width="470" height="232" rx="16" fill="#2b1714" stroke="#d98264" stroke-opacity="0.34"/>
-  <text x="1206" y="735" class="node-title">Shared SwiGLU expert</text>
-  <text x="1206" y="772" class="mono-small">g_s = W_gate_s^T x</text>
-  <text x="1206" y="802" class="mono-small">u_s = W_up_s^T x</text>
-  <text x="1206" y="832" class="mono-small">h_s = SiLU(g_s) * u_s</text>
-  <text x="1206" y="862" class="mono-small">e_s = W_down_s^T h_s</text>
-  <text x="1206" y="900" class="small">2048 -&gt; 512 -&gt; 2048</text>
-
-  <path d="M 1415 932 L 1415 971" class="line-violet"/>
-
-  <rect x="1180" y="970" width="470" height="112" rx="16" fill="#3a2019" stroke="#d98264" stroke-opacity="0.46"/>
-  <text x="1415" y="1011" text-anchor="middle" class="node-title">Gate the shared result</text>
-  <text x="1415" y="1045" text-anchor="middle" class="mono">y_shared = s * e_s</text>
-
-  <path d="M 600 1158 L 600 1237 L 745 1237" class="line-cyan"/>
-  <path d="M 1415 1082 L 1415 1237 L 1055 1237" class="line-violet"/>
-
-  <rect x="745" y="1197" width="310" height="82" rx="18" fill="#302615" stroke="#d8ad52" stroke-opacity="0.5"/>
-  <text x="900" y="1230" text-anchor="middle" class="node-title">Merge branches</text>
-  <text x="900" y="1258" text-anchor="middle" class="mono-small">y_moe = y_routed + y_shared</text>
-
-  <path d="M 900 1279 L 900 1320" class="line-green"/>
-
-  <rect x="550" y="1320" width="700" height="100" rx="18" fill="#302615" stroke="#d8ad52" stroke-opacity="0.5"/>
-  <text x="900" y="1359" text-anchor="middle" class="node-title">FFN residual output</text>
-  <text x="900" y="1392" text-anchor="middle" class="mono">r_next = r[t] + y_moe</text>
-
-  <rect x="70" y="1510" width="1660" height="415" rx="30" fill="#1a110c" stroke="#d5ad82" stroke-opacity="0.18" filter="url(#shadow)"/>
-  <rect x="70" y="1510" width="1660" height="72" rx="30" fill="url(#hero)"/>
-  <text x="110" y="1556" class="section-title">2. Treebeard execution scheduling - selected IDs stay unchanged</text>
-
-  <rect x="540" y="1607" width="720" height="78" rx="17" fill="#332318" stroke="#f2c078" stroke-opacity="0.5"/>
-  <text x="900" y="1639" text-anchor="middle" class="node-title">MUL_MAT_ID receives (activation, expert IDs)</text>
-  <text x="900" y="1665" text-anchor="middle" class="small">The backend schedules the 8 x T routed pairs; it does not rescore or replace experts.</text>
-
-  <path d="M 900 1685 L 900 1710 L 490 1710 L 490 1732" class="line-cyan"/>
-  <path d="M 900 1685 L 900 1710 L 1310 1710 L 1310 1732" class="line-violet"/>
-
-  <rect x="120" y="1730" width="740" height="150" rx="20" fill="#392416" stroke="#f0b763" stroke-opacity="0.42"/>
-  <text x="154" y="1766" class="card-title cyan">Intel SYCL</text>
-  <text x="154" y="1798" class="body">T &gt;= 4: bucket the 8 x T pairs by expert on device; process up to 4 tokens per weight pass.</text>
-  <text x="154" y="1828" class="body">T &lt; 4: fused per-pair device route. No host readback on the fast path.</text>
-  <text x="154" y="1858" class="body">Shape-aware workgroups: 512-row gate/up uses 1 subgroup; 2048-row down uses 4.</text>
-
-  <rect x="940" y="1730" width="740" height="150" rx="20" fill="#3a2019" stroke="#d98264" stroke-opacity="0.42"/>
-  <text x="974" y="1766" class="card-title violet">NVIDIA CUDA</text>
-  <text x="974" y="1798" class="body">Quantized selected-expert projections stay in device-routed MMVQ/MMQ kernels.</text>
-  <text x="974" y="1828" class="body">Blackwell + Q8_0 + T=12 uses the direct 12-column MMVQ path.</text>
-  <text x="974" y="1858" class="body">The 12 columns are concurrent token columns, not twelve selected experts.</text>
-
-  <text x="90" y="1968" class="small">Inference invariants: exactly 8 routed experts + 1 shared branch per token; no capacity limit; no token dropping; no training auxiliary loss.</text>
-  <text x="1710" y="1968" text-anchor="end" class="small">Treebeard 0.1.0-rc.3 / source 6a6dc2def</text>
+  <!-- footer -->
+  <text class="s" x="40" y="1150" fill="#90735c">Treebeard 0.1.0-rc.3 · Intel SYCL + NVIDIA CUDA · source-grounded — newjordan.github.io/treebeard/moe-routing.html</text>
 </svg>
