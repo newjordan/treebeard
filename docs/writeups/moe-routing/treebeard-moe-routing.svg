@@ -38,13 +38,13 @@
   <rect width="1200" height="1180" fill="none" stroke="none"/>
 
   <!-- title -->
-  <text class="mono h" x="40" y="52">TREEBEARD / INTERNAL ROUTING</text>
+  <text class="mono h" x="40" y="52">TREEBEARD — R&D INTO THE ROUTING MECHANISMS OF MODEL OUTPUT</text>
   <text x="40" y="90" fill="#fff3df" font-size="30" font-weight="800" letter-spacing="-.02em">Top-8 of 256 experts — and how Treebeard reschedules it</text>
   <text class="s" x="40" y="116">Qwen3.6-35B-A3B · per token · ×40 decoder layers · semantics preserved bit-identical, scheduling changed</text>
 
   <!-- LANE 1: model semantics -->
   <rect class="lane" x="24" y="140" width="1152" height="620"/>
-  <text class="mono h" x="46" y="174">1 · MODEL SEMANTICS — QWEN CHOOSES</text>
+  <text class="mono h" x="46" y="174">1 · QWEN&#8217;S ROUTING — PER TOKEN, PER LAYER (×40)</text>
 
   <!-- token state box -->
   <rect class="box" x="46" y="192" width="270" height="72"/>
@@ -149,7 +149,7 @@
 
   <!-- LANE 2: treebeard scheduling -->
   <rect class="lane" x="24" y="790" width="1152" height="330" style="stroke:rgba(217,130,100,.28)"/>
-  <text class="mono h" x="46" y="824" fill="#e69a7d">2 · TREEBEARD SCHEDULING — AFTER THE DECISION</text>
+  <text class="mono h" x="46" y="824" fill="#e69a7d">2 · TREEBEARD&#8217;S SCHEDULE — SAME CHOICES, REORDERED WORK</text>
   <text class="s" x="46" y="846">inputs are already fixed: expert ids [T,8] + weights [T,8]. None of the math above is re-derived.</text>
 
   <rect class="stage" x="40" y="870" width="340" height="76"/>

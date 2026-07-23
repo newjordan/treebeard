@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#120c08">
-  <meta name="description" content="A source-grounded visual guide to Qwen3.6-35B-A3B mixture-of-experts routing and Treebeard's Intel and NVIDIA execution paths.">
-  <meta property="og:title" content="Treebeard - Mixture-of-Experts Routing">
-  <meta property="og:description" content="How Qwen selects eight of 256 routed experts, merges a shared expert, and how Treebeard schedules the work on Intel and NVIDIA.">
+  <meta name="description" content="Treebeard research notes: how Qwen3.6-35B-A3B routes tokens through its experts, and how Treebeard reschedules that work on Intel and NVIDIA GPUs.">
+  <meta property="og:title" content="Treebeard notes - MoE routing">
+  <meta property="og:description" content="Research notes on Qwen's expert routing and Treebeard's execution scheduling. Working notes, shared in the open.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://newjordan.github.io/treebeard/moe-routing.html">
   <meta property="og:image" content="https://newjordan.github.io/treebeard/writeups/moe-routing/treebeard-moe-routing.png">
   <link rel="canonical" href="https://newjordan.github.io/treebeard/moe-routing.html">
-  <title>Treebeard - Mixture-of-Experts Routing</title>
+  <title>Treebeard notes - MoE routing</title>
   <style>
     :root {
       color-scheme: dark;
@@ -173,9 +173,9 @@
     </header>
 
     <section class="hero">
-      <p class="eyebrow">Treebeard / Qwen3.6-35B-A3B</p>
-      <h1>Mixture-of-experts routing, from decision to device.</h1>
-      <p class="lede">Qwen chooses the experts. Treebeard keeps that choice and schedules the selected work on Intel SYCL and NVIDIA CUDA. Model semantics first, backend scheduling second.</p>
+      <p class="eyebrow">Treebeard research notes / Qwen3.6-35B-A3B</p>
+      <h1>How routing works, and what Treebeard does with it.</h1>
+      <p class="lede">Treebeard is my personal R&amp;D into the routing mechanisms of model output, shared in the open. These notes walk one question: for each token, Qwen picks 8 of its 256 experts - so what does Treebeard change, and what does it leave alone? Short answer: the choice stays Qwen's. Treebeard only reorders the work so the hardware chews through it faster.</p>
     </section>
 
     <div class="constants" aria-label="Model routing constants">
@@ -189,8 +189,8 @@
     <section id="flowchart">
       <div class="section-head">
         <div>
-          <h2>The complete routing flow</h2>
-          <p class="section-note">The upper stage is Qwen's computation. The lower stage is Treebeard's hardware execution. The boundary is what makes the optimization safe: nothing above it changes.</p>
+          <h2>The routing flow, end to end</h2>
+          <p class="section-note">The top half of the diagram is Qwen's computation. The bottom half is Treebeard's execution scheduling. The line between them is the whole point: nothing above it changes.</p>
         </div>
       </div>
       <div class="panel chart">
@@ -206,7 +206,7 @@
     <section>
       <div class="section-head">
         <div>
-          <h2>What happens to one token</h2>
+          <h2>One token, start to finish</h2>
           <p class="section-note">Two parallel branches consume the same normalized token state, then merge before the residual connection.</p>
         </div>
       </div>
@@ -237,7 +237,7 @@
     <section>
       <div class="section-head">
         <div>
-          <h2>What Treebeard optimizes</h2>
+          <h2>Where Treebeard spends its effort</h2>
           <p class="section-note">The selected IDs and weights are fixed by the time the backend receives the operation. Treebeard optimizes how those token/expert pairs reach the matrix kernels.</p>
         </div>
       </div>
@@ -256,12 +256,12 @@
     </section>
 
     <section class="panel invariant">
-      <strong>The invariant</strong>
+      <strong>The one rule</strong>
       <p>Every token runs exactly eight routed experts plus one shared branch. Treebeard never rescores, replaces, drops, or adds experts. It reschedules execution after Qwen has made the routing decision.</p>
     </section>
 
     <footer>
-      <span>Treebeard 0.2.0 / source-grounded inference flow</span>
+      <span>Treebeard research notes / working notes, shared in the open</span>
       <span>Intel SYCL + NVIDIA CUDA</span>
     </footer>
   </main>
