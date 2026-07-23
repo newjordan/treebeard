@@ -6,7 +6,7 @@ b98a11e33314c367dc2b1a7bd4a1ad683241d6eb46d4d70ccb8c84873d390f09  ./guard.log
 91c1f50f1be1cf1ec813eb1bb2e392aca06ede870a440f49b99fdbc827640dbd  ./index.html
 c4a385a570d49ef7a605439867cbbc816d64e7bac1deb47ad0731b0a3feb2373  ./maintenance/restore-props.json
 0833692add8618dcf6ee005b51e67c449d02c54f117ed0708a3861c206893188  ./maintenance/restore-runtime-check.txt
-5f9e0c2ff71c6e5b29975f576c680fe02f1456014729f4fac6a538590db6cead  ./moe-routing.html
+c2d1a648594be40014677eb089b39be67fcbde0cb1c4401cd5f18df8d4281a71  ./moe-routing.html
 e76d2009e521c477928670b06210180bb193199d5cf31d2ce95f9e325d490204  ./nvidia-gpu-health.txt
 49d7c0679ff8065bdd43bd18db98958fc2c965c4febdf52bd8565b4d973ccc8d  ./nvidia-props.json
 e987f8dc3190b91dc30d3ac61adb497bf24836eeb6ad8296c59525af6c6614e8  ./nvidia-result.json
@@ -16,4 +16,4 @@ edd2ad6bf90068f1d467ee260874f04be37155e3a666defa573dcfa6f75d0374  ./nvidia-summa
 e646de529745c8538b2a4ed0c35e7c94ec6d41fc5bbaf1393cf57e17552f5d2c  ./summary.json
 3c2405a6a9a1af152423d4bb3da31d57e5ae7c4d5f360ffba13c40037bba5fa3  ./writeups/moe-routing/MOE-ROUTING.md
 7c3e69fcfc3d16b351fb36979760da790646acb54129cf315357af88d29984d2  ./writeups/moe-routing/treebeard-moe-routing.png
-2382596a8335294a57f845a19faf6b018438f5cf03cfce5d74a53fb677137da3  ./writeups/moe-routing/treebeard-moe-routing.svg
+7f1e969dc33ddeedfdea3f728b1023106a66d5790ed2202845a663aa13312584  ./writeups/moe-routing/treebeard-moe-routing.svg

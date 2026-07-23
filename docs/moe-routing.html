@@ -174,8 +174,8 @@
 
     <section class="hero">
       <p class="eyebrow">Treebeard research notes / Qwen3.6-35B-A3B</p>
-      <h1>How routing works, and what Treebeard does with it.</h1>
-      <p class="lede">Treebeard is my personal R&amp;D into the routing mechanisms of model output, shared in the open. These notes walk one question: for each token, Qwen picks 8 of its 256 experts - so what does Treebeard change, and what does it leave alone? Short answer: the choice stays Qwen's. Treebeard only reorders the work so the hardware chews through it faster.</p>
+      <h1>MoE routing notes</h1>
+      <p class="lede">Qwen picks 8 of 256 experts per token. Treebeard keeps the choice and reorders the work for the GPU.</p>
     </section>
 
     <div class="constants" aria-label="Model routing constants">
@@ -189,8 +189,8 @@
     <section id="flowchart">
       <div class="section-head">
         <div>
-          <h2>The routing flow, end to end</h2>
-          <p class="section-note">The top half of the diagram is Qwen's computation. The bottom half is Treebeard's execution scheduling. The line between them is the whole point: nothing above it changes.</p>
+          <h2>The flow</h2>
+          <p class="section-note">Top half: Qwen's computation. Bottom half: Treebeard's scheduling. Nothing above the line changes.</p>
         </div>
       </div>
       <div class="panel chart">
@@ -206,7 +206,7 @@
     <section>
       <div class="section-head">
         <div>
-          <h2>One token, start to finish</h2>
+          <h2>One token</h2>
           <p class="section-note">Two parallel branches consume the same normalized token state, then merge before the residual connection.</p>
         </div>
       </div>
@@ -237,7 +237,7 @@
     <section>
       <div class="section-head">
         <div>
-          <h2>Where Treebeard spends its effort</h2>
+          <h2>What Treebeard does</h2>
           <p class="section-note">The selected IDs and weights are fixed by the time the backend receives the operation. Treebeard optimizes how those token/expert pairs reach the matrix kernels.</p>
         </div>
       </div>
@@ -256,12 +256,12 @@
     </section>
 
     <section class="panel invariant">
-      <strong>The one rule</strong>
+      <strong>The rule</strong>
       <p>Every token runs exactly eight routed experts plus one shared branch. Treebeard never rescores, replaces, drops, or adds experts. It reschedules execution after Qwen has made the routing decision.</p>
     </section>
 
     <footer>
-      <span>Treebeard research notes / working notes, shared in the open</span>
+      <span>Treebeard research notes</span>
       <span>Intel SYCL + NVIDIA CUDA</span>
     </footer>
   </main>
