@@ -38,7 +38,7 @@
   <rect width="1200" height="1180" fill="none" stroke="none"/>
 
   <!-- title -->
-  <text class="mono h" x="40" y="52">TREEBEARD — R&D INTO THE ROUTING MECHANISMS OF MODEL OUTPUT</text>
+  <text class="mono h" x="40" y="52">TREEBEARD — R&amp;D INTO THE ROUTING MECHANISMS OF MODEL OUTPUT</text>
   <text x="40" y="90" fill="#fff3df" font-size="30" font-weight="800" letter-spacing="-.02em">Top-8 of 256 experts — and how Treebeard reschedules it</text>
   <text class="s" x="40" y="116">Qwen3.6-35B-A3B · per token · ×40 decoder layers · semantics preserved bit-identical, scheduling changed</text>
 
