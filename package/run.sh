@@ -327,6 +327,14 @@ if [[ "$BACKEND" == sycl ]]; then
     source "$ONEAPI_SETVARS" --force >/dev/null
     set -u
     export GGML_SYCL_ENABLE_FUSION="${GGML_SYCL_ENABLE_FUSION:-1}"
+    # B70 production stack pins (2026-07-26 ABA: +25.7% p50 with q8down GGUF).
+    # GDN 2D alone is +15% p50; MoE-down multi-row is +1.36% bit-exact.
+    # Override any of these explicitly if A/B measuring a control arm.
+    export TREEBEARD_GDN_OUT_FLAT="${TREEBEARD_GDN_OUT_FLAT:-1}"
+    export GGML_SYCL_MOE_DOWN_ROWS_PER_SG="${GGML_SYCL_MOE_DOWN_ROWS_PER_SG:-4}"
+    export GGML_SYCL_DISABLE_GRAPH="${GGML_SYCL_DISABLE_GRAPH:-1}"
+    export GGML_SYCL_ENABLE_MOE_PIPELINE="${GGML_SYCL_ENABLE_MOE_PIPELINE:-0}"
+    export GGML_SYCL_ENABLE_MOE_DOWN_GROUPED="${GGML_SYCL_ENABLE_MOE_DOWN_GROUPED:-0}"
 fi
 
 args=(
