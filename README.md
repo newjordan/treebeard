@@ -115,7 +115,12 @@ tokens. The portable CPU default is one slot and 32,768 context tokens. The
 GPU throughput profile uses 12 slots and is separate from the single-slot
 evaluation above.
 
-Reasoning is explicitly off by default, matching the validated 94/100 agent
+On Intel Arc Pro B70 (SYCL), `treebeard serve` pins the measured production
+stack: GDN out-flat, MoE-down rows-per-sg=4, Q8 multi-col subgroups=32,
+expert-grouped atomic-dst, graph/pipeline/grouped off. Dual shared-act and
+multi-shape count1 paths are binary defaults. Dual+down redesign envs
+(`ENABLE_MOE_PIPELINE`, `DUAL_DOWN_*`) stay off (PARK regressions). Reasoning
+is explicitly off by default, matching the validated 94/100 agent
 benchmark. `TREEBEARD_REASONING=bounded` enables a small thinking allowance:
 64 tokens on GPU or 16 on CPU. Override it with a positive integer in
 `TREEBEARD_REASONING_BUDGET`. `TREEBEARD_REASONING=unrestricted` removes the

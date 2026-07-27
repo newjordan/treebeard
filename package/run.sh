@@ -327,10 +327,16 @@ if [[ "$BACKEND" == sycl ]]; then
     source "$ONEAPI_SETVARS" --force >/dev/null
     set -u
     export GGML_SYCL_ENABLE_FUSION="${GGML_SYCL_ENABLE_FUSION:-1}"
-    # B70 production stack pins (2026-07-26 ABA: +25.7% p50 with q8down GGUF;
-    # expert-grouped atomic-dst +0.61% ABA p50 / +0.99% S_TG 2026-07-26 night).
-    # GDN 2D alone is +15% p50; MoE-down multi-row is +1.36% bit-exact.
-    # Override any of these explicitly if A/B measuring a control arm.
+    # B70 production stack pins (foundation 2026-07-27 cool-down):
+    #   ABA n96 p50 ~28.2; hard-v2 n=2 pass=1.0; held-out ≥42/46.
+    # Stack wins (ship always-on / opt-in as noted):
+    #   GDN_OUT_FLAT=1; MoE-down rps4; Q8 multi-col ncols_sg=32; expert-grouped
+    #   atomic-dst + count1 multi-shape; dual shared-act + count1 multi-shape;
+    #   Q8_0 vec4 loads; Q6_K aligned loads (code defaults).
+    # Do NOT enable dual+down redesign opts (measured PARK):
+    #   ENABLE_MOE_PIPELINE, DUAL_DOWN_V2, DUAL_DOWN_LDS (−56.6%),
+    #   DUAL_DOWN_Q8BAND (−39.9%). Keep pipeline/grouped OFF.
+    # Override any pin explicitly only for A/B control arms.
     export TREEBEARD_GDN_OUT_FLAT="${TREEBEARD_GDN_OUT_FLAT:-1}"
     export GGML_SYCL_MOE_DOWN_ROWS_PER_SG="${GGML_SYCL_MOE_DOWN_ROWS_PER_SG:-4}"
     export GGML_SYCL_DISABLE_GRAPH="${GGML_SYCL_DISABLE_GRAPH:-1}"
@@ -342,6 +348,10 @@ if [[ "$BACKEND" == sycl ]]; then
     # Dual Q5/Q8 shared-act fuse default ON in binary; set
     # GGML_SYCL_DISABLE_MOE_DUAL_SHARED_ACT=1 only for A/B control.
     # export GGML_SYCL_DISABLE_MOE_DUAL_SHARED_ACT="${GGML_SYCL_DISABLE_MOE_DUAL_SHARED_ACT:-0}"
+    # Dual+down redesign experiments — leave unset (default OFF / PARK).
+    unset GGML_SYCL_ENABLE_MOE_DUAL_DOWN_V2 2>/dev/null || true
+    unset GGML_SYCL_ENABLE_MOE_DUAL_DOWN_LDS 2>/dev/null || true
+    unset GGML_SYCL_ENABLE_MOE_DUAL_DOWN_Q8BAND 2>/dev/null || true
 fi
 
 args=(
