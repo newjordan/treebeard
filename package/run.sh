@@ -327,7 +327,8 @@ if [[ "$BACKEND" == sycl ]]; then
     source "$ONEAPI_SETVARS" --force >/dev/null
     set -u
     export GGML_SYCL_ENABLE_FUSION="${GGML_SYCL_ENABLE_FUSION:-1}"
-    # B70 production stack pins (2026-07-26 ABA: +25.7% p50 with q8down GGUF).
+    # B70 production stack pins (2026-07-26 ABA: +25.7% p50 with q8down GGUF;
+    # expert-grouped atomic-dst +0.61% ABA p50 / +0.99% S_TG 2026-07-26 night).
     # GDN 2D alone is +15% p50; MoE-down multi-row is +1.36% bit-exact.
     # Override any of these explicitly if A/B measuring a control arm.
     export TREEBEARD_GDN_OUT_FLAT="${TREEBEARD_GDN_OUT_FLAT:-1}"
@@ -336,6 +337,8 @@ if [[ "$BACKEND" == sycl ]]; then
     export GGML_SYCL_ENABLE_MOE_PIPELINE="${GGML_SYCL_ENABLE_MOE_PIPELINE:-0}"
     export GGML_SYCL_ENABLE_MOE_DOWN_GROUPED="${GGML_SYCL_ENABLE_MOE_DOWN_GROUPED:-0}"
     export GGML_SYCL_Q8_MMVQ_NCOLS_SUBGROUPS="${GGML_SYCL_Q8_MMVQ_NCOLS_SUBGROUPS:-32}"
+    # Expert-grouped MoE-down atomic-dst (one WG/expert, weight-once, rps4).
+    export GGML_SYCL_ENABLE_MOE_DOWN_EXPERT_GROUPED="${GGML_SYCL_ENABLE_MOE_DOWN_EXPERT_GROUPED:-1}"
     # Dual Q5/Q8 shared-act fuse default ON in binary; set
     # GGML_SYCL_DISABLE_MOE_DUAL_SHARED_ACT=1 only for A/B control.
     # export GGML_SYCL_DISABLE_MOE_DUAL_SHARED_ACT="${GGML_SYCL_DISABLE_MOE_DUAL_SHARED_ACT:-0}"
