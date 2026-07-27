@@ -127,8 +127,8 @@ When enabling experimental built-in tools / MCP (shadow or opt-in), set
 builtins + tools-root, multi-hop concurrent, triple cascade, tool-error recovery,
 hard-v2 direct `residual_*` tools (pass=1.0 @ n=2), and hard-native under
 concurrent recovery load (contention). Residual SFT curriculum is
-**PREREG-only frozen** (74 golds + 12 cascade multi-domain SFT; process-dense v3/OPEN; cascade+OPEN cascade mean_r≈0.99; scorers 61/61) until Hosted is
-explicitly authorized. Pack: `HOSTED_PACK_MANIFEST.json` (SFT+DPO+traj v3/OPEN/cascade; no spend). Residual builtins tip 87e6e6ca4. Shadow: hard OPEN 1.0; cascade OPEN MODE=all 6/6 (force-conclude); Hosted freeze without spend. Reasoning
+**PREREG-only frozen** (74 golds + 12 cascade multi-domain SFT; process-dense v3/OPEN; cascade mean_r≈0.99; scorers 61/61) until Hosted is
+explicitly authorized. Pack: `HOSTED_PACK_MANIFEST.json` (SFT+DPO+traj v3/OPEN/cascade/meta; no spend). Residual builtins tip **31efdb741** (`actions[]` multi-action + `residual_meta` evidence_keys). Shadow: hard-native 1.0; hard OPEN 1.0; cascade OPEN 6/6; Hosted freeze without spend. Reasoning
 is explicitly off by default, matching the validated 94/100 agent
 benchmark. `TREEBEARD_REASONING=bounded` enables a small thinking allowance:
 64 tokens on GPU or 16 on CPU. Override it with a positive integer in
