@@ -125,8 +125,10 @@ When enabling experimental built-in tools / MCP (shadow or opt-in), set
 `TREEBEARD_TOOLS_ROOT` to a sandbox path allowlist; production ship keeps
 `--tools` off until owner opt-in. Validated agent surface (shadow): residual
 builtins + tools-root, multi-hop concurrent, triple cascade, tool-error recovery,
-and hard-v2 with direct `residual_*` tools (pass=1.0 @ n=2). Residual SFT
-curriculum is PREREG-only and scorer-green. Reasoning
+hard-v2 direct `residual_*` tools (pass=1.0 @ n=2), and hard-native under
+concurrent recovery load (contention). Residual SFT curriculum is
+**PREREG-only frozen** (48 golds, offline scorers green) until Hosted is
+explicitly authorized. Reasoning
 is explicitly off by default, matching the validated 94/100 agent
 benchmark. `TREEBEARD_REASONING=bounded` enables a small thinking allowance:
 64 tokens on GPU or 16 on CPU. Override it with a positive integer in

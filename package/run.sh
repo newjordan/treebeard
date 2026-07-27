@@ -331,8 +331,9 @@ if [[ "$BACKEND" == sycl ]]; then
     #   ABA n96 p50 ~28.2; hard-v2 n=2 pass=1.0; held-out 42–43/46 (≥42).
     #   Agent surface (shadow :8094, tools-off on ship): residual suite 8/8,
     #   cascade 4/4, concurrent 6/6 + multi-hop ws, OPEN_TOOLS concurrent,
-    #   recovery 3/3, hard-v2 TOOL_MODE=direct residual_* n=2 1.0; tools-root
-    #   path allowlist when --tools enabled (TREEBEARD_TOOLS_ROOT).
+    #   recovery 3/3 + concurrent recovery 6/6, hard-v2 TOOL_MODE=direct
+    #   residual_* n=2 1.0 + contention under load; PREREG frozen 48 golds;
+    #   tools-root path allowlist when --tools enabled (TREEBEARD_TOOLS_ROOT).
     # Stack wins (ship always-on / opt-in as noted):
     #   GDN_OUT_FLAT=1; MoE-down rps4; Q8 multi-col ncols_sg=32; expert-grouped
     #   atomic-dst + count1 multi-shape; dual shared-act + count1 multi-shape;
