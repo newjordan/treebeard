@@ -123,7 +123,10 @@ multi-shape count1 paths are binary defaults. Dual+down redesign envs
 quality (tools-off ship): hard-v2 pass=1.0, held-out ≥42/46, ABA n96 p50≈28.2.
 When enabling experimental built-in tools / MCP (shadow or opt-in), set
 `TREEBEARD_TOOLS_ROOT` to a sandbox path allowlist; production ship keeps
-`--tools` off until owner opt-in. Reasoning
+`--tools` off until owner opt-in. Validated agent surface (shadow): residual
+builtins + tools-root, multi-hop concurrent, triple cascade, tool-error recovery,
+and hard-v2 with direct `residual_*` tools (pass=1.0 @ n=2). Residual SFT
+curriculum is PREREG-only and scorer-green. Reasoning
 is explicitly off by default, matching the validated 94/100 agent
 benchmark. `TREEBEARD_REASONING=bounded` enables a small thinking allowance:
 64 tokens on GPU or 16 on CPU. Override it with a positive integer in
