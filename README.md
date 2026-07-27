@@ -119,7 +119,11 @@ On Intel Arc Pro B70 (SYCL), `treebeard serve` pins the measured production
 stack: GDN out-flat, MoE-down rows-per-sg=4, Q8 multi-col subgroups=32,
 expert-grouped atomic-dst, graph/pipeline/grouped off. Dual shared-act and
 multi-shape count1 paths are binary defaults. Dual+down redesign envs
-(`ENABLE_MOE_PIPELINE`, `DUAL_DOWN_*`) stay off (PARK regressions). Reasoning
+(`ENABLE_MOE_PIPELINE`, `DUAL_DOWN_*`) stay off (PARK regressions). Cool-down
+quality (tools-off ship): hard-v2 pass=1.0, held-out ≥42/46, ABA n96 p50≈28.2.
+When enabling experimental built-in tools / MCP (shadow or opt-in), set
+`TREEBEARD_TOOLS_ROOT` to a sandbox path allowlist; production ship keeps
+`--tools` off until owner opt-in. Reasoning
 is explicitly off by default, matching the validated 94/100 agent
 benchmark. `TREEBEARD_REASONING=bounded` enables a small thinking allowance:
 64 tokens on GPU or 16 on CPU. Override it with a positive integer in

@@ -327,8 +327,11 @@ if [[ "$BACKEND" == sycl ]]; then
     source "$ONEAPI_SETVARS" --force >/dev/null
     set -u
     export GGML_SYCL_ENABLE_FUSION="${GGML_SYCL_ENABLE_FUSION:-1}"
-    # B70 production stack pins (foundation 2026-07-27 cool-down):
-    #   ABA n96 p50 ~28.2; hard-v2 n=2 pass=1.0; held-out ≥42/46.
+    # B70 production stack pins (foundation 2026-07-27):
+    #   ABA n96 p50 ~28.2; hard-v2 n=2 pass=1.0; held-out 42–43/46 (≥42).
+    #   Agent surface (shadow :8094, tools-off on ship): residual suite 8/8,
+    #   cascade 4/4, concurrent 6/6, hard-v2 native tools n=2 1.0; tools-root
+    #   path allowlist when --tools enabled (TREEBEARD_TOOLS_ROOT).
     # Stack wins (ship always-on / opt-in as noted):
     #   GDN_OUT_FLAT=1; MoE-down rps4; Q8 multi-col ncols_sg=32; expert-grouped
     #   atomic-dst + count1 multi-shape; dual shared-act + count1 multi-shape;
