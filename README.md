@@ -128,7 +128,7 @@ builtins + tools-root, multi-hop concurrent, triple cascade, tool-error recovery
 hard-v2 direct `residual_*` tools (pass=1.0 @ n=2), and hard-native under
 concurrent recovery load (contention). Residual SFT curriculum is
 **PREREG-only frozen** (66 diversity-filtered golds + 16 DPO pairs; process-dense mean_reward≈0.995; scorers 53/53) until Hosted is
-explicitly authorized. Residual builtins: scan fixture + diagnose retry_hint (tip 87e6e6ca4). Shadow: adversarial 5/5, recovery 6/6 sequential+concurrent under load; contention hard-native 1.0; recovery DPO pairs; OPEN concurrent recovery 6/6, hard-v2 n=2 pass=1.0; post-retryhint cool-down hard=1.0 ABA p50≈28.3 heldout 43/46, miner + preference export; Hosted freeze without spend. Reasoning
+explicitly authorized. Pack manifest: residual curriculum `HOSTED_PACK_MANIFEST.json` (72 SFT + 22 DPO + 16 traj; no spend). Residual builtins: scan fixture + diagnose retry_hint (tip 87e6e6ca4). Shadow: adversarial 5/5, recovery 6/6 sequential+concurrent under load; contention hard-native 1.0; recovery DPO pairs; OPEN concurrent recovery 6/6, hard-v2 n=2 pass=1.0; post-retryhint cool-down hard=1.0 ABA p50≈28.3 heldout 43/46, miner + preference export; Hosted freeze without spend. Reasoning
 is explicitly off by default, matching the validated 94/100 agent
 benchmark. `TREEBEARD_REASONING=bounded` enables a small thinking allowance:
 64 tokens on GPU or 16 on CPU. Override it with a positive integer in
