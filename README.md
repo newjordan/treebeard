@@ -127,8 +127,8 @@ When enabling experimental built-in tools / MCP (shadow or opt-in), set
 builtins + tools-root, multi-hop concurrent, triple cascade, tool-error recovery,
 hard-v2 direct `residual_*` tools (pass=1.0 @ n=2), and hard-native under
 concurrent recovery load (contention). Residual SFT curriculum is
-**PREREG-only frozen** (57 golds + reward-tagged hard-native RL trajectories, offline scorers green; adversarial open-tools + concurrent) until Hosted is
-explicitly authorized. Shadow agent gates: residual builtins, tools-root, recovery, adversarial (injection/empty/no-echo/parallel dual; open-catalog + concurrent), hard-v2 direct residual_* pass=1.0. Reasoning
+**PREREG-only frozen** (72 golds incl. mined hard-native multi-turns; process-dense RL trajectories; scorers 59/59; adversarial open-tools + concurrent + verify_then_conclude) until Hosted is
+explicitly authorized. Shadow: residual builtins, tools-root, recovery, adversarial 5/5, hard-v2 direct residual_* pass=1.0, trajectory miner for Hosted readiness. Reasoning
 is explicitly off by default, matching the validated 94/100 agent
 benchmark. `TREEBEARD_REASONING=bounded` enables a small thinking allowance:
 64 tokens on GPU or 16 on CPU. Override it with a positive integer in
