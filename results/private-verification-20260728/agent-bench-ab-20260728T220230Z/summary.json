@@ -1,0 +1,81 @@
+{
+  "public69": {
+    "control": {
+      "arm": "original_qwen_control",
+      "run_id": "2026-07-28T22-03-13.941987Z_e0f462a4",
+      "status": "completed",
+      "final_score": 91,
+      "rating": "\u2605\u2605\u2605\u2605\u2605 Excellent",
+      "total_scenarios": 69,
+      "total_points": 125,
+      "max_points": 138,
+      "pass_count": 60,
+      "partial_count": 5,
+      "fail_count": 4,
+      "median_turn_ms": 1874.4,
+      "error_rate": 0.0,
+      "concurrency": 1,
+      "tool_eval_bench_version": "2.1.0"
+    },
+    "treebeard": {
+      "arm": "treebeard",
+      "run_id": "2026-07-28T22-10-37.378304Z_3f18e05a",
+      "status": "completed",
+      "final_score": 91,
+      "rating": "\u2605\u2605\u2605\u2605\u2605 Excellent",
+      "total_scenarios": 69,
+      "total_points": 126,
+      "max_points": 138,
+      "pass_count": 61,
+      "partial_count": 4,
+      "fail_count": 4,
+      "median_turn_ms": 1793.5,
+      "error_rate": 0.0,
+      "concurrency": 1,
+      "tool_eval_bench_version": "2.1.0"
+    },
+    "status_diffs": [
+      {
+        "id": "TC-50",
+        "control": "partial",
+        "treebeard": "pass"
+      }
+    ]
+  },
+  "heldout": {
+    "control": {
+      "arm": "original_qwen_control",
+      "total_points": 42,
+      "max_points": 46,
+      "score": 91.3,
+      "n_scenarios": 23,
+      "pass_count": 20,
+      "partial_count": 2,
+      "fail_count": 1,
+      "wall_s": 63.1,
+      "outcomes": {
+        "pass": 20,
+        "partial": 2,
+        "fail": 1
+      }
+    },
+    "treebeard": {
+      "arm": "treebeard",
+      "total_points": 42,
+      "max_points": 46,
+      "score": 91.3,
+      "n_scenarios": 23,
+      "pass_count": 20,
+      "partial_count": 2,
+      "fail_count": 1,
+      "wall_s": 56.3,
+      "outcomes": {
+        "pass": 20,
+        "partial": 2,
+        "fail": 1
+      }
+    }
+  },
+  "verdict": "quality_neutral",
+  "note": "same stock Q5; both arms 91 public and 91.3 held-out"
+}

@@ -91,20 +91,19 @@ Selected measurements:
 
 ## Dual-axis freeze (2026-07-28)
 
-Treebeard is **two things at once** on Arc Pro B70:
+Treebeard is a **runtime package** on open Qwen weights (Arc Pro B70), not a new model.
 
 | Axis | Headline |
 | --- | --- |
-| Single-agent quality | **94/100** public Agent Bench (package champion) |
-| Multi-agent throughput | **+28.7%** 12-agent concurrent p50 tok/s/agent (ship stack vs pre-stack) |
-
-**Single-agent (what users feel):** Treebeard **~+15%** decode tg_p50 vs Original Qwen
-control on a tiny sequential suite (77→89 tok/s; not Agent Bench).
+| Single-agent quality vs Original Qwen control | **91 = 91** public Agent Bench; **91.3 = 91.3** held-out (stock Q5, np=1) |
+| Historical website freeze | **94/100** (package-era champion; different pin/quant context) |
+| Single-agent speed | **~+15%** tg_p50 vs Original Qwen control (tiny suite, 77→89 tok/s) |
+| Multi-agent throughput (ops) | **+283%** 12-agent p50 vs Original Qwen control — not the product headline |
 
 Also packaged: Broadway multi-site **6/6**, long-context needles/dossier **3/3 + 14/14**.
-Multi-slot fleet numbers exist in private evidence but are **not** the product headline.
 
-Honest day writeup: [DAY_PACKAGE_20260728.md](results/private-verification-20260728/DAY_PACKAGE_20260728.md).
+Honest day writeup: [DAY_PACKAGE_20260728.md](results/private-verification-20260728/DAY_PACKAGE_20260728.md).  
+Quality A/B: [agent-bench-ab REPORT](results/private-verification-20260728/agent-bench-ab-20260728T220230Z/REPORT.md).
 
 ![Dual-axis](docs/assets/release-20260728/chart-dual-axis.png)
 

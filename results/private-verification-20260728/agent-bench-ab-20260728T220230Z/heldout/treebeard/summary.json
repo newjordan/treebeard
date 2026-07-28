@@ -1,0 +1,16 @@
+{
+  "arm": "treebeard",
+  "total_points": 42,
+  "max_points": 46,
+  "score": 91.3,
+  "n_scenarios": 23,
+  "pass_count": 20,
+  "partial_count": 2,
+  "fail_count": 1,
+  "wall_s": 56.3,
+  "outcomes": {
+    "pass": 20,
+    "partial": 2,
+    "fail": 1
+  }
+}
