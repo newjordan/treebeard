@@ -1,0 +1,123 @@
+{
+  "ok": true,
+  "n_tasks": 10,
+  "check_pass": 8,
+  "check_total": 10,
+  "wall_mean": 1.6249294757843018,
+  "wall_p50": 1.7433799505233765,
+  "tg_mean": 78.9359884212919,
+  "tg_p50": 77.09420140540364,
+  "tasks": [
+    {
+      "id": "short_fact",
+      "rep": 0,
+      "ok_check": true,
+      "wall_s": 0.5035190582275391,
+      "tg_tps": 79.51580988381517,
+      "pp_tps": 90.70089113625542,
+      "prompt_n": 12,
+      "predicted_n": 26,
+      "preview": "  <think>  </think>  The musical *Hamilton* officially opened on Broadway on August 6, 2015."
+    },
+    {
+      "id": "short_fact",
+      "rep": 1,
+      "ok_check": true,
+      "wall_s": 0.5420873165130615,
+      "tg_tps": 79.42399276630711,
+      "pp_tps": 87.62002117483844,
+      "prompt_n": 12,
+      "predicted_n": 26,
+      "preview": "  <think>  </think>  The musical *Hamilton* officially opened on Broadway on August 6, 2015."
+    },
+    {
+      "id": "code_small",
+      "rep": 0,
+      "ok_check": false,
+      "wall_s": 1.8735096454620361,
+      "tg_tps": 77.10731893032872,
+      "pp_tps": 122.55075250875531,
+      "prompt_n": 26,
+      "predicted_n": 128,
+      "preview": "  <think> Here's a thinking process:  1.  **Understand the User Request:**    - **Function Name:** `is_palindrome(s)`    - **Input:** A string `s`    - **Output"
+    },
+    {
+      "id": "code_small",
+      "rep": 1,
+      "ok_check": false,
+      "wall_s": 1.9445888996124268,
+      "tg_tps": 77.08108388047856,
+      "pp_tps": 127.2557301786964,
+      "prompt_n": 26,
+      "predicted_n": 128,
+      "preview": "  <think> Here's a thinking process:  1.  **Understand the User Request:**    - **Function Name:** `is_palindrome(s)`    - **Input:** A string `s`    - **Output"
+    },
+    {
+      "id": "reason_short",
+      "rep": 0,
+      "ok_check": true,
+      "wall_s": 0.3356812000274658,
+      "tg_tps": 84.52799567216663,
+      "pp_tps": 148.05629840746943,
+      "prompt_n": 32,
+      "predicted_n": 10,
+      "preview": "  <think>  </think>  0.05"
+    },
+    {
+      "id": "reason_short",
+      "rep": 1,
+      "ok_check": true,
+      "wall_s": 0.3337109088897705,
+      "tg_tps": 84.47658309116713,
+      "pp_tps": 149.51384638386745,
+      "prompt_n": 32,
+      "predicted_n": 10,
+      "preview": "  <think>  </think>  0.05"
+    },
+    {
+      "id": "html_snippet",
+      "rep": 0,
+      "ok_check": true,
+      "wall_s": 3.6082208156585693,
+      "tg_tps": 76.77216241390872,
+      "pp_tps": 112.52103376142472,
+      "prompt_n": 22,
+      "predicted_n": 256,
+      "preview": "  <think> Here's a thinking process:  1.  **Analyze User Input:**    - **Output:** Minimal complete HTML5 page    - **Title:** \"Hello Treebeard\"    - **Content:"
+    },
+    {
+      "id": "html_snippet",
+      "rep": 1,
+      "ok_check": true,
+      "wall_s": 3.6212170124053955,
+      "tg_tps": 76.56912876295394,
+      "pp_tps": 112.00659820687619,
+      "prompt_n": 22,
+      "predicted_n": 256,
+      "preview": "  <think> Here's a thinking process:  1.  **Analyze User Input:**    - **Output:** Minimal complete HTML5 page    - **Title:** \"Hello Treebeard\"    - **Content:"
+    },
+    {
+      "id": "medium_summary",
+      "rep": 0,
+      "ok_check": true,
+      "wall_s": 1.7403144836425781,
+      "tg_tps": 76.93469585385513,
+      "pp_tps": 130.46030745145788,
+      "prompt_n": 42,
+      "predicted_n": 109,
+      "preview": "  <think>  </think>  *   **Compute Efficiency**: Mixture of Experts (MoE) models reduce computational costs compared to dense models of similar size by activati"
+    },
+    {
+      "id": "medium_summary",
+      "rep": 1,
+      "ok_check": true,
+      "wall_s": 1.7464454174041748,
+      "tg_tps": 76.95111295793782,
+      "pp_tps": 176.7713967044761,
+      "prompt_n": 42,
+      "predicted_n": 110,
+      "preview": "  <think>  </think>  *   **Compute Efficiency**: Mixture of Experts (MoE) models reduce computational costs compared to dense models of similar size by activati"
+    }
+  ],
+  "arm": "original_qwen_control"
+}

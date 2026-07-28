@@ -98,11 +98,13 @@ Treebeard is **two things at once** on Arc Pro B70:
 | Single-agent quality | **94/100** public Agent Bench (package champion) |
 | Multi-agent throughput | **+28.7%** 12-agent concurrent p50 tok/s/agent (ship stack vs pre-stack) |
 
-Private verification (true control = clean upstream + stock Qwen, same weights):
-multi-slot package **26.33** vs base **6.88** p50 tok/s/agent (**+~283%**);
-package env knobs add **+~21%** on top of package code with knobs forced off.
-Also: Broadway multi-site **6/6**, long-context needles/dossier **3/3 + 14/14**,
-long multi-slot stress **120/120** at `c=262144` / `np=12`.
+**Single-agent (what users feel):** Treebeard **~+15%** decode tg_p50 vs Original Qwen
+control on a tiny sequential suite (77→89 tok/s; not Agent Bench).
+
+Also packaged: Broadway multi-site **6/6**, long-context needles/dossier **3/3 + 14/14**.
+Multi-slot fleet numbers exist in private evidence but are **not** the product headline.
+
+Honest day writeup: [DAY_PACKAGE_20260728.md](results/private-verification-20260728/DAY_PACKAGE_20260728.md).
 
 ![Dual-axis](docs/assets/release-20260728/chart-dual-axis.png)
 
