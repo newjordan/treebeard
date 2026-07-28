@@ -1,0 +1,6 @@
+base_commit=7e1e28cae36d41fe7bbe9dae7c9625de6565c063
+base_binary=-rwxrwxr-x 1 frosty40 frosty40 662784 Jul 28 15:44 /home/frosty40/turbo/worktrees/treebeard-base-control-latest/build-base-control/bin/llama-server
+package_commit=bc76ba4cc6a37218489152b8d589c6e5df93830c
+package_binary=-rwxrwxr-x 1 frosty40 frosty40 662784 Jul 28 10:57 /home/frosty40/turbo/worktrees/treebeard-pr-private-latest/build-positive-package/bin/llama-server
+model=/home/frosty40/models/Qwen3.6-35B-A3B/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf
+model_sha=25233af7642e3a91bd52cc4aeefdbd4a117479088e06cf1aea5b6bedb443c506

@@ -112,3 +112,32 @@ Current public package remains **0.1.0-rc.3** until a new runtime archive is bui
 - Report: https://newjordan.github.io/treebeard/
 - GitHub: https://github.com/newjordan/treebeard
 - HF: https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF
+
+
+---
+
+## CORRECTION — true base control (2026-07-28 evening)
+
+Earlier private ablation labeled **package knobs-off** as "parent." That was **wrong**
+for product claims. True control is clean upstream llama.cpp + stock Qwen weights.
+
+### True multi-slot ABA (c=262144 np=12 n_predict=96, stock Q5 all arms)
+
+| Arm | Binary | p50 tok/s/agent |
+|-----|--------|----------------:|
+| **base** (true control) | clean upstream SYCL @ pin `7e1e28cae` | **6.88** |
+| knobs_off (old mislabeled "parent") | package binary, package knobs forced off | **21.81** |
+| **package** | package binary + package env | **26.33** |
+
+### Lifts (honest)
+
+| Comparison | Lift | Meaning |
+|------------|-----:|---------|
+| **package vs base** | **+282.8%** | Full package stack vs stock Qwen serving (true claim axis) |
+| knobs_off vs base | +217.1% | Most of the win is **compiled package SYCL/code**, not env knobs alone |
+| package vs knobs_off | **+20.7%** | Env package pins on top of package code (old internal ablate) |
+
+**Do not** call knobs_off "parent" or "base Qwen."  
+**Do not** treat +21% as the full package-vs-stock story.  
+Source: `results/private-verification-20260728/base-vs-package-aba-20260728T204515Z/`
+
