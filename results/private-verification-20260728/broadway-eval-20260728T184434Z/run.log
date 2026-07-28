@@ -1,0 +1,62 @@
+=== BROADWAY REAL-WORLD EVAL 2026-07-28T13:44:34-05:00 ===
+OUT=/home/frosty40/turbo/treebeard-work/research/treebeard-pr-private/results/broadway-eval-20260728T184434Z BD=/home/frosty40/turbo/worktrees/treebeard-pr-private-latest/build-positive-package/bin PORT=8099 CTX=32768 NP=1
+starting package server...
+health ok after ~22s
+{"status":"ok"}model=pospkg-broadway-eval base=http://127.0.0.1:8099 tasks=6 out=/home/frosty40/turbo/treebeard-work/research/treebeard-pr-private/results/broadway-eval-20260728T184434Z
+
+=== TASK index ===
+  wall=71.3s bytes=23199 score=25/25 (100%)
+
+=== TASK oklahoma ===
+  wall=44.5s bytes=13842 score=12/12 (100%)
+
+=== TASK west-side-story ===
+  wall=42.1s bytes=13526 score=12/12 (100%)
+
+=== TASK phantom ===
+  wall=39.5s bytes=12103 score=12/12 (100%)
+
+=== TASK rent ===
+  wall=44.5s bytes=13763 score=12/12 (100%)
+
+=== TASK hamilton ===
+  wall=39.0s bytes=12171 score=12/12 (100%)
+
+# Broadway multi-site real-world eval
+
+- base: `http://127.0.0.1:8099`
+- model: `pospkg-broadway-eval`
+- tasks ok: 6/6
+- mean structure score: 100.0%
+- total gen wall: 280.9s
+
+| page | score | bytes | wall_s | notes |
+|------|------:|------:|-------:|-------|
+| [index.html](sites/index.html) | 25/25 | 23199 | 71.3 | ok |
+| [oklahoma.html](sites/oklahoma.html) | 12/12 | 13842 | 44.5 | ok |
+| [west-side-story.html](sites/west-side-story.html) | 12/12 | 13526 | 42.1 | ok |
+| [phantom.html](sites/phantom.html) | 12/12 | 12103 | 39.5 | ok |
+| [rent.html](sites/rent.html) | 12/12 | 13763 | 44.5 | ok |
+| [hamilton.html](sites/hamilton.html) | 12/12 | 12171 | 39.0 | ok |
+
+## Verdict guide
+- **Strong:** mean score ≥ 85%, all pages valid HTML with styles + footer marker
+- **Usable:** mean ≥ 70%, most pages openable
+- **Weak:** mean < 70% or multiple generation failures
+
+Open: `/home/frosty40/turbo/treebeard-work/research/treebeard-pr-private/results/broadway-eval-20260728T184434Z/sites/index.html` in a browser.
+
+## Verdict
+
+**STRONG — real-world multi-page HTML generation held**
+
+eval_exit=0
+sites: /home/frosty40/turbo/treebeard-work/research/treebeard-pr-private/results/broadway-eval-20260728T184434Z/sites
+report: /home/frosty40/turbo/treebeard-work/research/treebeard-pr-private/results/broadway-eval-20260728T184434Z/REPORT.md
+=== RESTORE 2026-07-28T13:49:39-05:00 ===
+ship health: {"status":"ok"}
+active
+/mnt/data2tb/treebeard-training/byte-lever-q8down-q6k-20260726/Qwen3.6-35B-A3B-UD-Q5_K_XL-q8down-q6k.gguf
+--reasoning
+--reasoning-budget
+ship: active health={"status":"ok"}

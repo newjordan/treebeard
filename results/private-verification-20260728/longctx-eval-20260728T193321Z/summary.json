@@ -1,0 +1,374 @@
+{
+  "base": "http://127.0.0.1:8099",
+  "model": "pospkg-longctx-eval",
+  "prefill": [
+    {
+      "target_chars": 2000,
+      "ok": true,
+      "prompt_n": 360,
+      "pp_tps": 344.4191657785117,
+      "tg_tps": 91.59941742770515,
+      "wall_s": 1.2654242515563965,
+      "preview": "\n\n<think>\n\n</think>\n\nThe text consists entirely of the repeated phrase \"Broadway decade notes.\""
+    },
+    {
+      "target_chars": 8000,
+      "ok": true,
+      "prompt_n": 1403,
+      "pp_tps": 1217.1782632609968,
+      "tg_tps": 92.01409655959293,
+      "wall_s": 1.3738987445831299,
+      "preview": "\n\n<think>\n\n</think>\n\nThe text consists entirely of the repeated phrase \"Broadway decade notes.\""
+    },
+    {
+      "target_chars": 16000,
+      "ok": true,
+      "prompt_n": 2794,
+      "pp_tps": 1531.4414130479468,
+      "tg_tps": 90.51043359023211,
+      "wall_s": 2.0507102012634277,
+      "preview": "\n\n<think>\n\n</think>\n\nThe text consists entirely of the repeated phrase \"Broadway decade notes.\""
+    },
+    {
+      "target_chars": 32000,
+      "ok": true,
+      "prompt_n": 5578,
+      "pp_tps": 1554.861408830431,
+      "tg_tps": 89.1802109111988,
+      "wall_s": 3.821056842803955,
+      "preview": "\n\n<think>\n\n</think>\n\nThe text consists entirely of the repeated phrase \"Broadway decade notes.\""
+    },
+    {
+      "target_chars": 48000,
+      "ok": true,
+      "prompt_n": 8360,
+      "pp_tps": 1553.5651998421904,
+      "tg_tps": 86.47003380978322,
+      "wall_s": 5.625682592391968,
+      "preview": "\n\n<think>\n\n</think>\n\nThe text consists entirely of the repeated phrase \"Broadway decade notes.\""
+    }
+  ],
+  "needles": {
+    "n_paragraphs": 150,
+    "doc_chars": 64679,
+    "needles_ok": 3,
+    "needles_total": 3,
+    "results": [
+      {
+        "show": "Carousel",
+        "code": "TB-CAR-1945-X",
+        "depth": 0.1,
+        "paragraph_index": 14,
+        "ok": true,
+        "answer": "TB-CAR-1945-X",
+        "wall_s": 18.979658365249634,
+        "usage": {
+          "completion_tokens": 10,
+          "prompt_tokens": 17780,
+          "total_tokens": 17790,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      {
+        "show": "Company",
+        "code": "TB-COM-1970-Q",
+        "depth": 0.5,
+        "paragraph_index": 74,
+        "ok": true,
+        "answer": "TB-COM-1970-Q",
+        "wall_s": 1.5555260181427002,
+        "usage": {
+          "completion_tokens": 10,
+          "prompt_tokens": 17780,
+          "total_tokens": 17790,
+          "prompt_tokens_details": {
+            "cached_tokens": 16752
+          }
+        }
+      },
+      {
+        "show": "Hadestown",
+        "code": "TB-HAD-2019-Z",
+        "depth": 0.9,
+        "paragraph_index": 134,
+        "ok": true,
+        "answer": "TB-HAD-2019-Z",
+        "wall_s": 1.5753490924835205,
+        "usage": {
+          "completion_tokens": 10,
+          "prompt_tokens": 17782,
+          "total_tokens": 17792,
+          "prompt_tokens_details": {
+            "cached_tokens": 16752
+          }
+        }
+      }
+    ]
+  },
+  "dossier": {
+    "doc_chars": 61092,
+    "qa_ok": 14,
+    "qa_total": 14,
+    "results": [
+      {
+        "q": "What year did Oklahoma! open?",
+        "section": "1940s Golden Age",
+        "ok": true,
+        "accept": [
+          "1943"
+        ],
+        "answer": "1943",
+        "wall_s": 17.845745086669922,
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 16695,
+          "total_tokens": 16700,
+          "prompt_tokens_details": {
+            "cached_tokens": 18
+          }
+        }
+      },
+      {
+        "q": "Who were the writers associated with Oklahoma! in this dossier?",
+        "section": "1940s Golden Age",
+        "ok": true,
+        "accept": [
+          "rodgers",
+          "hammerstein"
+        ],
+        "answer": "Rodgers and Hammerstein",
+        "wall_s": 1.4963798522949219,
+        "usage": {
+          "completion_tokens": 6,
+          "prompt_tokens": 16700,
+          "total_tokens": 16706,
+          "prompt_tokens_details": {
+            "cached_tokens": 15667
+          }
+        }
+      },
+      {
+        "q": "In what year did West Side Story premiere on Broadway according to the dossier?",
+        "section": "1950s Innovation",
+        "ok": true,
+        "accept": [
+          "1957"
+        ],
+        "answer": "1957",
+        "wall_s": 1.4869565963745117,
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 16703,
+          "total_tokens": 16708,
+          "prompt_tokens_details": {
+            "cached_tokens": 15672
+          }
+        }
+      },
+      {
+        "q": "Who wrote the lyrics for West Side Story per the dossier?",
+        "section": "1950s Innovation",
+        "ok": true,
+        "accept": [
+          "sondheim"
+        ],
+        "answer": "Stephen Sondheim",
+        "wall_s": 1.4763884544372559,
+        "usage": {
+          "completion_tokens": 4,
+          "prompt_tokens": 16700,
+          "total_tokens": 16704,
+          "prompt_tokens_details": {
+            "cached_tokens": 15675
+          }
+        }
+      },
+      {
+        "q": "Which 1968 musical is linked to counterculture rock energy in the dossier?",
+        "section": "1960s Concept Growth",
+        "ok": true,
+        "accept": [
+          "hair"
+        ],
+        "answer": "Hair",
+        "wall_s": 1.4549479484558105,
+        "usage": {
+          "completion_tokens": 2,
+          "prompt_tokens": 16707,
+          "total_tokens": 16709,
+          "prompt_tokens_details": {
+            "cached_tokens": 15675
+          }
+        }
+      },
+      {
+        "q": "Which 1975 show about dancers is mentioned as a long-running phenomenon?",
+        "section": "1970s Sondheim Peak",
+        "ok": true,
+        "accept": [
+          "chorus line",
+          "a chorus line"
+        ],
+        "answer": "A Chorus Line",
+        "wall_s": 1.4954636096954346,
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 16705,
+          "total_tokens": 16710,
+          "prompt_tokens_details": {
+            "cached_tokens": 15679
+          }
+        }
+      },
+      {
+        "q": "Which composer is tied to mega-musicals like Phantom in the dossier?",
+        "section": "1980s Mega-Musicals",
+        "ok": true,
+        "accept": [
+          "andrew lloyd webber",
+          "lloyd webber"
+        ],
+        "answer": "Andrew Lloyd Webber",
+        "wall_s": 1.4985458850860596,
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 16703,
+          "total_tokens": 16708,
+          "prompt_tokens_details": {
+            "cached_tokens": 15679
+          }
+        }
+      },
+      {
+        "q": "What year does the dossier give for Phantom on Broadway?",
+        "section": "1980s Mega-Musicals",
+        "ok": true,
+        "accept": [
+          "1988"
+        ],
+        "answer": "1988",
+        "wall_s": 1.4993135929107666,
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 16699,
+          "total_tokens": 16704,
+          "prompt_tokens_details": {
+            "cached_tokens": 15679
+          }
+        }
+      },
+      {
+        "q": "Who wrote Rent according to the dossier?",
+        "section": "1990s New Voices",
+        "ok": true,
+        "accept": [
+          "jonathan larson",
+          "larson"
+        ],
+        "answer": "Jonathan Larson",
+        "wall_s": 1.457324504852295,
+        "usage": {
+          "completion_tokens": 3,
+          "prompt_tokens": 16696,
+          "total_tokens": 16699,
+          "prompt_tokens_details": {
+            "cached_tokens": 15679
+          }
+        }
+      },
+      {
+        "q": "What year did Rent open per the dossier?",
+        "section": "1990s New Voices",
+        "ok": true,
+        "accept": [
+          "1996"
+        ],
+        "answer": "1996",
+        "wall_s": 1.4943678379058838,
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 16698,
+          "total_tokens": 16703,
+          "prompt_tokens_details": {
+            "cached_tokens": 15679
+          }
+        }
+      },
+      {
+        "q": "Which 2003 fantasy blockbuster is named in the dossier?",
+        "section": "2000s Diversification",
+        "ok": true,
+        "accept": [
+          "wicked"
+        ],
+        "answer": "Wicked",
+        "wall_s": 1.4718034267425537,
+        "usage": {
+          "completion_tokens": 3,
+          "prompt_tokens": 16703,
+          "total_tokens": 16706,
+          "prompt_tokens_details": {
+            "cached_tokens": 15679
+          }
+        }
+      },
+      {
+        "q": "What year did Hamilton open on Broadway per the dossier?",
+        "section": "2010s Hamilton Era",
+        "ok": true,
+        "accept": [
+          "2015"
+        ],
+        "answer": "2015",
+        "wall_s": 1.4861462116241455,
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 16700,
+          "total_tokens": 16705,
+          "prompt_tokens_details": {
+            "cached_tokens": 15679
+          }
+        }
+      },
+      {
+        "q": "Who is credited with book, music, and lyrics for Hamilton here?",
+        "section": "2010s Hamilton Era",
+        "ok": true,
+        "accept": [
+          "lin-manuel miranda",
+          "miranda"
+        ],
+        "answer": "Lin-Manuel Miranda",
+        "wall_s": 1.4984321594238281,
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 16703,
+          "total_tokens": 16708,
+          "prompt_tokens_details": {
+            "cached_tokens": 15679
+          }
+        }
+      },
+      {
+        "q": "What major disruption to Broadway does the 2020s section mention?",
+        "section": "2020s Continuity",
+        "ok": true,
+        "accept": [
+          "pandemic"
+        ],
+        "answer": "Pandemic shutdowns",
+        "wall_s": 1.4949069023132324,
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 16705,
+          "total_tokens": 16710,
+          "prompt_tokens_details": {
+            "cached_tokens": 15679
+          }
+        }
+      }
+    ]
+  }
+}

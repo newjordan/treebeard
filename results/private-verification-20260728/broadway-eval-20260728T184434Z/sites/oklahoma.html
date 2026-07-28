@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.1">
+    <title>Oklahoma! (1943) - Rodgers & Hammerstein</title>
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --color-gold: #D4AF37;
+            --color-gold-dim: #AA8C2C;
+            --color-red: #800000;
+            --color-cream: #FDFBF7;
+            --color-text: #2C2C2C;
+            --color-text-light: #555555;
+            --font-heading: 'Georgia', 'Times New Roman', serif;
+            --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --spacing-unit: 1.5rem;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-red);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--color-gold);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: var(--color-text);
+            margin-top: 1rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            max-width: 80ch;
+        }
+
+        a {
+            color: var(--color-red);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--color-gold-dim);
+            text-decoration: underline;
+        }
+
+        /* --- LAYOUT UTILS --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* --- HEADER & HERO --- */
+        header {
+            background-color: var(--color-red);
+            color: var(--color-gold);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .brand {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: var(--color-cream);
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--color-gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: var(--color-cream);
+            text-decoration: none;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1507676184212-d03ab07a11d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--color-cream);
+            padding: 0 1rem;
+        }
+
+        .hero-content h1 {
+            color: var(--color-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            font-family: var(--font-heading);
+            font-style: italic;
+            color: var(--color-cream);
+        }
+
+        /* --- CONTENT STYLING --- */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            h1 { font-size: 2.5rem; }
+        }
+
+        .card {
+            background: #fff;
+            padding: 2rem;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-radius: 4px;
+        }
+
+        .credit-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dotted #ccc;
+            padding: 0.8rem 0;
+        }
+        .credit-row:last-child { border-bottom: none; }
+        .credit-role { font-weight: bold; color: var(--color-red); }
+
+        .song-list {
+            list-style: none;
+        }
+        .song-list li {
+            padding: 0.8rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        .song-list li::before {
+            content: "♪";
+            color: var(--color-gold);
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .fun-fact {
+            background-color: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--color-gold);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #222;
+            color: #888;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin: 0 auto;
+        }
+
+        /* --- DECORATIVE --- */
+        .ornament {
+            text-align: center;
+            color: var(--color-gold);
+            font-size: 2rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <header>
+        <div class="nav-container">
+            <div class="brand">Broadway Archives</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Index</a></li>
+                    <li><a href="oklahoma.html" style="text-decoration: underline; color: var(--color-cream);">Oklahoma!</a></li>
+                    <li><a href="west-side-story.html">West Side Story</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Oklahoma!</h1>
+            <p>The Land of the Blue Corn</p>
+            <p style="font-size: 1rem; margin-top: 1rem; text-transform: uppercase; letter-spacing: 2px;">Music by Richard Rodgers • Lyrics & Book by Oscar Hammerstein II</p>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <!-- OVERVIEW -->
+        <section class="section">
+            <div class="grid-2">
+                <div>
+                    <h2>Overview</h2>
+                    <p>
+                        <strong>Oklahoma!</strong> is the first musical written by the duo of Rodgers and Hammerstein. It premiered on Broadway at the St. James Theatre on March 31, 1943. The musical is based on Lynn Riggs' 1931 play <em>Green Grow the Lilacs</em>.
+                    </p>
+                    <p>
+                        Running for 2,212 performances, it broke the record previously held by <em>Uncle Tom's Cabin</em> for the longest run in Broadway history. It is widely considered to be the first "integrated" musical—where the songs, dance, and plot all move forward the story, rather than serving as mere diversion.
+                    </p>
+                </div>
+                <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                    <div style="font-size: 4rem; color: var(--color-gold);">★</div>
+                    <h3>The Golden Age</h3>
+                    <p style="text-align: center;">Often cited as the beginning of the "Golden Age of American Musical Theatre."</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="ornament">❦</div>
+
+        <!-- CREATIVE TEAM -->
+        <section class="section">
+            <h2>Creative Team</h2>
+            <div class="card">
+                <div class="credit-row">
+                    <span class="credit-role">Music</span>
+                    <span>Richard Rodgers</span>
+                </div>
+                <div class="credit-row">
+                    <span class="credit-role">Lyrics & Book</span>
+                    <span>Oscar Hammerstein II</span>
+                </div>
+                <div class="credit-row">
+                    <span class="credit-role">Original Director</span>
+                    <span>Rouben Mamoulian</span>
+                </div>
+                <div class="credit-row">
+                    <span class="credit-role">Choreography</span>
+                    <span>Tyson Barrie (Supervision)</span>
+                </div>
+                <div class="credit-row">
+                    <span class="credit-role">Original Cast</span>
+                    <span>Karl Swenson, Alfred Drake, Joan Roberts</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PLOT SYNOPSIS -->
+        <section class="section">
+            <h2>Plot Synopsis</h2>
+            <p>Set in the Oklahoma Territory around 1906, the story centers on the rivalry between two cowboys, <strong>Curly McLain</strong> and <strong>Willie Sharp</strong>, for the affections of the beautiful farm girl <strong>Laurey Williams</strong>.</p>
+            
+            <h3>Act I</h3>
+            <p>Laurey is torn between the sweet, sincere Curly and the sinister, brooding farmhand Jud Fry. To make Curly jealous, she accepts an invitation to a box social from Jud, but Curly eventually wins her back with the help of her friend Ado Annie. The act ends with the "Dream Ballet," a surreal sequence visualizing Laurey's internal conflict.</p>
+
+            <h3>Act II</h3>
+            <p>Tensions rise as the community prepares for a barn raising. Jud, consumed by jealousy, attacks Curly. In a tragic turn of events, Curly is found dead, and Jud is arrested. The musical concludes with the community uniting as Oklahoma is admitted to the Union, symbolizing the triumph of community over individual malice.</p>
+        </section>
+
+        <!-- HISTORICAL IMPACT -->
+        <section class="section">
+            <h2>Historical Impact</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>The Integrated Musical</h3>
+                    <p>Before <em>Oklahoma!</em>, musicals were often loose collections of sketches and songs (revues). Rodgers and Hammerstein changed this by ensuring every song and dance number advanced the plot or developed character. The famous Dream Ballet by Agnes de Mille, for instance, revealed the heroine's psychological state without a single word of dialogue.</p>
+                </div>
+                <div>
+                    <h3>Cultural Resonance</h3>
+                    <p>Opening during World War II, the musical offered a vision of American optimism, unity, and patriotism. The song "Oh, What a Beautiful Mornin'" became an anthem of hope. It solidified the model for future Broadway blockbusters like <em>South Pacific</em>, <em>The King and I</em>, and <em>West Side Story</em>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAMOUS SONGS -->
+        <section class="section">
+            <h2>Famous Songs</h2>
+            <ul class="song-list">
+                <li>Oh, What a Beautiful Mornin'</li>
+                <li>People Will Say We're in Love</li>
+                <li>The Surrey with the Fringe on Top</li>
+                <li>I'm a Pretty Girl</li>
+                <li>Lonely Room</li>
+                <li>Out of My Dreams</li>
+                <li>The Farmer and the Cowman</li>
+                <li>Oklahoma!</li>
+            </ul>
+        </section>
+
+        <!-- FUN FACTS -->
+        <section class="section">
+            <h2>Fun Facts</h2>
+            <div class="fun-fact">
+                <strong>1. The Title:</strong> The title was not originally going to be "Oklahoma!". The working title was <em>Away We Go!</em> It was changed to "Oklahoma!" at the suggestion of a producer who felt the state name was more marketable.
+            </div>
+            <div class="fun-fact">
+                <strong>2. The Dance:</strong> Agnes de Mille was hired to choreograph, but she refused to do the standard "ballet girls kicking their legs" style. She insisted on using dance to tell the story, which was revolutionary for the time.
+            </div>
+            <div class="fun-fact">
+                <strong>3. The Curtain:</strong> The original curtain featured a painting of a prairie landscape. It was so large it had to be lowered by a crane.
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>Generated for Treebeard real-world package eval</p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">&copy; 2023 Broadway Archives Project</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -89,6 +89,25 @@ Selected measurements:
 | Intel B70 12-slot aggregate serving | 194.023 tok/s |
 | Ryzen 5950X installed-package chat smoke | 9.30 tok/s |
 
+## Dual-axis freeze (2026-07-28)
+
+Treebeard is **two things at once** on Arc Pro B70:
+
+| Axis | Headline |
+| --- | --- |
+| Single-agent quality | **94/100** public Agent Bench (package champion) |
+| Multi-agent throughput | **+28.7%** 12-agent concurrent p50 tok/s/agent (ship stack vs pre-stack) |
+
+Private verification on a latest-port package also measured **+21%** multi-slot
+decode vs parent on the same weights, with real-world Broadway multi-site
+generation, long-context retrieval, and **100%** success on
+`c=262144` / `np=12` long multi-slot stress.
+
+![Dual-axis](docs/assets/release-20260728/chart-dual-axis.png)
+
+Details: [RELEASE-20260728.md](docs/RELEASE-20260728.md).  
+**Do not read multi-slot speed as single-user chat speed.**
+
 ## CLI
 
 ```text

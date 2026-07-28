@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>West Side Story (1957) - Musical Theatre Archive</title>
+    <style>
+        /* --- CSS Reset & Variables --- */
+        :root {
+            --color-bg: #fdfbf7;
+            --color-text: #2c2c2c;
+            --color-primary: #c0392b; /* Deep Red */
+            --color-secondary: #2980b9; /* Ocean Blue */
+            --color-accent: #f1c40f; /* Gold */
+            --color-nav-bg: #1a1a1a;
+            --font-heading: 'Georgia', 'Times New Roman', serif;
+            --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --spacing-unit: 1rem;
+            --max-width: 960px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            font-size: 18px;
+        }
+
+        /* --- Typography --- */
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            color: var(--color-text);
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 3px solid var(--color-primary);
+            display: inline-block;
+            margin-top: 2rem;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--color-secondary);
+            margin-top: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            max-width: 75ch;
+        }
+
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--color-secondary);
+            text-decoration: underline;
+        }
+
+        /* --- Layout --- */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            background-color: var(--color-nav-bg);
+            color: #fff;
+            padding: 1rem 0;
+            border-bottom: 4px solid var(--color-primary);
+        }
+
+        nav .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        nav .brand {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #ccc;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover, nav a.active {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* --- Hero Section --- */
+        header.hero {
+            padding: 4rem 0;
+            text-align: center;
+            background: linear-gradient(135deg, #fdfbf7 0%, #f0f0f0 100%);
+            border-bottom: 1px solid #ddd;
+        }
+
+        .hero-meta {
+            font-family: var(--font-heading);
+            font-style: italic;
+            color: #666;
+            margin-top: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--color-secondary);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 1rem;
+        }
+
+        /* --- Content Sections --- */
+        section {
+            padding: 3rem 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            h1 { font-size: 2.5rem; }
+        }
+
+        /* --- Specific Components --- */
+        .creative-list {
+            list-style: none;
+        }
+
+        .creative-list li {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .creative-list strong {
+            color: var(--color-primary);
+            min-width: 120px;
+            display: inline-block;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: var(--color-secondary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tag.red { background-color: var(--color-primary); }
+
+        .song-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .song-item {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-left: 4px solid var(--color-primary);
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+        }
+
+        .song-item h4 {
+            font-family: var(--font-heading);
+            margin-bottom: 0.25rem;
+        }
+
+        .song-item p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--color-nav-bg);
+            color: #888;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            border-top: 4px solid var(--color-secondary);
+        }
+
+        /* --- Utility --- */
+        .highlight {
+            background-color: rgba(241, 196, 15, 0.2);
+            padding: 0 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-inner">
+            <div class="brand">MUSICAL ARCHIVE</div>
+            <ul>
+                <li><a href="index.html">West Side Story</a></li>
+                <li><a href="oklahoma.html">Oklahoma!</a></li>
+                <li><a href="phantom.html">Phantom of the Opera</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <header class="hero">
+        <div class="container">
+            <h1>West Side Story</h1>
+            <div class="hero-meta">Original Broadway Production • 1957</div>
+            <div class="hero-subtitle">A Romeo & Juliet Retelling for the Urban Age</div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Overview Section -->
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>
+                Premiering on September 26, 1957, at the Winter Garden Theatre, <strong>West Side Story</strong> stands as a monumental achievement in American musical theatre. It reimagined Shakespeare's <em>Romeo and Juliet</em> for a gritty, mid-century New York City, replacing the feud between noble houses with the violent turf war between two teenage street gangs: the <span class="tag red">Jets</span> (white Americans) and the <span class="tag">Sharks</span> (Puerto Rican immigrants).
+            </p>
+            <p>
+                Unlike the romanticized musicals of the previous decade, this production was dark, socially conscious, and visually distinct. It marked the first time that dance was not merely an interlude, but the primary vehicle for storytelling and character development.
+            </p>
+        </section>
+
+        <!-- Creative Team Section -->
+        <section id="creative-team">
+            <h2>The Creative Team</h2>
+            <p>The production is often cited as the perfect alignment of four distinct artistic geniuses.</p>
+            <ul class="creative-list">
+                <li><strong>Music:</strong> Leonard Bernstein</li>
+                <li><strong>Lyrics:</strong> Stephen Sondheim (his Broadway debut)</li>
+                <li><strong>Book:</strong> Arthur Laurents</li>
+                <li><strong>Choreography & Direction:</strong> Jerome Robbins</li>
+                <li><strong>Orchestration:</strong> Sid Ramin and Irwin Kostal</li>
+            </ul>
+        </section>
+
+        <!-- Setting & Story -->
+        <section id="setting-story">
+            <h2>Setting & Story</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>The Setting</h3>
+                    <p>
+                        The story is set in the mid-1950s on the <strong>Upper West Side</strong> of Manhattan. The backdrop is a tenement playground, a place of refuge for the Jets, which is threatened by the arrival of the Sharks. The urban landscape is cold, concrete, and dangerous, contrasting sharply with the warmth of the Sharks' family life.
+                    </p>
+                </div>
+                <div>
+                    <h3>The Narrative</h3>
+                    <p>
+                        The narrative follows <strong>Tony</strong>, a former leader of the Jets, and <strong>Maria</strong>, the sister of Sharks leader Bernardo. Their love blossoms amidst escalating gang violence. The play culminates in a tragic rumble and the deaths of key characters, mirroring the tragedy of Verona but grounded in the socio-political tensions of 1950s America.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dance & Music Innovation -->
+        <section id="innovation">
+            <h2>Dance & Music Innovation</h2>
+            <p>
+                <strong>Jerome Robbins</strong> utilized dance as a narrative device. The "Cool" scene, for example, uses the tension of a dance-off to convey the threat of violence without a single punch being thrown. The choreography blended ballet, jazz, and ethnic folk dances to distinguish the cultural identities of the gangs.
+            </p>
+            <p>
+                <strong>Leonard Bernstein</strong> composed a score that was symphonic in scope. He utilized dissonance and complex rhythms (including a 5/4 time signature in "America") to reflect the chaotic energy of the city. <strong>Stephen Sondheim</strong>, in his first major commission, provided lyrics that were witty, cynical, and deeply emotional, establishing his signature style immediately.
+            </p>
+        </section>
+
+        <!-- Famous Numbers -->
+        <section id="famous-numbers">
+            <h2>Famous Numbers</h2>
+            <div class="song-list">
+                <div class="song-item">
+                    <h4>Maria</h4>
+                    <p>Tony's ecstatic declaration of love.</p>
+                </div>
+                <div class="song-item">
+                    <h4>Something's Coming</h4>
+                    <p>Tony's anticipatory aria.</p>
+                </div>
+                <div class="song-item">
+                    <h4>Tonight</h4>
+                    <p>The duet uniting the lovers.</p>
+                </div>
+                <div class="song-item">
+                    <h4>Jet Song</h4>
+                    <p>The Jets' anthem of territorial pride.</p>
+                </div>
+                <div class="song-item">
+                    <h4>America</h4>
+                    <p>The debate on life in Puerto Rico vs. the US.</p>
+                </div>
+                <div class="song-item">
+                    <h4>Gee, Officer Krupke</h4>
+                    <p>A satirical look at social work and juvenile delinquency.</p>
+                </div>
+                <div class="song-item">
+                    <h4>I Feel Pretty</h4>
+                    <p>Maria's buoyant solo of self-discovery.</p>
+                </div>
+                <div class="song-item">
+                    <h4>One Hand, One Heart</h4>
+                    <p>The wedding duet.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Legacy -->
+        <section id="legacy">
+            <h2>Legacy</h2>
+            <p>
+                The original production ran for 732 performances, a significant run for the time, and was immediately hailed as a classic. It broke the mold of the "integrated musical," where song, dance, and plot are inseparable.
+            </p>
+            <p>
+                Its influence is immeasurable. It paved the way for the "concept musicals" of the 1960s and 70s (such as <em>Company</em> and <em>Sweeney Todd</em>, also by Sondheim). The 1961 film adaptation won 10 Academy Awards, cementing its place in pop culture history. Today, it remains one of the most frequently produced musicals in the world.
+            </p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 1957 - 2023 West Side Story Archive. All rights reserved.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.7;">Generated for Treebeard real-world package eval</p>
+        </div>
+    </footer>
+
+</body>
+</html>

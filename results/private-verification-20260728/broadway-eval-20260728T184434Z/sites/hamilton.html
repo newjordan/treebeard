@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAMILTON | The 2015 Phenomenon</title>
+    <style>
+        /* RESET & BASE */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #D4AF37; /* Gold */
+            --secondary: #1A1A1A; /* Dark Grey */
+            --accent: #E63946; /* Red */
+            --bg: #F8F9FA;
+            --text: #212529;
+            --font-display: 'Impact', 'Arial Black', sans-serif;
+            --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            border-bottom: 4px solid var(--primary);
+            display: inline-block;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            max-width: 80ch;
+        }
+
+        /* NAVIGATION */
+        nav {
+            background-color: var(--secondary);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1507676184212-d03ab07a11d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 15vw, 12rem);
+            line-height: 0.9;
+            margin-bottom: 1rem;
+            text-shadow: 4px 4px 0px var(--secondary);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero .highlight {
+            color: var(--primary);
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+
+        /* CREATIVE TEAM */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: var(--secondary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-member h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member span {
+            display: block;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        /* MUSICAL STYLE */
+        .style-section {
+            background-color: var(--secondary);
+            color: white;
+            width: 100%;
+            max-width: 100%;
+            padding: 5rem 2rem;
+        }
+
+        .style-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .style-section h2 {
+            color: var(--primary);
+            border-color: white;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .tag {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-family: var(--font-display);
+        }
+
+        /* AWARDS */
+        .awards-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .awards-list li {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .awards-list li::before {
+            content: '★';
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #111;
+            color: #666;
+            text-align: center;
+            padding: 3rem 1rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 5rem;
+            }
+            
+            .nav-links {
+                display: none; /* Simple hide for mobile for this demo */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="#" class="logo">HAMILTON</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="rent.html">Rent Tickets</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+        <h1>HAMILTON</h1>
+        <p>The Story of Today's <span class="highlight">America</span></p>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section id="overview">
+        <div class="grid-2">
+            <div>
+                <h2>Overview</h2>
+                <p>
+                    Premiering in <strong>2015</strong>, Lin-Manuel Miranda's <em>Hamilton</em> is a sung-and-rapped-through biographical musical that tells the story of American founding father Alexander Hamilton. 
+                </p>
+                <p>
+                    What began as an Off-Broadway sensation at The Public Theater quickly moved to Broadway's Richard Rodgers Theatre, becoming a global cultural phenomenon. It redefined the musical theater landscape by utilizing hip-hop, R&B, and traditional show tunes to tell the story of America's past through a diverse cast.
+                </p>
+            </div>
+            <div style="background: #ddd; height: 300px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 2rem; color: #999;">
+                [Historical Imagery]
+            </div>
+        </div>
+    </section>
+
+    <!-- CREATIVE TEAM -->
+    <section id="creative">
+        <h2>Creative Team</h2>
+        <p>The vision behind the phenomenon.</p>
+        <div class="team-grid">
+            <div class="team-member">
+                <h3>Lin-Manuel Miranda</h3>
+                <span>Book, Music & Lyrics</span>
+            </div>
+            <div class="team-member">
+                <h3>Thomas Kail</h3>
+                <span>Director</span>
+            </div>
+            <div class="team-member">
+                <h3>Alex Lacamoire</h3>
+                <span>Orchestrations & Music Director</span>
+            </div>
+            <div class="team-member">
+                <h3>Andy Blankenbuehler</h3>
+                <span>Choreographer</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- STORY APPROACH -->
+    <section id="story">
+        <div class="grid-2">
+            <div style="background: var(--secondary); color: white; padding: 3rem;">
+                <h2>Story Approach</h2>
+                <p>
+                    "Old York, New York." The narrative follows Alexander Hamilton from his impoverished childhood in the Caribbean to his pivotal role in the Revolutionary War, the drafting of the Constitution, and his tumultuous political career.
+                </p>
+                <p>
+                    The show focuses heavily on the theme of legacy—who lives, who dies, and who tells your story. It humanizes the historical figures, portraying them as flawed, ambitious young men and women.
+                </p>
+            </div>
+            <div>
+                <div class="card">
+                    <h3>The Founding Fathers</h3>
+                    <p>Cast by color to reflect the diversity of the current United States, emphasizing that the story belongs to everyone.</p>
+                </div>
+                <div class="card">
+                    <h3>Historical Context</h3>
+                    <p>Interweaves the Federalist Papers, the duel with Aaron Burr, and the personal tragedies of Eliza and Angelica Schuyler.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MUSICAL STYLE -->
+    <div class="style-section">
+        <div class="style-container">
+            <h2>Musical Style</h2>
+            <p>Hip-hop, R&B, Pop, and Traditional Showtunes.</p>
+            <p style="opacity: 0.8;">
+                Miranda utilizes hip-hop as a vehicle for political debate and rapid-fire exposition. The score is a fusion of genres that mirrors the melting pot of the characters.
+            </p>
+            <div class="tags">
+                <div class="tag">Boom-Bap</div>
+                <div class="tag">R&B Ballads</div>
+                <div class="tag">Showtunes</div>
+                <div class="tag">Jazz</div>
+                <div class="tag">Trap</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CULTURAL PHENOMENON -->
+    <section id="culture">
+        <h2>Cultural Phenomenon</h2>
+        <p>
+            <em>Hamilton</em> did more than break box office records; it changed the demographic of theater audiences. The "Hamilton Effect" saw a massive surge in interest in American history, particularly among younger generations.
+        </p>
+        <p>
+            The release of the filmed stage production on Disney+ in 2020 further cemented its place in pop culture history, making it accessible to millions worldwide.
+        </p>
+    </section>
+
+    <!-- AWARDS -->
+    <section id="awards">
+        <h2>Awards & Recognition</h2>
+        <ul class="awards-list">
+            <li>16 Tony Award Nominations (Won 11, including Best Musical)</li>
+            <li>Pulitzer Prize for Drama (2016)</li>
+            <li>Grammy Award for Best Musical Theater Album</li>
+            <li>Laurence Olivier Award for Best New Musical</li>
+        </ul>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        Generated for Treebeard real-world package eval
+    </footer>
+
+</body>
+</html>

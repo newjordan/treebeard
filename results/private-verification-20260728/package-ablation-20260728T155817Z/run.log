@@ -1,0 +1,209 @@
+=== POSITIVE PACKAGE ABLATION 2026-07-28T10:58:17-05:00 ===
+BD=/home/frosty40/turbo/worktrees/treebeard-pr-private-latest/build-positive-package/bin MODEL=Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf OUT=/home/frosty40/turbo/treebeard-work/research/treebeard-pr-private/results/package-ablation-20260728T155817Z
+binary=-rwxrwxr-x 1 frosty40 frosty40 662784 Jul 28 10:57 /home/frosty40/turbo/worktrees/treebeard-pr-private-latest/build-positive-package/bin/llama-server
+MODES=parent package ablate:ncols16 ablate:rps1 ablate:no_eg ablate:no_deferred ablate:no_shared_act ablate:no_gdn
+
+######## ARM parent 2026-07-28T10:58:20-05:00
+  GDN=0 rps=1 ncols=16 eg=0 deferred=0 noshared=1
+  health ok after ~32s
+=== ABA n96 x12 parent ===
+{
+  "rounds": [
+    {
+      "n_ok": 12,
+      "wall": 6.592024326324463,
+      "p50": 21.914466013449577,
+      "p90": 21.91490624529172,
+      "min": 21.914035802969078,
+      "max": 21.915276454363948,
+      "aggregate": 174.75663665251133
+    },
+    {
+      "n_ok": 12,
+      "wall": 6.108502626419067,
+      "p50": 21.949783240174703,
+      "p90": 21.950287628795028,
+      "min": 21.949655264659
+######## ARM package 2026-07-28T10:59:18-05:00
+  GDN=1 rps=4 ncols=32 eg=1 deferred=default noshared=0
+  health ok after ~22s
+=== ABA n96 x12 package ===
+{
+  "rounds": [
+    {
+      "n_ok": 12,
+      "wall": 5.929738521575928,
+      "p50": 26.55998773820049,
+      "p90": 26.560645423683795,
+      "min": 26.559675440766114,
+      "max": 26.561578731701218,
+      "aggregate": 194.275008216355
+    },
+    {
+      "n_ok": 12,
+      "wall": 5.498631238937378,
+      "p50": 26.5498069538651,
+      "p90": 26.550251190267122,
+      "min": 26.549583005611918,
+######## ARM ablate_ncols16 2026-07-28T11:00:03-05:00
+  GDN=1 rps=4 ncols=16 eg=1 deferred=default noshared=0
+  health ok after ~22s
+=== ABA n96 x12 ablate_ncols16 ===
+{
+  "rounds": [
+    {
+      "n_ok": 12,
+      "wall": 5.958832025527954,
+      "p50": 26.41605898266503,
+      "p90": 26.41641516038066,
+      "min": 26.415899069252305,
+      "max": 26.417011234384383,
+      "aggregate": 193.32647657540448
+    },
+    {
+      "n_ok": 12,
+      "wall": 5.457334995269775,
+      "p50": 26.22428483508735,
+      "p90": 26.224621532271854,
+      "min": 26.22411290791812
+######## ARM ablate_rps1 2026-07-28T11:00:48-05:00
+  GDN=1 rps=1 ncols=32 eg=1 deferred=default noshared=0
+  health ok after ~22s
+=== ABA n96 x12 ablate_rps1 ===
+{
+  "rounds": [
+    {
+      "n_ok": 12,
+      "wall": 6.191530704498291,
+      "p50": 24.890549642025114,
+      "p90": 24.891146608075672,
+      "min": 24.89016566220156,
+      "max": 24.891411218559035,
+      "aggregate": 186.06061327662403
+    },
+    {
+      "n_ok": 12,
+      "wall": 5.7642762660980225,
+      "p50": 24.858568340691562,
+      "p90": 24.859060778073065,
+      "min": 24.85828833594
+######## ARM ablate_no_eg 2026-07-28T11:01:35-05:00
+  GDN=1 rps=4 ncols=32 eg=0 deferred=default noshared=0
+  health ok after ~22s
+=== ABA n96 x12 ablate_no_eg ===
+{
+  "rounds": [
+    {
+      "n_ok": 12,
+      "wall": 6.042409658432007,
+      "p50": 25.802387043377948,
+      "p90": 25.802435588654344,
+      "min": 25.802061100893315,
+      "max": 25.80282395781453,
+      "aggregate": 190.65241602618212
+    },
+    {
+      "n_ok": 12,
+      "wall": 5.339450120925903,
+      "p50": 25.831922443965667,
+      "p90": 25.83198500238004,
+      "min": 25.8312760246742
+######## ARM ablate_no_deferred 2026-07-28T11:02:20-05:00
+  GDN=1 rps=4 ncols=32 eg=1 deferred=0 noshared=0
+  health ok after ~22s
+=== ABA n96 x12 ablate_no_deferred ===
+{
+  "rounds": [
+    {
+      "n_ok": 12,
+      "wall": 5.908830404281616,
+      "p50": 26.683106425362457,
+      "p90": 26.68407061049818,
+      "min": 26.682572444573903,
+      "max": 26.684508225360677,
+      "aggregate": 194.9624411567551
+    },
+    {
+      "n_ok": 12,
+      "wall": 5.300708293914795,
+      "p50": 26.660971586954094,
+      "p90": 26.661682413259964,
+      "min": 26.6604088762498
+######## ARM ablate_no_shared_act 2026-07-28T11:03:04-05:00
+  GDN=1 rps=4 ncols=32 eg=1 deferred=default noshared=1
+  health ok after ~22s
+=== ABA n96 x12 ablate_no_shared_act ===
+{
+  "rounds": [
+    {
+      "n_ok": 12,
+      "wall": 5.921176195144653,
+      "p50": 26.616107153120893,
+      "p90": 26.616273189428014,
+      "min": 26.61583780973835,
+      "max": 26.616361742972448,
+      "aggregate": 194.55593990677673
+    },
+    {
+      "n_ok": 12,
+      "wall": 5.4873456954956055,
+      "p50": 26.612956546046064,
+      "p90": 26.613402897811465,
+      "min": 26.61218560890
+######## ARM ablate_no_gdn 2026-07-28T11:03:49-05:00
+  GDN=0 rps=4 ncols=32 eg=1 deferred=default noshared=0
+  health ok after ~22s
+=== ABA n96 x12 ablate_no_gdn ===
+{
+  "rounds": [
+    {
+      "n_ok": 12,
+      "wall": 6.420602798461914,
+      "p50": 22.6769716179987,
+      "p90": 22.67718321038048,
+      "min": 22.67687787580016,
+      "max": 22.677333202308745,
+      "aggregate": 179.42240567754277
+    },
+    {
+      "n_ok": 12,
+      "wall": 6.123030185699463,
+      "p50": 22.6817025881734,
+      "p90": 22.682257253183373,
+      "min": 22.6811801018007,
+  # Positive package ablation DECISION
+
+OUT: `/home/frosty40/turbo/treebeard-work/research/treebeard-pr-private/results/package-ablation-20260728T155817Z`
+
+| mode | p50_mean |
+|------|---------:|
+| parent | nan |
+| package | nan |
+| ablate:ncols16 | nan |
+| ablate:rps1 | nan |
+| ablate:no_eg | nan |
+| ablate:no_deferred | nan |
+| ablate:no_shared_act | nan |
+| ablate:no_gdn | nan |
+
+**parent p50** = nan
+**package p50** = nan
+**lift** = n/a
+
+## Only-better rules
+- Package must beat parent (or clear multi-slot win with quality hold).
+- Each ablate:* should not beat full package by more than noise (~1–2%); if it does, that member is a drag → cut.
+
+## Verdict (auto, speed ABA only)
+
+**REJECT or fix build/regress — package worse than parent**
+
+=== DONE 2026-07-28T11:04:37-05:00 OUT=/home/frosty40/turbo/treebeard-work/research/treebeard-pr-private/results/package-ablation-20260728T155817Z ===
+See /home/frosty40/turbo/treebeard-work/research/treebeard-pr-private/results/package-ablation-20260728T155817Z/DECISION.md /home/frosty40/turbo/treebeard-work/research/treebeard-pr-private/results/package-ablation-20260728T155817Z/summary.tsv
+=== RESTORE 2026-07-28T11:04:37-05:00 ===
+ship health: {"status":"ok"}
+active
+/mnt/data2tb/treebeard-training/byte-lever-q8down-q6k-20260726/Qwen3.6-35B-A3B-UD-Q5_K_XL-q8down-q6k.gguf
+--reasoning
+--reasoning-budget
+ship: active
