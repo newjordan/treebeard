@@ -154,7 +154,40 @@
       "result": "evidence/nvidia/agent-single-slot-94/result.json",
       "result_sha256": "e987f8dc3190b91dc30d3ac61adb497bf24836eeb6ad8296c59525af6c6614e8"
     },
-    "revalidated_date": "2026-07-17"
+    "revalidated_date": "2026-07-17",
+    "historical_freeze_score": 94,
+    "matched_control_ab_20260728": {
+      "date": "2026-07-28",
+      "weights": "stock Q5_K_XL sha256 25233af7642e3a91bd52cc4aeefdbd4a117479088e06cf1aea5b6bedb443c506",
+      "shape": "np=1 c=262144 temp=0 seed=42 no-think tool-eval-bench 2.1.0@8b3259b B70",
+      "control": {
+        "name": "Original Qwen control (clean upstream SYCL)",
+        "public69_score": 91,
+        "public69_points": "125/138",
+        "heldout_score_pct": 91.3,
+        "heldout_points": "42/46"
+      },
+      "treebeard": {
+        "name": "Treebeard package",
+        "public69_score": 91,
+        "public69_points": "126/138",
+        "heldout_score_pct": 91.3,
+        "heldout_points": "42/46"
+      },
+      "verdict": "quality_neutral",
+      "solo_tg_p50": {
+        "control": 77.1,
+        "treebeard": 88.9,
+        "lift_pct": 15.4
+      },
+      "multislot_p50_per_agent": {
+        "control": 6.88,
+        "treebeard": 26.33,
+        "lift_pct": 282.8
+      },
+      "evidence": "results/private-verification-20260728/agent-bench-ab-20260728T220230Z/"
+    },
+    "score_note": "94 is the historical package-champion freeze (Intel+NVIDIA exact reproduction). Matched stock-Q5 control A/B on 2026-07-28 is 91=91."
   },
   "cpu_package_smoke": {
     "status": "passed",

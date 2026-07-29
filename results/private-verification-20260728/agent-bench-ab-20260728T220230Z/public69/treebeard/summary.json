@@ -1,0 +1,17 @@
+{
+  "arm": "treebeard",
+  "run_id": "2026-07-28T22-10-37.378304Z_3f18e05a",
+  "status": "completed",
+  "final_score": 91,
+  "rating": "\u2605\u2605\u2605\u2605\u2605 Excellent",
+  "total_scenarios": 69,
+  "total_points": 126,
+  "max_points": 138,
+  "pass_count": 61,
+  "partial_count": 4,
+  "fail_count": 4,
+  "median_turn_ms": 1793.5,
+  "error_rate": 0.0,
+  "concurrency": 1,
+  "tool_eval_bench_version": "2.1.0"
+}

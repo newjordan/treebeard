@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broadway Through the Decades | 1940s - 2020s</title>
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --accent-gold: #d4af37;
+            --accent-red: #8a1c1c;
+            --accent-blue: #1c3a8a;
+            --font-heading: 'Georgia', 'Times New Roman', serif;
+            --font-body: 'Helvetica Neue', 'Arial', sans-serif;
+            --spacing-unit: 1rem;
+            --container-width: 1100px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--accent-gold);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 var(--spacing-unit);
+        }
+
+        .text-center { text-align: center; }
+        .text-accent { color: var(--accent-gold); }
+
+        /* --- HEADER / HERO --- */
+        header {
+            padding: 4rem 0;
+            text-align: center;
+            background: radial-gradient(circle at center, #2a2a2a 0%, var(--bg-color) 70%);
+            border-bottom: 1px solid #333;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        header p.subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- INTRO SECTION --- */
+        .intro {
+            padding: 3rem 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-muted);
+        }
+
+        /* --- TIMELINE NAVIGATION --- */
+        .timeline-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            border-bottom: 1px solid var(--accent-gold);
+            padding: 1rem 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .timeline-nav a {
+            display: inline-block;
+            margin: 0 0.5rem;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            color: var(--text-main);
+            padding: 0.25rem 0.75rem;
+            border: 1px solid transparent;
+            border-radius: 20px;
+        }
+
+        .timeline-nav a:hover {
+            border-color: var(--accent-gold);
+            text-decoration: none;
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* --- DECADE SECTIONS --- */
+        .decade-section {
+            padding: 4rem 0;
+            border-bottom: 1px solid #333;
+            scroll-margin-top: 80px; /* Offset for sticky nav */
+        }
+
+        .decade-header {
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent-gold);
+            padding-left: 1rem;
+        }
+
+        .decade-header h2 {
+            font-size: 2.5rem;
+            color: #fff;
+        }
+
+        .decade-header span {
+            display: block;
+            font-size: 1rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.25rem;
+        }
+
+        /* --- MUSICAL CARDS GRID --- */
+        .musicals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            border-color: var(--accent-gold);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .card .year {
+            font-family: var(--font-body);
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .card .read-more {
+            margin-top: auto;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            background-color: #0a0a0a;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #333;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.5rem; }
+            .timeline-nav { justify-content: flex-start; }
+            .decade-header h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Broadway Through the Years</h1>
+            <p class="subtitle">A journey through the evolution of American musical theater, from the golden age to the modern blockbuster.</p>
+        </div>
+    </header>
+
+    <nav class="timeline-nav">
+        <div class="container">
+            <a href="#1940s">1940s</a>
+            <a href="#1950s">1950s</a>
+            <a href="#1960s">1960s</a>
+            <a href="#1970s">1970s</a>
+            <a href="#1980s">1980s</a>
+            <a href="#1990s">1990s</a>
+            <a href="#2000s">2000s</a>
+            <a href="#2010s">2010s</a>
+            <a href="#2020s">2020s</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <!-- INTRO -->
+        <section class="intro text-center">
+            <p>
+                Broadway has always been a mirror to society, reflecting our hopes, fears, and dreams. 
+                From the optimistic escapism of the post-war era to the gritty realism of modern rock operas, 
+                the theater district has reinvented itself every few decades. Explore the timeline below to see 
+                how the art form has evolved over the last 80 years.
+            </p>
+        </section>
+
+        <!-- 1940s -->
+        <section id="1940s" class="decade-section">
+            <div class="decade-header">
+                <h2>The 1940s</h2>
+                <span>The Golden Age Begins</span>
+            </div>
+            <div class="musicals-grid">
+                <article class="card">
+                    <div>
+                        <h3>Oklahoma!</h3>
+                        <span class="year">1943</span>
+                        <p>Collaborating Rodgers and Hammerstein revolutionized the genre by integrating song and dance directly into the narrative plot, creating a cohesive dramatic experience.</p>
+                    </div>
+                    <a href="oklahoma.html" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Carmen Jones</h3>
+                        <span class="year">1943</span>
+                        <p>With an all-Black cast and lyrics by Oscar Hammerstein II, this modernized adaptation of Bizet's opera broke racial barriers on the Broadway stage.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Carousel</h3>
+                        <span class="year">1945</span>
+                        <p>A darker, more complex tale of redemption and redemption, featuring the haunting score that includes the famous "If I Loved You" duet.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- 1950s -->
+        <section id="1950s" class="decade-section">
+            <div class="decade-header">
+                <h2>The 1950s</h2>
+                <span>Choreography and Conflict</span>
+            </div>
+            <div class="musicals-grid">
+                <article class="card">
+                    <div>
+                        <h3>West Side Story</h3>
+                        <span class="year">1957</span>
+                        <p>A modern retelling of Romeo and Juliet set against the backdrop of NYC gang wars, featuring Leonard Bernstein's jazz-infused score and Jerome Robbins' iconic choreography.</p>
+                    </div>
+                    <a href="west-side-story.html" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>The King and I</h3>
+                        <span class="year">1951</span>
+                        <p>Set in 1860s Siam, this musical explores cultural clashes and personal growth through the relationship between a British widow and the King of Siam.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Gypsy</h3>
+                        <span class="year">1959</span>
+                        <p>The definitive "show about a showbiz mom," starring the formidable Mama Rose, this musical delves into the darker side of ambition and stardom.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- 1960s -->
+        <section id="1960s" class="decade-section">
+            <div class="decade-header">
+                <h2>The 1960s</h2>
+                <span>Concept Musicals and Counterculture</span>
+            </div>
+            <div class="musicals-grid">
+                <article class="card">
+                    <div>
+                        <h3>Funny Girl</h3>
+                        <span class="year">1964</span>
+                        <p>Barbra Streisand made her Broadway debut in this biographical musical about the life of comedienne Fanny Brice, showcasing her unique vocal talents.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Hair</h3>
+                        <span class="year">1967</span>
+                        <p>The "American Tribal Love-Rock Musical" brought rock music, nudity, and anti-war sentiments to Broadway, shocking audiences and redefining the medium.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Man of La Mancha</h3>
+                        <span class="year">1965</span>
+                        <p>Based on Don Quixote, this "play within a play" offers a timeless message of idealism with the famous anthem "The Impossible Dream."</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- 1970s -->
+        <section id="1970s" class="decade-section">
+            <div class="decade-header">
+                <h2>The 1970s</h2>
+                <span>European Imports and Spectacle</span>
+            </div>
+            <div class="musicals-grid">
+                <article class="card">
+                    <div>
+                        <h3>A Chorus Line</h3>
+                        <span class="year">1975</span>
+                        <p>Created from interviews with Broadway dancers, this intimate look at the lives of auditioning performers became the longest-running show in history at the time.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Evita</h3>
+                        <span class="year">1979</span>
+                        <p>Andrew Lloyd Webber and Tim Rice tackled the life of Eva Perón, blending rock opera with historical drama and political intrigue.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Phantom of the Opera</h3>
+                        <span class="year">1986 (Previews)</span>
+                        <p>While technically late 80s, the Phantom began its long development and previews in the late 70s, setting the stage for the ultimate megamusical.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- 1980s -->
+        <section id="1980s" class="decade-section">
+            <div class="decade-header">
+                <h2>The 1980s</h2>
+                <span>The Megamusical Era</span>
+            </div>
+            <div class="musicals-grid">
+                <article class="card">
+                    <div>
+                        <h3>Phantom of the Opera</h3>
+                        <span class="year">1988</span>
+                        <p>Andrew Lloyd Webber's gothic romance became a global phenomenon, known for its lavish sets, chandelier, and soaring score.</p>
+                    </div>
+                    <a href="phantom.html" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Les Misérables</h3>
+                        <span class="year">1985</span>
+                        <p>Adapted from Victor Hugo's novel, this epic tale of revolution and redemption dominated the Broadway scene with its massive scale and emotional depth.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>La Cage aux Folles</h3>
+                        <span class="year">1983</span>
+                        <p>A heartwarming comedy about a gay couple and their drag club, offering a rare positive representation of LGBTQ+ characters on the Great White Way.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- 1990s -->
+        <section id="1990s" class="decade-section">
+            <div class="decade-header">
+                <h2>The 1990s</h2>
+                <span>Pop Culture and Gritty Realism</span>
+            </div>
+            <div class="musicals-grid">
+                <article class="card">
+                    <div>
+                        <h3>Rent</h3>
+                        <span class="year">1996</span>
+                        <p>Jonathan Larson's rock opera updated Puccini's La Bohème for the AIDS crisis and bohemian New York, capturing the spirit of a generation.</p>
+                    </div>
+                    <a href="rent.html" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>The Lion King</h3>
+                        <span class="year">1997</span>
+                        <p>Julie Taymor's visionary direction used puppetry and masks to bring the African savanna to life, creating a visual spectacle unlike anything before.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Fosse</h3>
+                        <span class="year">1999</span>
+                        <p>A tribute to the life and work of choreographer Bob Fosse, this revue celebrated his distinctive style of jazz dance and theatrical direction.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- 2000s -->
+        <section id="2000s" class="decade-section">
+            <div class="decade-header">
+                <h2>The 2000s</h2>
+                <span>Reinvention and Disney</span>
+            </div>
+            <div class="musicals-grid">
+                <article class="card">
+                    <div>
+                        <h3>Wicked</h3>
+                        <span class="year">2003</span>
+                        <p>Telling the untold story of the Witches of Oz, this musical became a cultural phenomenon with its massive hit "Defying Gravity" and iconic yellow brick road.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Hairspray</h3>
+                        <span class="year">2002</span>
+                        <p>A high-energy celebration of integration and body positivity, set in 1962 Baltimore, featuring a catchy pop soundtrack and energetic choreography.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Moulin Rouge!</h3>
+                        <span class="year">2019 (Late 2000s planning)</span>
+                        <p>While opening in 2019, the trend of jukebox musicals based on films began to solidify in the late 2000s with productions like Jersey Boys.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- 2010s -->
+        <section id="2010s" class="decade-section">
+            <div class="decade-header">
+                <h2>The 2010s</h2>
+                <span>The Hamilton Effect</span>
+            </div>
+            <div class="musicals-grid">
+                <article class="card">
+                    <div>
+                        <h3>Hamilton</h3>
+                        <span class="year">2015</span>
+                        <p>Lin-Manuel Miranda's hip-hop masterpiece reinvented historical biography, casting actors of color as the Founding Fathers and changing the cultural landscape forever.</p>
+                    </div>
+                    <a href="hamilton.html" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Dear Evan Hansen</h3>
+                        <span class="year">2016</span>
+                        <p>A contemporary look at mental health, social media, and loneliness, resonating deeply with younger audiences and earning multiple Tony Awards.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Hadestown</h3>
+                        <span class="year">2019</span>
+                        <p>Combining jazz, folk, and blues, this retelling of the Orpheus and Eurydice myth in a dystopian underworld became a critical darling.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- 2020s -->
+        <section id="2020s" class="decade-section">
+            <div class="decade-header">
+                <h2>The 2020s</h2>
+                <span>Resilience and New Voices</span>
+            </div>
+            <div class="musicals-grid">
+                <article class="card">
+                    <div>
+                        <h3>Kimberly Akimbo</h3>
+                        <span class="year">2022</span>
+                        <p>A poignant and funny look at a girl with a rare aging disease, showcasing the power of intimate storytelling and diverse casting.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Some Like It Hot</h3>
+                        <span class="year">2022</span>
+                        <p>A fresh take on the classic Billy Wilder film, featuring a new score by Marc Shaiman and a vibrant, energetic production.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+                <article class="card">
+                    <div>
+                        <h3>Paradise Square</h3>
+                        <span class="year">2022</span>
+                        <p>A new musical exploring the 1863 Draft Riots in New York City, highlighting the complex history of race and music in America.</p>
+                    </div>
+                    <a href="#" class="read-more">View Details &rarr;</a>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Broadway History Project. All rights reserved.</p>
+            <p>Generated for Treebeard real-world package eval</p

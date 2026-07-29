@@ -1,0 +1,240 @@
+{
+  "base": "http://127.0.0.1:8099",
+  "model": "pospkg-broadway-eval",
+  "n_tasks": 6,
+  "n_ok": 6,
+  "mean_check_ratio": 1.0,
+  "mean_wall_s": 46.8132875363032,
+  "total_wall_s": 280.8797252178192,
+  "results": [
+    {
+      "id": "index",
+      "file": "index.html",
+      "ok": true,
+      "wall_s": 71.27121591567993,
+      "usage": {
+        "completion_tokens": 6000,
+        "prompt_tokens": 309,
+        "total_tokens": 6309,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "score": {
+        "passed": 25,
+        "total": 25,
+        "ratio": 1.0,
+        "checks": {
+          "has_doctype": true,
+          "has_html_tag": true,
+          "has_head": true,
+          "has_body": true,
+          "has_style": true,
+          "has_footer_marker": true,
+          "min_length_4k": true,
+          "min_length_8k": true,
+          "topic_keywords": true,
+          "link_oklahoma.html": true,
+          "link_west-side-story.html": true,
+          "link_phantom.html": true,
+          "link_rent.html": true,
+          "link_hamilton.html": true,
+          "decade_1940": true,
+          "decade_1950": true,
+          "decade_1960": true,
+          "decade_1970": true,
+          "decade_1980": true,
+          "decade_1990": true,
+          "decade_2000": true,
+          "decade_2010": true,
+          "decade_2020": true,
+          "not_mostly_markdown": true,
+          "no_think_tags": true
+        },
+        "bytes": 23199,
+        "chars": 23196
+      },
+      "preview": "<!DOCTYPE html> <html lang=\"en\"> <head>     <meta charset=\"UTF-8\">     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">     <title>Broadway Through the Decades | 1940s - 2020s</t"
+    },
+    {
+      "id": "oklahoma",
+      "file": "oklahoma.html",
+      "ok": true,
+      "wall_s": 44.54302215576172,
+      "usage": {
+        "completion_tokens": 3792,
+        "prompt_tokens": 182,
+        "total_tokens": 3974,
+        "prompt_tokens_details": {
+          "cached_tokens": 19
+        }
+      },
+      "score": {
+        "passed": 12,
+        "total": 12,
+        "ratio": 1.0,
+        "checks": {
+          "has_doctype": true,
+          "has_html_tag": true,
+          "has_head": true,
+          "has_body": true,
+          "has_style": true,
+          "has_footer_marker": true,
+          "min_length_4k": true,
+          "min_length_8k": true,
+          "topic_keywords": true,
+          "link_index": true,
+          "not_mostly_markdown": true,
+          "no_think_tags": true
+        },
+        "bytes": 13842,
+        "chars": 13832
+      },
+      "preview": "<!DOCTYPE html> <html lang=\"en\"> <head>     <meta charset=\"UTF-8\">     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.1\">     <title>Oklahoma! (1943) - Rodgers & Hammerstein</title"
+    },
+    {
+      "id": "west-side-story",
+      "file": "west-side-story.html",
+      "ok": true,
+      "wall_s": 42.06287479400635,
+      "usage": {
+        "completion_tokens": 3585,
+        "prompt_tokens": 169,
+        "total_tokens": 3754,
+        "prompt_tokens_details": {
+          "cached_tokens": 19
+        }
+      },
+      "score": {
+        "passed": 12,
+        "total": 12,
+        "ratio": 1.0,
+        "checks": {
+          "has_doctype": true,
+          "has_html_tag": true,
+          "has_head": true,
+          "has_body": true,
+          "has_style": true,
+          "has_footer_marker": true,
+          "min_length_4k": true,
+          "min_length_8k": true,
+          "topic_keywords": true,
+          "link_index": true,
+          "not_mostly_markdown": true,
+          "no_think_tags": true
+        },
+        "bytes": 13526,
+        "chars": 13524
+      },
+      "preview": "<!DOCTYPE html> <html lang=\"en\"> <head>     <meta charset=\"UTF-8\">     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">     <title>West Side Story (1957) - Musical Theatre Archiv"
+    },
+    {
+      "id": "phantom",
+      "file": "phantom.html",
+      "ok": true,
+      "wall_s": 39.5127649307251,
+      "usage": {
+        "completion_tokens": 3363,
+        "prompt_tokens": 188,
+        "total_tokens": 3551,
+        "prompt_tokens_details": {
+          "cached_tokens": 19
+        }
+      },
+      "score": {
+        "passed": 12,
+        "total": 12,
+        "ratio": 1.0,
+        "checks": {
+          "has_doctype": true,
+          "has_html_tag": true,
+          "has_head": true,
+          "has_body": true,
+          "has_style": true,
+          "has_footer_marker": true,
+          "min_length_4k": true,
+          "min_length_8k": true,
+          "topic_keywords": true,
+          "link_index": true,
+          "not_mostly_markdown": true,
+          "no_think_tags": true
+        },
+        "bytes": 12103,
+        "chars": 12087
+      },
+      "preview": "<!DOCTYPE html> <html lang=\"en\"> <head>     <meta charset=\"UTF-8\">     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">     <title>The Phantom of the Opera | Andrew Lloyd Webber<"
+    },
+    {
+      "id": "rent",
+      "file": "rent.html",
+      "ok": true,
+      "wall_s": 44.53491806983948,
+      "usage": {
+        "completion_tokens": 3796,
+        "prompt_tokens": 176,
+        "total_tokens": 3972,
+        "prompt_tokens_details": {
+          "cached_tokens": 19
+        }
+      },
+      "score": {
+        "passed": 12,
+        "total": 12,
+        "ratio": 1.0,
+        "checks": {
+          "has_doctype": true,
+          "has_html_tag": true,
+          "has_head": true,
+          "has_body": true,
+          "has_style": true,
+          "has_footer_marker": true,
+          "min_length_4k": true,
+          "min_length_8k": true,
+          "topic_keywords": true,
+          "link_index": true,
+          "not_mostly_markdown": true,
+          "no_think_tags": true
+        },
+        "bytes": 13763,
+        "chars": 13759
+      },
+      "preview": "<!DOCTYPE html> <html lang=\"en\"> <head>     <meta charset=\"UTF-8\">     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">     <title>RENT (1996) - Jonathan Larson's Masterpiece</ti"
+    },
+    {
+      "id": "hamilton",
+      "file": "hamilton.html",
+      "ok": true,
+      "wall_s": 38.95492935180664,
+      "usage": {
+        "completion_tokens": 3318,
+        "prompt_tokens": 169,
+        "total_tokens": 3487,
+        "prompt_tokens_details": {
+          "cached_tokens": 19
+        }
+      },
+      "score": {
+        "passed": 12,
+        "total": 12,
+        "ratio": 1.0,
+        "checks": {
+          "has_doctype": true,
+          "has_html_tag": true,
+          "has_head": true,
+          "has_body": true,
+          "has_style": true,
+          "has_footer_marker": true,
+          "min_length_4k": true,
+          "min_length_8k": true,
+          "topic_keywords": true,
+          "link_index": true,
+          "not_mostly_markdown": true,
+          "no_think_tags": true
+        },
+        "bytes": 12171,
+        "chars": 12167
+      },
+      "preview": "<!DOCTYPE html> <html lang=\"en\"> <head>     <meta charset=\"UTF-8\">     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">     <title>HAMILTON | The 2015 Phenomenon</title>     <sty"
+    }
+  ]
+}

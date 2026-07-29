@@ -1,0 +1,25 @@
+{
+  "control": {
+    "ok": true,
+    "n_tasks": 10,
+    "check_pass": 8,
+    "check_total": 10,
+    "wall_mean": 1.6249294757843018,
+    "wall_p50": 1.7433799505233765,
+    "tg_mean": 78.9359884212919,
+    "tg_p50": 77.09420140540364,
+    "arm": "original_qwen_control"
+  },
+  "treebeard": {
+    "ok": true,
+    "n_tasks": 10,
+    "check_pass": 10,
+    "check_total": 10,
+    "wall_mean": 1.4016022205352783,
+    "wall_p50": 1.5587867498397827,
+    "tg_mean": 90.92518794718758,
+    "tg_p50": 88.93357703536964,
+    "arm": "treebeard"
+  },
+  "tg_p50_lift_pct": 15.357024801006839
+}

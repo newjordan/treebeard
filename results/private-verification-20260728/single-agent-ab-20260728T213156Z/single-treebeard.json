@@ -1,0 +1,123 @@
+{
+  "ok": true,
+  "n_tasks": 10,
+  "check_pass": 10,
+  "check_total": 10,
+  "wall_mean": 1.4016022205352783,
+  "wall_p50": 1.5587867498397827,
+  "tg_mean": 90.92518794718758,
+  "tg_p50": 88.93357703536964,
+  "tasks": [
+    {
+      "id": "short_fact",
+      "rep": 0,
+      "ok_check": true,
+      "wall_s": 0.4019191265106201,
+      "tg_tps": 91.58186538170264,
+      "pp_tps": 162.11396611818108,
+      "prompt_n": 12,
+      "predicted_n": 26,
+      "preview": "  <think>  </think>  The musical *Hamilton* officially opened on Broadway on August 6, 2015."
+    },
+    {
+      "id": "short_fact",
+      "rep": 1,
+      "ok_check": true,
+      "wall_s": 0.4383573532104492,
+      "tg_tps": 91.67842031029619,
+      "pp_tps": 154.8427056182095,
+      "prompt_n": 12,
+      "predicted_n": 26,
+      "preview": "  <think>  </think>  The musical *Hamilton* officially opened on Broadway on August 6, 2015."
+    },
+    {
+      "id": "code_small",
+      "rep": 0,
+      "ok_check": true,
+      "wall_s": 1.5173029899597168,
+      "tg_tps": 89.02688055374719,
+      "pp_tps": 331.28615478708497,
+      "prompt_n": 26,
+      "predicted_n": 128,
+      "preview": "  <think> Here's a thinking process that leads to the suggested solution:  1.  **Understand the Goal:** The objective is to write a Python function named `is_pa"
+    },
+    {
+      "id": "code_small",
+      "rep": 1,
+      "ok_check": true,
+      "wall_s": 1.6002705097198486,
+      "tg_tps": 88.84027351699208,
+      "pp_tps": 327.9846604097285,
+      "prompt_n": 26,
+      "predicted_n": 128,
+      "preview": "  <think> Here's a thinking process that leads to the suggested solution:  1.  **Understand the Goal:** The objective is to write a Python function named `is_pa"
+    },
+    {
+      "id": "reason_short",
+      "rep": 0,
+      "ok_check": true,
+      "wall_s": 0.1911149024963379,
+      "tg_tps": 96.98098202942403,
+      "pp_tps": 369.0888119953864,
+      "prompt_n": 32,
+      "predicted_n": 10,
+      "preview": "  <think>  </think>  0.05"
+    },
+    {
+      "id": "reason_short",
+      "rep": 1,
+      "ok_check": true,
+      "wall_s": 0.19251346588134766,
+      "tg_tps": 96.53721026769769,
+      "pp_tps": 363.7686431429611,
+      "prompt_n": 32,
+      "predicted_n": 10,
+      "preview": "  <think>  </think>  0.05"
+    },
+    {
+      "id": "html_snippet",
+      "rep": 0,
+      "ok_check": true,
+      "wall_s": 3.0504016876220703,
+      "tg_tps": 88.57843378104657,
+      "pp_tps": 275.0378176999337,
+      "prompt_n": 22,
+      "predicted_n": 256,
+      "preview": "  <think> Thinking Process:  1.  **Deconstruct the Request:**     *   Goal: Output a minimal complete HTML5 page.     *   Title: \"Hello Treebeard\".     *   Cont"
+    },
+    {
+      "id": "html_snippet",
+      "rep": 1,
+      "ok_check": true,
+      "wall_s": 3.053224563598633,
+      "tg_tps": 88.44946702286005,
+      "pp_tps": 279.34024912071305,
+      "prompt_n": 22,
+      "predicted_n": 256,
+      "preview": "  <think> Thinking Process: 1.  **Analyze the Request:**    - Output a minimal complete HTML5 page.    - Title: \"Hello Treebeard\".    - Content: One paragraph. "
+    },
+    {
+      "id": "medium_summary",
+      "rep": 0,
+      "ok_check": true,
+      "wall_s": 1.9536569118499756,
+      "tg_tps": 88.83195681124627,
+      "pp_tps": 78.53682161482924,
+      "prompt_n": 42,
+      "predicted_n": 119,
+      "preview": " - MoE models activate only a subset of experts per token, reducing compute compared to dense models of similar size. - Routing and memory layout significantly "
+    },
+    {
+      "id": "medium_summary",
+      "rep": 1,
+      "ok_check": true,
+      "wall_s": 1.6172606945037842,
+      "tg_tps": 88.74638979686306,
+      "pp_tps": 322.7392881293416,
+      "prompt_n": 42,
+      "predicted_n": 125,
+      "preview": " - MoE models activate only a subset of experts per token, reducing compute compared to dense models of similar size. - Routing and memory layout significantly "
+    }
+  ],
+  "arm": "treebeard"
+}

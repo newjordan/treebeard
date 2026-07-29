@@ -1,0 +1,9 @@
+{
+  "base_p50": 6.878384488695842,
+  "package_p50": 26.32923996385854,
+  "knobs_off_p50": 21.81226190271184,
+  "lift_package_vs_base_pct": 282.78232348204523,
+  "lift_package_vs_knobs_off_pct": 20.708434922034023,
+  "lift_knobs_off_vs_base_pct": 217.11315263865828,
+  "verdict": "PACKAGE BEATS BASE by 282.8% multi-slot p50 (true control)"
+}

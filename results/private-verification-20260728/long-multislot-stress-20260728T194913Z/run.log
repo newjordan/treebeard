@@ -1,0 +1,75 @@
+=== LONG MULTI-SLOT STRESS 2026-07-28T14:49:13-05:00 ===
+OUT=/home/frosty40/turbo/treebeard-work/research/treebeard-pr-private/results/long-multislot-stress-20260728T194913Z CTX=262144 NP=12 MODEL=Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf
+starting package server c=262144 np=12 ...
+health ok after ~22s
+{'total_slots': 12, 'model_alias': 'pospkg-long-multislot-stress'}
+n_ctx 262144
+=== SHORT BASELINE (approx 32 tok prompts) ===
+  short r0: ok=12/12 tg_p50=29.472888336998338 wall=4.4s
+  short r1: ok=12/12 tg_p50=29.42482317321018 wall=4.4s
+
+=== LONG MULTI-SLOT size≈512 tok × 12 agents ===
+  warm...
+  warm: ok=12/12 tg_p50=28.828118310036892 pp_p50=80.55342931025359 prompt_n≈418.6666666666667 wall=8.7s
+  r0: ok=12/12 tg_p50=29.006669803799213 pp_p50=80.79954446465243 agg=73.32869977215302 wall=9.2s
+  r1: ok=12/12 tg_p50=27.735830023134945 pp_p50=80.90660739616831 agg=68.33393165287768 wall=9.0s
+
+=== LONG MULTI-SLOT size≈1024 tok × 12 agents ===
+  warm...
+  warm: ok=12/12 tg_p50=24.572737263311474 pp_p50=77.98858495262172 prompt_n≈812.6666666666666 wall=14.6s
+  r0: ok=12/12 tg_p50=25.595382074274358 pp_p50=69.61576301021469 agg=36.182730184904784 wall=16.7s
+  r1: ok=12/12 tg_p50=25.387496086531876 pp_p50=77.96358202526865 agg=40.96340653328867 wall=15.6s
+
+=== LONG MULTI-SLOT size≈2048 tok × 12 agents ===
+  warm...
+  warm: ok=12/12 tg_p50=24.121525484439353 pp_p50=76.3603336897653 prompt_n≈1604 wall=26.4s
+  r0: ok=12/12 tg_p50=22.59121449506138 pp_p50=76.40373105354163 agg=20.744906283219354 wall=27.5s
+  r1: ok=12/12 tg_p50=23.882976401339704 pp_p50=76.41113414172474 agg=21.934723563309376 wall=28.6s
+
+=== LONG MULTI-SLOT size≈4096 tok × 12 agents ===
+  warm...
+  warm: ok=12/12 tg_p50=7.792863039632534 pp_p50=93.99733648434176 prompt_n≈3187.5 wall=64.8s
+  r0: ok=12/12 tg_p50=6.96943654787706 pp_p50=82.73632653485885 agg=7.519014049309307 wall=71.3s
+  r1: ok=12/12 tg_p50=7.197583957709543 pp_p50=81.99840067365855 agg=7.4285138313275185 wall=69.7s
+
+=== LONG MULTI-SLOT size≈8192 tok × 12 agents ===
+  warm...
+  warm: ok=12/12 tg_p50=1.086161425163637 pp_p50=108.24280682877644 prompt_n≈6350.333333333333 wall=162.9s
+  r0: ok=12/12 tg_p50=1.0230179194744518 pp_p50=102.3185424151375 agg=3.0014014989224496 wall=177.3s
+  r1: ok=12/12 tg_p50=1.2628105688249858 pp_p50=100.12461152108722 agg=3.065254699190336 wall=177.5s
+
+# Long multi-slot stress
+
+- base: `http://127.0.0.1:8099`
+- agents: 12
+- n_predict: 64
+- health_after: True
+
+| size≈tok | round | ok | tg_p50 | pp_p50 | prompt_n | wall_s | agg_tok/s |
+|---------:|------:|---:|-------:|-------:|---------:|-------:|----------:|
+| 512 | 0 | 12/12 | 29.006669803799213 | 80.79954446465243 | 418.6666666666667 | 9.2 | 73.32869977215302 |
+| 512 | 1 | 12/12 | 27.735830023134945 | 80.90660739616831 | 418.6666666666667 | 9.0 | 68.33393165287768 |
+| 1024 | 0 | 12/12 | 25.595382074274358 | 69.61576301021469 | 812.6666666666666 | 16.7 | 36.182730184904784 |
+| 1024 | 1 | 12/12 | 25.387496086531876 | 77.96358202526865 | 812.6666666666666 | 15.6 | 40.96340653328867 |
+| 2048 | 0 | 12/12 | 22.59121449506138 | 76.40373105354163 | 1604 | 27.5 | 20.744906283219354 |
+| 2048 | 1 | 12/12 | 23.882976401339704 | 76.41113414172474 | 1604 | 28.6 | 21.934723563309376 |
+| 4096 | 0 | 12/12 | 6.96943654787706 | 82.73632653485885 | 3187.5 | 71.3 | 7.519014049309307 |
+| 4096 | 1 | 12/12 | 7.197583957709543 | 81.99840067365855 | 3187.5 | 69.7 | 7.4285138313275185 |
+| 8192 | 0 | 12/12 | 1.0230179194744518 | 102.3185424151375 | 6350.333333333333 | 177.3 | 3.0014014989224496 |
+| 8192 | 1 | 12/12 | 1.2628105688249858 | 100.12461152108722 | 6350.333333333333 | 177.5 | 3.065254699190336 |
+
+**Success rate:** 120/120 (100.0%)
+
+## Verdict
+
+**STRONG — survived long multi-slot waves with full success**
+
+stress_exit=0
+{"status":"ok"}report: /home/frosty40/turbo/treebeard-work/research/treebeard-pr-private/results/long-multislot-stress-20260728T194913Z/REPORT.md
+=== RESTORE 2026-07-28T15:04:30-05:00 ===
+ship health: {"status":"ok"}
+active
+/mnt/data2tb/treebeard-training/byte-lever-q8down-q6k-20260726/Qwen3.6-35B-A3B-UD-Q5_K_XL-q8down-q6k.gguf
+--reasoning
+--reasoning-budget
+ship: active health={"status":"ok"}

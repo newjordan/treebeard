@@ -48,3 +48,17 @@ request errors. The verdict for every scenario matched across backends.
 Archived evidence retains collection-time paths and identifiers so its
 published checksums remain reproducible. Product-facing documentation uses the
 Treebeard name.
+
+## Private verification pack (2026-07-28)
+
+Dual-axis freeze + package ablation + real-world Broadway sites + long-context
+and long multi-slot stress. Charts under
+[`docs/assets/release-20260728/`](../docs/assets/release-20260728/).
+
+See [`private-verification-20260728/RELEASE_NOTES.md`](private-verification-20260728/RELEASE_NOTES.md)
+and [`docs/RELEASE-20260728.md`](../docs/RELEASE-20260728.md).
+
+**Claims hygiene:** multi-slot throughput is not sequential single-stream TG.
+Named public Agent Bench freeze remains **94/100** with artifacts under
+`agent/single-slot-94/`. Matched stock-Q5 control A/B (2026-07-28) is **91=91** —
+see `private-verification-20260728/agent-bench-ab-…`.

@@ -1,0 +1,17 @@
+{
+  "arm": "original_qwen_control",
+  "run_id": "2026-07-28T22-03-13.941987Z_e0f462a4",
+  "status": "completed",
+  "final_score": 91,
+  "rating": "\u2605\u2605\u2605\u2605\u2605 Excellent",
+  "total_scenarios": 69,
+  "total_points": 125,
+  "max_points": 138,
+  "pass_count": 60,
+  "partial_count": 5,
+  "fail_count": 4,
+  "median_turn_ms": 1874.4,
+  "error_rate": 0.0,
+  "concurrency": 1,
+  "tool_eval_bench_version": "2.1.0"
+}

@@ -12,7 +12,9 @@ Public result bundle: <https://github.com/newjordan/treebeard/tree/main/results>
 
 ## Agent Bench
 
-The release quality headline is 94/100 and 130/138 points:
+### Historical package champion (website freeze)
+
+The published quality freeze is 94/100 and 130/138 points:
 
 - 69/69 scenarios completed;
 - 63 pass, 4 partial, 2 fail;
@@ -34,6 +36,27 @@ the complete 69-case outcome vector. Supporting evidence:
 
 The published result is checksum-pinned and accompanied by the complete
 supporting evidence bundle.
+
+### Matched Original Qwen control A/B (2026-07-28)
+
+Same **stock Q5** weights, np=1, c=262144, temp 0, seed 42, tool-eval-bench
+2.1.0 @ `8b3259b`, Arc Pro B70:
+
+| Arm | Public 69 | Held-out ho-pack-v1.1 |
+| --- | ---: | ---: |
+| Original Qwen control (clean upstream SYCL) | **91**/100 (125/138) | **91.3%** (42/46) |
+| Treebeard package | **91**/100 (126/138) | **91.3%** (42/46) |
+
+**Verdict: quality-neutral.** Runtime specialization does not change agent
+quality on the public suite or the frozen held-out pack. Same weights → not a
+smarter model.
+
+Solo decode (tiny suite, np=1): control tg_p50 **77.1** → Treebeard **88.9**
+(+15.4%). Multi-slot capacity (np=12, ops appendix): control p50 **6.88** →
+Treebeard **26.33** (+282.8%).
+
+Evidence: `results/private-verification-20260728/agent-bench-ab-20260728T220230Z/`
+and `docs/RELEASE-20260728.md`.
 
 ## Portable CPU package smoke
 

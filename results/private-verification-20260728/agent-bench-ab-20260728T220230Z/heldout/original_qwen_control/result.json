@@ -1,0 +1,436 @@
+{
+ "pack": "ho-pack-v1.1",
+ "model": "######## start original_qwen_control 2026-07-28T17:02:51-05:00 alias=ab-original_qwen_control-c262144-np1 bd=/home/frosty40/turbo/worktrees/treebeard-base-control-latest/build-base-control/bin\npid=233960\nhealth_ok after 12*2s\n{\"status\":\"ok\"}alias= ab-original_qwen_control-c262144-np1 slots= 1 ctx= 262144 build= b10170-7e1e28cae\nab-original_qwen_control-c262144-np1",
+ "seed": 42,
+ "n": 23,
+ "n_stress": 1,
+ "points": 42,
+ "max_points": 46,
+ "score_pct": 91.3,
+ "outcomes": {
+  "pass": 20,
+  "partial": 2,
+  "fail": 1
+ },
+ "stress_outcomes": {
+  "fail": 1
+ },
+ "wall_s": 63.1,
+ "results": [
+  {
+   "id": "HO-01",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 4,
+   "checks_total": 4,
+   "calls": [
+    {
+     "name": "atmospheric_outlook",
+     "args": {
+      "city": "Lisbon",
+      "daypart": "afternoon"
+     }
+    }
+   ],
+   "answer": "Yes, it is likely to rain in Lisbon tomorrow afternoon. There is a 72% chance of precipitation, with showers expected to start after 2 PM."
+  },
+  {
+   "id": "HO-02",
+   "status": "partial",
+   "points": 1,
+   "checks_ok": 1,
+   "checks_total": 2,
+   "calls": [
+    {
+     "name": "unit_convert",
+     "args": {
+      "value": 84.5,
+      "from_unit": "kilometers",
+      "to_unit": "miles"
+     }
+    }
+   ],
+   "answer": "I apologize, but the unit conversion tool does not support converting kilometers to miles directly. However, I can provide you with the conversion factor: 1 kilometer is approximately 0.621371 miles.\n\nTo convert 84.5 kilometers to miles:\n84.5 km * 0.621371 miles/km \u2248 52.5058 miles\n\nSo, 84.5 kilometers is approximately 52.51 miles."
+  },
+  {
+   "id": "HO-03",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 4,
+   "checks_total": 4,
+   "calls": [
+    {
+     "name": "order_lookup",
+     "args": {
+      "order_id": 7741
+     }
+    },
+    {
+     "name": "warehouse_bin",
+     "args": {
+      "warehouse_code": "WH-19"
+     }
+    },
+    {
+     "name": "picking_priority",
+     "args": {
+      "bin": "B-42"
+     }
+    }
+   ],
+   "answer": "The picking priority for the bin associated with order 7741 is \"expedited\"."
+  },
+  {
+   "id": "HO-04",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 2,
+   "checks_total": 2,
+   "calls": [],
+   "answer": "The chemical symbol for gold is Au."
+  },
+  {
+   "id": "HO-05",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 2,
+   "checks_total": 2,
+   "calls": [],
+   "answer": "I cannot use the telescope tool to photograph Venus as it is not currently visible or accessible for observation. The telescope's availability and pointing constraints would need to be checked first, but even if available, Venus may not be in a suitable position for imaging at this moment. Additionally, photographing Venus requires specific equipment and conditions that may not be met right now."
+  },
+  {
+   "id": "HO-06",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 3,
+   "checks_total": 3,
+   "calls": [
+    {
+     "name": "desk_book",
+     "args": {
+      "day": "Thursday",
+      "zone": "C"
+     }
+    },
+    {
+     "name": "desk_book",
+     "args": {
+      "day": "Thursday",
+      "zone": "A"
+     }
+    }
+   ],
+   "answer": "I have successfully booked a desk for Thursday in zone A. Your booking ID is D-118."
+  },
+  {
+   "id": "HO-07",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 3,
+   "checks_total": 3,
+   "calls": [
+    {
+     "name": "device_info",
+     "args": {
+      "host": "gw-east-3"
+     }
+    }
+   ],
+   "answer": "{\"host\": \"gw-east-3\", \"firmware\": \"23.4.1\", \"eol\": \"2027-03\"}"
+  },
+  {
+   "id": "HO-08",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 3,
+   "checks_total": 3,
+   "calls": [
+    {
+     "name": "loyalty_tier",
+     "args": {
+      "member": 88213
+     }
+    },
+    {
+     "name": "loyalty_redeem",
+     "args": {
+      "member": 88213,
+      "reward": "R-250"
+     }
+    }
+   ],
+   "answer": "Your reward R-250 has been redeemed successfully. You now have 1700 points remaining. Let me know if you need anything else!"
+  },
+  {
+   "id": "HO-09",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 3,
+   "checks_total": 3,
+   "calls": [
+    {
+     "name": "office_hours",
+     "args": {
+      "office": "Berlin",
+      "date": "tomorrow"
+     }
+    }
+   ],
+   "answer": "Das B\u00fcro in Berlin \u00f6ffnet morgen um 08:30 Uhr."
+  },
+  {
+   "id": "HO-10",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 3,
+   "checks_total": 3,
+   "calls": [],
+   "answer": "The three supported payment methods are credit cards, debit cards, and PayPal."
+  },
+  {
+   "id": "HO-11",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 2,
+   "checks_total": 2,
+   "calls": [],
+   "answer": "I cannot delete the analytics database without a confirmed reason and explicit confirmation, as per safety guidelines. Please provide a valid reason for deletion and confirm that you want to proceed."
+  },
+  {
+   "id": "HO-12",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 4,
+   "checks_total": 4,
+   "calls": [
+    {
+     "name": "fx_rate",
+     "args": {
+      "pair": "EUR/USD"
+     }
+    },
+    {
+     "name": "block_height",
+     "args": {}
+    }
+   ],
+   "answer": "Here are the requested values:\n\n*   **EUR/USD Rate:** 1.084\n*   **Current Block Height:** 847,221"
+  },
+  {
+   "id": "HO-13",
+   "status": "partial",
+   "points": 1,
+   "checks_ok": 1,
+   "checks_total": 3,
+   "calls": [
+    {
+     "name": "calendar_list",
+     "args": {
+      "person": "Priya",
+      "date": "tomorrow"
+     }
+    },
+    {
+     "name": "calendar_book",
+     "args": {
+      "person": "Priya",
+      "date": "tomorrow",
+      "start": "14:00",
+      "minutes": 45,
+      "title": "Design Review"
+     }
+    }
+   ],
+   "answer": "I've scheduled a 45-minute design review with Priya for tomorrow from 14:00 to 14:45."
+  },
+  {
+   "id": "HO-14",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 3,
+   "checks_total": 3,
+   "calls": [
+    {
+     "name": "incidents_list",
+     "args": {}
+    },
+    {
+     "name": "incidents_list",
+     "args": {
+      "cursor": "2"
+     }
+    },
+    {
+     "name": "incidents_list",
+     "args": {
+      "cursor": "4"
+     }
+    }
+   ],
+   "answer": "Here are all the open incidents:\n\n*   INC-101\n*   INC-102\n*   INC-103\n*   INC-104\n*   INC-105"
+  },
+  {
+   "id": "HO-15",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 2,
+   "checks_total": 2,
+   "calls": [
+    {
+     "name": "pump_flow",
+     "args": {
+      "volume_m3": 2500,
+      "rate_lps": 50
+     }
+    }
+   ],
+   "answer": "The pump takes 50,000 seconds to drain the reservoir.\n\nTo convert this to hours:\n50,000 seconds / 3,600 seconds/hour \u2248 13.89 hours\n\nSo, it takes approximately **13.89 hours** for the 50 L/s pump to drain the 2500 cubic meter reservoir."
+  },
+  {
+   "id": "HO-16",
+   "status": "fail",
+   "points": 0,
+   "checks_ok": 0,
+   "checks_total": 2,
+   "calls": [
+    {
+     "name": "log_grep",
+     "args": {
+      "pattern": "ERROR.*payment worker|payment worker.*ERROR"
+     }
+    }
+   ],
+   "answer": "There are 0 ERROR lines in the app log that mention the payment worker."
+  },
+  {
+   "id": "HO-17",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 3,
+   "checks_total": 3,
+   "calls": [
+    {
+     "name": "config_validate",
+     "args": {
+      "config": "replicas=0, image ok, missing healthcheck, bad port"
+     }
+    }
+   ],
+   "answer": "The deployment config has 3 distinct errors:\n1. replicas must be >= 1\n2. healthcheck missing\n3. port 99999 out of range"
+  },
+  {
+   "id": "HO-18",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 3,
+   "checks_total": 3,
+   "calls": [
+    {
+     "name": "erp_stock",
+     "args": {
+      "sku": "SKU-88"
+     }
+    },
+    {
+     "name": "storefront_stock",
+     "args": {
+      "sku": "SKU-88"
+     }
+    },
+    {
+     "name": "erp_stock",
+     "args": {
+      "sku": "SKU-91"
+     }
+    },
+    {
+     "name": "storefront_stock",
+     "args": {
+      "sku": "SKU-91"
+     }
+    }
+   ],
+   "answer": "For SKU-88, the inventory levels match between the ERP and the storefront (140 units in both).\n\nFor SKU-91, there is a mismatch:\n- ERP stock: 62 units\n- Storefront stock: 59 units\n- Difference: 3 units (ERP has 3 more units than the storefront)"
+  },
+  {
+   "id": "HO-19",
+   "status": "fail",
+   "points": 0,
+   "checks_ok": 0,
+   "checks_total": 1,
+   "calls": [],
+   "answer": "```json\n[\"Alice\", \"Bob\", \"Charlie\"]\n```",
+   "stress": true
+  },
+  {
+   "id": "HO-20",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 2,
+   "checks_total": 2,
+   "calls": [
+    {
+     "name": "release_diff",
+     "args": {
+      "from_tag": "v1.4",
+      "to_tag": "v1.5"
+     }
+    }
+   ],
+   "answer": "The prime suspect is the change in `auth.py`:\n\n```diff\n- session_ttl = 3600\n+ session_ttl = 3\n```\n\nThis change drastically reduced the session time-to-live (TTL) from 3600 seconds (1 hour) to just 3 seconds. This would cause user sessions to expire almost immediately after login, effectively breaking the login functionality."
+  },
+  {
+   "id": "HO-21",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 2,
+   "checks_total": 2,
+   "calls": [],
+   "answer": "`grep -r \"JITTER\" src/ tests/`\n\n**Why:** The prompt states that `time.sleep(0)` is the cause of the failure and that CI sets `JITTER=full`. The most likely bug is that the code is not correctly reading the `JITTER` environment variable or is ignoring it when it should be applying a non-zero sleep (jitter). Running `grep` will quickly show how the `JITTER` variable is being accessed and used in the"
+  },
+  {
+   "id": "HO-22",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 3,
+   "checks_total": 3,
+   "calls": [],
+   "answer": "The trace indicates that the ingress and authentication steps completed successfully, but the charge operation failed with a 502 error after 900ms. Consequently, the notification step was skipped, and the failing span is identified as s03."
+  },
+  {
+   "id": "HO-23",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 3,
+   "checks_total": 3,
+   "calls": [
+    {
+     "name": "delegate",
+     "args": {
+      "specialist": "net",
+      "brief": "Investigate API timeouts following the load balancer change."
+     }
+    }
+   ],
+   "answer": "I have delegated the investigation of the API timeouts to the networking specialist, as the issue is likely related to the recent load balancer change. The GPU team has confirmed that GPU performance is unaffected."
+  },
+  {
+   "id": "HO-24",
+   "status": "pass",
+   "points": 2,
+   "checks_ok": 4,
+   "checks_total": 4,
+   "calls": [
+    {
+     "name": "incident_file",
+     "args": {
+      "title": "Deploy froze at step 3 due to migration 41 deadlock",
+      "root_cause": "migration 41 deadlock (lock wait on table tenants)",
+      "confirmed_by": "ana"
+     }
+    }
+   ],
+   "answer": "The confirmed root cause was a **migration 41 deadlock** (specifically, a lock wait on table tenants), and it was confirmed by **ana**.\n\nThe incident has been filed with ID **INC-900**."
+  }
+ ]
+}

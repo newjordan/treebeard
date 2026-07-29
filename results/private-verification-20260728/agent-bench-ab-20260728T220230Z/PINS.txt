@@ -1,0 +1,8 @@
+BASE_BD=/home/frosty40/turbo/worktrees/treebeard-base-control-latest/build-base-control/bin
+PKG_BD=/home/frosty40/turbo/worktrees/treebeard-pr-private-latest/build-positive-package/bin
+MODEL=/home/frosty40/models/Qwen3.6-35B-A3B/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf
+-rwxrwxr-x 1 frosty40 frosty40 662784 Jul 28 15:44 /home/frosty40/turbo/worktrees/treebeard-base-control-latest/build-base-control/bin/llama-server
+-rwxrwxr-x 1 frosty40 frosty40 662784 Jul 28 10:57 /home/frosty40/turbo/worktrees/treebeard-pr-private-latest/build-positive-package/bin/llama-server
+model_sha256=25233af7642e3a91bd52cc4aeefdbd4a117479088e06cf1aea5b6bedb443c506
+tool-eval-bench 2.1.0
+8b3259be7411fe27c7610d0de64ae1d3b622b9ef

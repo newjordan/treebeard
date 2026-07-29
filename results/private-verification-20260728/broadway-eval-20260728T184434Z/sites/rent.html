@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RENT (1996) - Jonathan Larson's Masterpiece</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --accent-red: #ff3333;
+            --accent-yellow: #ffcc00;
+            --accent-blue: #00ccff;
+            --paper-texture: #e0e0e0;
+            --tape-color: rgba(255, 255, 255, 0.4);
+            --font-head: 'Impact', 'Arial Black', sans-serif;
+            --font-body: 'Courier New', Courier, monospace;
+            --font-accent: 'Georgia', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text-color);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #000;
+            border-bottom: 3px solid var(--accent-red);
+            z-index: 1000;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-family: var(--font-head);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-red);
+            text-shadow: 2px 2px 0px var(--accent-yellow);
+        }
+
+        /* --- Header / Hero --- */
+        header {
+            margin-top: 60px;
+            padding: 4rem 2rem;
+            text-align: center;
+            background: radial-gradient(circle, #2a2a2a 0%, #000000 100%);
+            border-bottom: 1px dashed var(--paper-texture);
+        }
+
+        h1 {
+            font-family: var(--font-head);
+            font-size: 8rem;
+            line-height: 0.9;
+            color: var(--accent-red);
+            text-shadow: 4px 4px 0px var(--accent-yellow);
+            letter-spacing: -5px;
+            margin-bottom: 1rem;
+            animation: flicker 3s infinite alternate;
+        }
+
+        .subtitle {
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--accent-blue);
+        }
+
+        /* --- Layout --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        h2 {
+            font-family: var(--font-head);
+            font-size: 3rem;
+            color: var(--accent-yellow);
+            border-bottom: 2px solid var(--accent-red);
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            transform: rotate(-1deg);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* --- Visual Elements (Loft Art Style) --- */
+        .tape {
+            position: absolute;
+            background: var(--tape-color);
+            height: 30px;
+            width: 100px;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(2deg);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        .card {
+            background: var(--paper-texture);
+            color: #1a1a1a;
+            padding: 2rem;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+            transform: rotate(0.5deg);
+            position: relative;
+        }
+
+        .card:nth-child(even) {
+            transform: rotate(-0.5deg);
+            background: #d6d6d6;
+        }
+
+        .card h3 {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #000;
+        }
+
+        /* --- Specific Sections --- */
+        
+        /* Overview */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .stat-box {
+            border: 2px solid #000;
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Story & Themes */
+        .theme-list li {
+            list-style: none;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .theme-list li::before {
+            content: "X";
+            color: var(--accent-red);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Songs */
+        .song-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .song-item {
+            background: #000;
+            color: var(--accent-blue);
+            padding: 1rem;
+            border: 1px solid var(--accent-blue);
+            font-family: var(--font-head);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .song-item:hover {
+            background: var(--accent-blue);
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        /* Awards */
+        .award-badge {
+            display: inline-block;
+            background: var(--accent-red);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            line-height: 120px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 0 10px var(--accent-red);
+            transform: rotate(var(--rot));
+        }
+
+        /* Legacy */
+        .legacy-quote {
+            font-family: var(--font-accent);
+            font-size: 2rem;
+            font-style: italic;
+            text-align: center;
+            color: var(--accent-yellow);
+            margin: 2rem 0;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #555;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            border-top: 1px solid #333;
+        }
+
+        /* Animations */
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; text-shadow: 6px 6px 0px var(--accent-yellow); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 5rem; }
+            .overview-grid { grid-template-columns: 1fr; }
+            .nav-links { gap: 10px; }
+            .nav-links a { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div style="font-weight:bold; color:var(--accent-red);">RENT</div>
+        <div class="nav-links">
+            <a href="index.html">index.html</a>
+            <a href="phantom.html">phantom.html</a>
+            <a href="hamilton.html">hamilton.html</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>RENT</h1>
+        <div class="subtitle">No day but today</div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Overview Section -->
+        <section id="overview">
+            <div class="tape"></div>
+            <h2>Overview</h2>
+            <div class="card">
+                <p><strong>RENT</strong> is a rock musical based on Giacomo Puccini's opera <em>La Bohème</em>. Set in the East Village of New York City in 1991 (though the show premiered in 1996), it follows a group of artists struggling to survive and create art amidst the HIV/AIDS epidemic, gentrification, and the crack epidemic.</p>
+                <br>
+                <div class="overview-grid">
+                    <div class="stat-box">
+                        <div>PREMIERE</div>
+                        <div style="font-size: 1.5rem; color: var(--accent-red);">1996</div>
+                        <div>Nederlander Theatre</div>
+                    </div>
+                    <div class="stat-box">
+                        <div>GENRE</div>
+                        <div style="font-size: 1.5rem; color: var(--accent-red);">ROCK MUSICAL</div>
+                        <div>Pop/Rock Score</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Jonathan Larson -->
+        <section id="larson">
+            <h2>Jonathan Larson</h2>
+            <div class="card" style="border-left: 10px solid var(--accent-red);">
+                <p>Jonathan Larson (1960–1996) was an American composer, lyricist, and playwright who spent over a decade writing <em>RENT</em>. He famously refused to take a day off, a habit that tragically contributed to his death from an aortic dissection just 25 hours after the Broadway premiere.</p>
+                <p>Larson's vision was to make opera relevant to a new generation, using rock music to tell stories about the marginalized. He died before seeing the massive cultural impact of his work.</p>
+            </div>
+        </section>
+
+        <!-- Story & Themes -->
+        <section id="story">
+            <div class="tape"></div>
+            <h2>Story & Themes</h2>
+            <div class="card">
+                <p>Adapted from Puccini's <em>La Bohème</em>, the story centers on Mark Cohen, a struggling filmmaker, and his roommate Roger Davis, a former punk rock star and HIV-positive composer. They are joined by their friends: Mimi, a exotic dancer and drug addict; Maureen, a performance artist; Tom Collins, a former anarchist professor; Angel, a street youth; and Joanne, Maureen's girlfriend.</p>
+                <br>
+                <ul class="theme-list">
+                    <li><strong>HIV/AIDS:</strong> The show was groundbreaking in its honest depiction of the epidemic, focusing on the human cost rather than just the politics.</li>
+                    <li><strong>Community vs. Gentrification:</strong> The threat of developers buying out the neighborhood looms over the characters' lives.</li>
+                    <li><strong>Art as Survival:</strong> The characters use their art to process trauma, love, and loss.</li>
+                    <li><strong>Chosen Family:</strong> In the absence of biological family, the group forms a tight-knit, supportive unit.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Songs -->
+        <section id="songs">
+            <h2>The Score</h2>
+            <div class="song-list">
+                <div class="song-item">Seasons of Love</div>
+                <div class="song-item">La Vie Boheme</div>
+                <div class="song-item">One Song Glory</div>
+                <div class="song-item">Take Me or Leave Me</div>
+                <div class="song-item">Without You</div>
+                <div class="song-item">I'll Cover You</div>
+                <div class="song-item">La Vie Boheme (Reprise)</div>
+                <div class="song-item">Will I?</div>
+                <div class="song-item">Light My Fire</div>
+                <div class="song-item">Goodbye Love</div>
+                <div class="song-item">No Day But Today</div>
+                <div class="song-item">I'll Cover You (Reprise)</div>
+            </div>
+        </section>
+
+        <!-- Awards -->
+        <section id="awards">
+            <div class="tape"></div>
+            <h2>Awards & Impact</h2>
+            <div style="text-align: center; margin-top: 2rem;">
+                <div class="award-badge" style="--rot: -10deg;">PULITZER<br>Drama</div>
+                <div class="award-badge" style="--rot: 5deg;">TONY<br>Best Musical</div>
+                <div class="award-badge" style="--rot: -5deg;">TONY<br>Best Original Score</div>
+                <div class="award-badge" style="--rot: 15deg;">TONY<br>Best Book</div>
+            </div>
+            <br><br>
+            <div class="card">
+                <p>RENT swept the 1996 awards season. It won the Pulitzer Prize for Drama and four Tony Awards, including Best Musical. It also won the Drama Desk Award for Outstanding Musical and the Outer Critics Circle Award for Best Musical.</p>
+            </div>
+        </section>
+
+        <!-- Legacy -->
+        <section id="legacy">
+            <h2>Legacy</h2>
+            <div class="legacy-quote">
+                "Don't daydream, be here."
+            </div>
+            <div class="card">
+                <p>RENT changed the landscape of Broadway. It brought in a younger, more diverse audience and proved that rock music could carry a massive theatrical production. It sparked crucial conversations about HIV/AIDS awareness and LGBTQ+ rights in mainstream media.</p>
+                <p>The annual "Rent-a-thon" performances on New Year's Eve have become a tradition, where thousands of performers across the globe perform the show simultaneously to raise money for HIV/AIDS charities.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>Generated for Treebeard real-world package eval</p>
+        <p style="margin-top: 0.5rem; opacity: 0.5;">&copy; 1996-2024 Rent The Musical</p>
+    </footer>
+
+</body>
+</html>
