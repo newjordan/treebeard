@@ -1,20 +1,24 @@
 # Treebeard
 
-Treebeard is a ready-to-run Linux package for Qwen3.6-35B-A3B. It combines a
-Q5_K_XL GGUF model, platform-specific runtimes, an OpenAI-compatible server,
-and a verified one-command installer.
+Linux package for **Qwen3.6-35B-A3B**: Q5_K_XL GGUF, platform runtimes (Intel SYCL /
+NVIDIA CUDA / portable CPU), installer, and a local **OpenAI-compatible**
+`llama-server` (HTTP `/v1/chat/completions` on loopback by default).
 
-**[View the 94/100 Agent Bench report](https://newjordan.github.io/treebeard/)**
-| **[Read the MoE algorithm explainer](https://newjordan.github.io/treebeard/moe-routing.html)**
-| **[Download the model package](https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF)**
-| **[GitHub repository](https://github.com/newjordan/treebeard)**
+Not a new foundation model. Not “94-verified software” — 94/100 is a **named
+Agent Bench freeze** with result JSONs, not a property of every install.
+
+**Claims rule:** [docs/CLAIMS.md](docs/CLAIMS.md) — no bare datapoints.
+
+**[Site / report](https://newjordan.github.io/treebeard/)** ·
+**[MoE notes](https://newjordan.github.io/treebeard/moe-routing.html)** ·
+**[HF model](https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF)** ·
+**[GitHub](https://github.com/newjordan/treebeard)**
 
 ![Treebeard Agent Bench report](docs/report-preview.png)
 
 ## Install
 
-Linux users can install the model and the best packaged runtime for their host
-with one command:
+Installer downloads are SHA-256 checked (file integrity, not agent quality):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/newjordan/treebeard/main/install.sh | bash
@@ -61,54 +65,40 @@ The model weights are one 26.6 GB GGUF file. Running that file still requires
 architecture-specific software, so Treebeard installs the matching runtime
 beside it rather than presenting a universal binary as a platform guarantee.
 
-## Agent Bench
+## Named Agent Bench freeze (not every install)
 
-Treebeard scored **94/100 (Excellent)** and 130/138 points on a complete
-69-scenario agent benchmark:
-
-- 63 pass, 4 partial, 2 fail;
-- 69/69 scenarios completed with zero request errors;
-- one server slot, one benchmark worker, 262,144-token context;
-- temperature 0, thinking disabled, seed 42;
-- exact score and verdict-vector reproduction on Intel Arc Pro B70 and NVIDIA
-  GB10.
-
-The [public report](https://newjordan.github.io/treebeard/) includes the
-methodology, exceptions, cross-platform comparison, and machine-readable
-results. The [results index](results/README.md) catalogs the supporting
-performance, correctness, package, and health evidence.
-
-Selected measurements:
-
-| Measurement | Result |
-| --- | ---: |
-| NVIDIA GB10 native pp4096 | 2,026.9 tok/s |
-| NVIDIA GB10 native tg128 | 52.5 tok/s |
-| NVIDIA Blackwell Q8_0 direct 12-column speedup | 33.0% |
-| NVIDIA Blackwell Q8_0 MoE down speedup | 3.4% |
-| Intel B70 12-slot aggregate serving | 194.023 tok/s |
-| Ryzen 5950X installed-package chat smoke | 9.30 tok/s |
-
-## Dual-axis freeze (2026-07-28)
-
-Treebeard is a **runtime package** on open Qwen weights (Arc Pro B70), not a new model.
-
-| Axis | Headline |
+| Field | Value |
 | --- | --- |
-| Single-agent quality vs Original Qwen control | **91 = 91** public Agent Bench; **91.3 = 91.3** held-out (stock Q5, np=1) |
-| Historical website freeze | **94/100** (package-era champion; different pin/quant context) |
-| Single-agent speed | **~+15%** tg_p50 vs Original Qwen control (tiny suite, 77→89 tok/s) |
-| Multi-agent throughput (ops) | **+283%** 12-agent p50 vs Original Qwen control — not the product headline |
+| Test | tool-eval-bench 2.1.0 public 69 |
+| Score | **94/100** (130/138) · 63 pass / 4 partial / 2 fail · 0 request errors |
+| Shape | np=1 · c=262144 · temp 0 · thinking off · seed 42 |
+| Hardware | Intel Arc Pro B70 + NVIDIA GB10 (independent replica) |
+| Artifacts | [results/agent/single-slot-94/](results/agent/single-slot-94/) (`result.json`, `nvidia-result.json`) |
 
-Also packaged: Broadway multi-site **6/6**, long-context needles/dossier **3/3 + 14/14**.
+Matched **stock Q5** control A/B on 2026-07-28 scored **91 on both arms** (below) — different pin/quant context from the freeze.
 
-Honest day writeup: [DAY_PACKAGE_20260728.md](results/private-verification-20260728/DAY_PACKAGE_20260728.md).  
-Quality A/B: [agent-bench-ab REPORT](results/private-verification-20260728/agent-bench-ab-20260728T220230Z/REPORT.md).
+## Control A/B ledger (2026-07-28, stock Q5, B70)
 
-![Dual-axis](docs/assets/release-20260728/chart-dual-axis.png)
+| Test | Shape | Control | Treebeard | Artifact |
+| --- | --- | ---: | ---: | --- |
+| tool-eval-bench 69 | np=1 · c=262144 · seed 42 | 91/100 | 91/100 | [agent-bench-ab-…/REPORT.md](results/private-verification-20260728/agent-bench-ab-20260728T220230Z/REPORT.md) |
+| ho-pack-v1.1 | np=1 · seed 42 | 42/46 | 42/46 | same · `heldout/` |
+| sequential tg_p50 | np=1 · c=32768 · 5×2 prompts | 77.1 t/s | 88.9 t/s | [single-agent-ab-…](results/private-verification-20260728/single-agent-ab-20260728T213156Z/) |
+| 12-agent ABA p50/agent | np=12 · n_predict=96 | 6.88 | 26.33 | [base-vs-package-aba-…](results/private-verification-20260728/base-vs-package-aba-20260728T204515Z/) |
 
-Details: [RELEASE-20260728.md](docs/RELEASE-20260728.md).  
-**Do not read multi-slot speed as single-user chat speed.**
+Multi-slot is concurrent capacity, not single-user chat. Charts: [docs/assets/release-20260728/](docs/assets/release-20260728/).  
+Notes: [docs/RELEASE-20260728.md](docs/RELEASE-20260728.md) · [docs/CLAIMS.md](docs/CLAIMS.md).
+
+## Other measurements (each has an artifact)
+
+| Test | Result | Artifact |
+| --- | ---: | --- |
+| llama-bench pp4096 (GB10) | 2,026.9 tok/s | [results/nvidia/native-bench/](results/nvidia/native-bench/) |
+| llama-bench tg128 (GB10) | 52.5 tok/s | same |
+| Q8_0 12-col latency (Blackwell) | 33.0% lower | [results/nvidia/attribution-q8/](results/nvidia/attribution-q8/) |
+| Q8_0 MoE-down latency (Blackwell) | 3.4% lower | same |
+| Installed-package chat smoke (5950X) | 9.30 tok/s + exact tool call | [results/cpu-linux-x86_64/smoke/](results/cpu-linux-x86_64/smoke/) |
+| 12-slot aggregate (B70 ship profile) | 194.023 tok/s | [results/sycl/](results/sycl/) · package BENCHMARKS |
 
 ## CLI
 
@@ -136,27 +126,20 @@ tokens. The portable CPU default is one slot and 32,768 context tokens. The
 GPU throughput profile uses 12 slots and is separate from the single-slot
 evaluation above.
 
-On Intel Arc Pro B70 (SYCL), `treebeard serve` pins the measured production
-stack: GDN out-flat, MoE-down rows-per-sg=4, Q8 multi-col subgroups=32,
-expert-grouped atomic-dst, graph/pipeline/grouped off. Dual shared-act and
-multi-shape count1 paths are binary defaults. Dual+down redesign envs
-(`ENABLE_MOE_PIPELINE`, `DUAL_DOWN_*`) stay off (PARK regressions). Cool-down
-quality (tools-off ship): hard-v2 pass=1.0, held-out ≥42/46, ABA n96 p50≈28.2.
-When enabling experimental built-in tools / MCP (shadow or opt-in), set
-`TREEBEARD_TOOLS_ROOT` to a sandbox path allowlist; production ship keeps
-`--tools` off until owner opt-in. Validated agent surface (shadow): residual
-builtins + tools-root, multi-hop concurrent, triple cascade, tool-error recovery,
-hard-v2 direct `residual_*` tools (pass=1.0 @ n=2), and hard-native under
-concurrent recovery load (contention). Residual SFT curriculum is
-**PREREG-only frozen** (74 golds + cascade/multi-action SFT; process-dense v3/OPEN; scorers 61/61) until Hosted is
-explicitly authorized. Pack: `HOSTED_PACK_MANIFEST.json` (SFT+DPO+traj incl multi-action filtered 6/8 + OPEN 5/8; no spend). Residual tip **4b09a0137**. Shadow multi-action batch under filtered tools **6/8** (mean n_res≈1.4) and OPEN **5/8**; hard-native 1.0; ABA p50≈28.4; Hosted freeze without spend. Reasoning
-is explicitly off by default, matching the validated 94/100 agent
-benchmark. `TREEBEARD_REASONING=bounded` enables a small thinking allowance:
-64 tokens on GPU or 16 on CPU. Override it with a positive integer in
-`TREEBEARD_REASONING_BUDGET`. `TREEBEARD_REASONING=unrestricted` removes the
-budget and can substantially increase latency and generated-token cost. API
-clients can still opt individual requests into thinking with request-level
-chat-template and thinking-budget controls.
+On Intel Arc Pro B70 (SYCL), `treebeard serve` can pin package env knobs used in
+the control A/B ledger (GDN out-flat, MoE-down rows-per-sg=4, Q8 multi-col
+subgroups=32, expert-grouped on; graph/pipeline/grouped off). See
+[docs/RELEASE-20260728.md](docs/RELEASE-20260728.md) and the private-verification
+reports for measured outcomes — do not treat env names as scores.
+
+Reasoning is **off by default** (same shape as the named Agent Bench freeze and
+the 2026-07-28 control A/B). `TREEBEARD_REASONING=bounded` enables a small
+thinking allowance (64 tokens GPU / 16 CPU, overridable via
+`TREEBEARD_REASONING_BUDGET`). `unrestricted` removes the budget and can raise
+latency and token cost. Per-request chat-template controls still apply.
+
+Experimental built-in tools / MCP: set `TREEBEARD_TOOLS_ROOT` to a sandbox
+allowlist when enabling; production ship may keep `--tools` off until opt-in.
 
 For selective thinking on the default-off server, enable and bound the exact
 OpenAI-compatible request:

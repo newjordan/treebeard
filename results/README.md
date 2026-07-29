@@ -59,4 +59,6 @@ See [`private-verification-20260728/RELEASE_NOTES.md`](private-verification-2026
 and [`docs/RELEASE-20260728.md`](../docs/RELEASE-20260728.md).
 
 **Claims hygiene:** multi-slot throughput is not sequential single-stream TG.
-Quality champion remains public Agent Bench **94/100**.
+Named public Agent Bench freeze remains **94/100** with artifacts under
+`agent/single-slot-94/`. Matched stock-Q5 control A/B (2026-07-28) is **91=91** —
+see `private-verification-20260728/agent-bench-ab-…`.

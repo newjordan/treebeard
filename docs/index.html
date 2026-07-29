@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0d0a07">
-  <meta name="description" content="Treebeard is a measured llama.cpp runtime package for Qwen3.6-35B-A3B on Linux: quality-neutral vs clean upstream (91=91), modest solo decode speed, multi-slot capacity on Arc B70 — plus a historical 94/100 Agent Bench freeze.">
-  <meta property="og:title" content="Treebeard — measured local agent runtime on open Qwen">
-  <meta property="og:description" content="Same open Qwen weights. Matched control quality 91=91. ~+15% solo decode. Multi-slot capacity on B70. Historical package freeze 94/100 on Intel + NVIDIA.">
+  <meta name="description" content="Treebeard: llama.cpp runtime package for Qwen3.6-35B-A3B. Public numbers are attached to named tests and result artifacts — not marketing slogans.">
+  <meta property="og:title" content="Treebeard — llama.cpp package for Qwen3.6-35B-A3B">
+  <meta property="og:description" content="OpenAI-compatible local server + platform runtimes. Evidence-led measurements on Arc B70 and GB10; every score links to a test artifact.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://newjordan.github.io/treebeard/">
   <meta property="og:image" content="https://newjordan.github.io/treebeard/report-preview.png">
   <link rel="canonical" href="https://newjordan.github.io/treebeard/">
-  <title>Treebeard — measured local agent runtime on open Qwen</title>
+  <title>Treebeard — llama.cpp package for Qwen3.6-35B-A3B</title>
   <style>
     :root {
       color-scheme: dark;
@@ -291,13 +291,13 @@
   <div class="wrap">
     <a class="wordmark" href="#top"><span class="leaf">❦</span> Treebeard</a>
     <div class="links">
-      <a href="#why">Why</a>
-      <a href="#how">How it works</a>
-      <a href="#bench">Agent Bench</a>
       <a href="#verify">Control A/B</a>
-      <a href="#performance">Performance</a>
+      <a href="#bench">Agent Bench freeze</a>
+      <a href="#performance">Measurements</a>
+      <a href="#how">Runtime pieces</a>
       <a href="#releases">Releases</a>
       <a href="#install">Install</a>
+      <a href="CLAIMS.md">Claims rule</a>
       <a class="ext" href="https://github.com/newjordan/treebeard">GitHub</a>
       <a class="ext" href="https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF">Hugging&nbsp;Face</a>
     </div>
@@ -306,162 +306,137 @@
 
 <header class="hero" id="top">
   <div class="wrap">
-    <span class="kicker">Measured runtime package · open Qwen weights · Linux</span>
-    <h1>Same weights. <em>Better runtime.</em></h1>
+    <span class="kicker">Linux package · Qwen3.6-35B-A3B · llama.cpp runtimes</span>
+    <h1>A package with <em>attached evidence</em>.</h1>
     <p class="lede">
-      Treebeard is a <strong>llama.cpp specialization</strong> for
-      <strong>Qwen3.6-35B-A3B</strong> — not a new foundation model.
-      Matched against clean upstream on the same stock Q5:
-      <strong>agent quality is neutral (91=91)</strong>, solo decode is a bit faster,
-      and multi-slot capacity on Arc B70 jumps hard. One command installs the model,
-      the runtime, and an OpenAI-compatible local server.
+      Treebeard installs a <strong>Q5_K_XL GGUF</strong>, platform runtimes (Intel SYCL /
+      NVIDIA CUDA / portable CPU), and an <strong>OpenAI-compatible</strong>
+      <code>llama-server</code> on loopback. It is <strong>not</strong> a new foundation model.
+      Numbers on this page are from named tests with linked artifacts
+      (<a href="CLAIMS.md">claims rule</a>). A score is not a property of every install.
     </p>
     <div class="installbar">
       <code>curl -fsSL https://raw.githubusercontent.com/newjordan/treebeard/main/install.sh | bash</code>
       <span class="then">then <b>&nbsp;treebeard serve</b></span>
     </div>
-    <div class="stats">
-      <div class="stat"><span class="n">91<small>=91</small></span><span class="l">Agent Bench vs Original Qwen control (stock Q5)</span></div>
-      <div class="stat"><span class="n">91.3<small>%</small></span><span class="l">Held-out both arms (quality-neutral)</span></div>
-      <div class="stat"><span class="n">+15<small>%</small></span><span class="l">Solo decode tg vs clean upstream</span></div>
-      <div class="stat"><span class="n">+283<small>%</small></span><span class="l">Multi-slot p50 vs control (ops capacity)</span></div>
-      <div class="stat"><span class="n">94<small>/100</small></span><span class="l">Historical package freeze (Intel + NVIDIA)</span></div>
-    </div>
+    <p class="bench-note" style="margin:0 0 18px;max-width:70ch">
+      Installer integrity = SHA-256 of downloaded files. That is not Agent Bench.
+      <code>treebeard serve</code> exposes <code>/v1/chat/completions</code> — protocol-compatible,
+      not “94-verified.”
+    </p>
   </div>
 </header>
 
-<section id="demo">
-  <div class="wrap">
-    <div class="demo-frame">
-      <img src="assets/treebeard-demo-45s.webp"
-           alt="Terminal demo: one-command Treebeard install, treebeard doctor showing 0.2.0-rc.1 pkg5 on Intel Arc Pro B70, treebeard serve starting the local API, and a first chat completion answering from the forest."
-           loading="lazy">
-    </div>
-  </div>
-</section>
-
-<section id="why">
+<section id="verify">
   <div class="wrap">
     <div class="section-head">
-      <span class="over">Why Treebeard</span>
-      <h2>Better answers. Better economics. Better trust.</h2>
-      <p>Every claim below is behind a preregistered gate with saved, checksum-pinned evidence — not a vibe.</p>
+      <span class="over">Primary ledger · 2026-07-28</span>
+      <h2>Original Qwen control vs Treebeard (stock Q5)</h2>
+      <p>
+        Clean upstream SYCL binary vs Treebeard package binary + package env.
+        Same weights (Q5_K_XL sha256 <code>25233af7…c506</code>). Arc Pro B70.
+      </p>
     </div>
-    <div class="pillars">
-      <div class="pillar">
-        <div class="glyph">◈</div>
-        <h3>Better answers, measurably</h3>
-        <p>Wave search forks a conversation into sibling branches and commits the
-           self-consistent winner. Not best-of-N luck — structured search over
-           your own model's candidates.</p>
-        <div class="evidence">
-          <b>97.8% vs 53.6/63.6%</b> single-pass, 30 evidence-bound receipts (PCBT-12)<br>
-          <b>0 regret</b> deep-task quality gates — wave never loses to single decode (TQG-5)
-        </div>
-      </div>
-      <div class="pillar">
-        <div class="glyph">⟁</div>
-        <h3>Better economics of “better”</h3>
-        <p>Best-of-N improves answers but costs N×. Treebeard's StateTree lets the
-           branches share their prompt prefix, so search is nearly free —
-           and many agents fit on one card.</p>
-        <div class="evidence">
-          <b>2.9–8.4×</b> cheaper than blind best-of-N, matched tasks (TQG)<br>
-          <b>+59–71%</b> throughput on fragmented multi-branch workloads<br>
-          <b>+17–19%</b> dense throughput at 8–12 agents (golden ABA)
-        </div>
-      </div>
-      <div class="pillar">
-        <div class="glyph">✓</div>
-        <h3>Better trust: receipts, not vibes</h3>
-        <p>Every branch, winner-commit, and abort issues a
-           <code>pcbt.receipt.v1</code> receipt with attribution and evidence
-           binding. Deterministic runs reproduce exactly across platforms.</p>
-        <div class="evidence">
-          <b>Exact</b> score + verdict-vector reproduction: Intel B70 ↔ NVIDIA GB10<br>
-          <b>Exact</b> token parity across ragged/state-fused arms, drift ≤ 0.28%
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section id="how">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="over">How it works</span>
-      <h2>A tree, not a treadmill</h2>
-      <p>Agent work is branchy: plans, retries, parallel hypotheses. Treebeard's runtime treats conversation state as a tree instead of a single ever-growing tape.</p>
-    </div>
-    <div class="how">
-      <div class="howcard">
-        <h3>01 <span>/</span> StateTree</h3>
-        <div class="sub">Tree-structured KV memory</div>
-        <p>Sequence-ragged KV attention plus state-I/O fusion: forks share their
-           prefix cells instead of copying them, and branches decode against the
-           shared trunk. Shipped in the RC5–RC8 runtime line.</p>
-        <div class="flow">
-          <span class="node">shared prefix</span><span class="arrow">→</span>
-          <span class="node">fork()</span><span class="arrow">→</span>
-          <span class="node green">branch A</span>
-          <span class="node green">branch B</span>
-          <span class="node green">branch C</span>
-        </div>
-        <div class="metric">+58.9% ragged-only · +73.4% ship composition, fragmented shape</div>
-      </div>
-      <div class="howcard">
-        <h3>02 <span>/</span> Waves</h3>
-        <div class="sub">Search over your own candidates</div>
-        <p>Fan a prompt out into a wave of forked siblings, decode each, score by
-           verifier or self-consistency, commit the winner. The prefix is paid
-           once; the search dividend is measured per gate.</p>
-        <div class="flow">
-          <span class="node">prompt</span><span class="arrow">→</span>
-          <span class="node">wave ×N</span><span class="arrow">→</span>
-          <span class="node">score</span><span class="arrow">→</span>
-          <span class="node green">commit best</span>
-        </div>
-        <div class="metric">97.8% vs 53.6/63.6% single-pass (PCBT-12 product benchmark)</div>
-      </div>
-      <div class="howcard">
-        <h3>03 <span>/</span> PCBT</h3>
-        <div class="sub">Proof-carrying branch transactions</div>
-        <p>The branch lifecycle is a transaction surface: client-driven
-           attribution, evidence binding, atomic winner commit, abort and
-           expiry — every transition receipted and counted in <code>/metrics</code>.</p>
-        <div class="flow">
-          <span class="node">create</span><span class="arrow">→</span>
-          <span class="node">bind evidence</span><span class="arrow">→</span>
-          <span class="node green">commit</span>
-          <span class="node">/ abort</span><span class="arrow">→</span>
-          <span class="node green">receipt</span>
-        </div>
-        <div class="metric">pcbt.receipt.v1 · live on /transactions since RC8</div>
-      </div>
-    </div>
+    <table style="margin-bottom:22px">
+      <tr><th>Test</th><th>Shape</th><th>Control</th><th>Treebeard</th><th>Artifact</th></tr>
+      <tr>
+        <td>tool-eval-bench public 69</td>
+        <td>np=1 · c=262144 · temp 0 · seed 42 · no-think · 2.1.0@8b3259b</td>
+        <td>91/100 (125/138)</td>
+        <td>91/100 (126/138)</td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/agent-bench-ab-20260728T220230Z">agent-bench-ab…/REPORT.md</a></td>
+      </tr>
+      <tr>
+        <td>held-out ho-pack-v1.1</td>
+        <td>np=1 · temp 0 · seed 42 · 23 gated scenarios</td>
+        <td>42/46 (91.3%)</td>
+        <td>42/46 (91.3%)</td>
+        <td>same run dir · heldout/*/result.json</td>
+      </tr>
+      <tr>
+        <td>single-agent sequential smoke</td>
+        <td>np=1 · c=32768 · 5 prompts × 2 · tg_p50</td>
+        <td>77.1 tok/s</td>
+        <td>88.9 tok/s (+15.4%)</td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/single-agent-ab-20260728T213156Z">single-agent-ab…/REPORT.md</a></td>
+      </tr>
+      <tr>
+        <td>12-agent concurrent ABA</td>
+        <td>np=12 · n_predict=96 · temp 0 · p50 tok/s/agent</td>
+        <td>6.88</td>
+        <td>26.33 (+282.8%)</td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/base-vs-package-aba-20260728T204515Z">base-vs-package-aba…/REPORT.md</a></td>
+      </tr>
+      <tr>
+        <td>12-agent aggregate</td>
+        <td>same ABA · fleet tok/s</td>
+        <td>72.9</td>
+        <td>208.7</td>
+        <td>same</td>
+      </tr>
+    </table>
+
+    <p class="bench-note" style="margin-bottom:22px">
+      Multi-slot p50 is concurrent capacity, not single-user chat speed.
+      Public suite status vector differed on 1/69 scenarios (TC-50 partial→pass).
+      Charts: <a href="assets/release-20260728/chart-dual-axis.png">dual-axis</a> ·
+      <a href="assets/release-20260728/chart-quality-ab.png">quality A/B</a> ·
+      <a href="assets/release-20260728/chart-multislot-aba.png">multi-slot</a>.
+      Writeup: <a href="RELEASE-20260728.md">RELEASE-20260728.md</a>.
+    </p>
+
+    <table style="margin-bottom:8px">
+      <tr><th>Treebeard-only smoke (no control arm)</th><th>Result</th><th>Artifact</th></tr>
+      <tr>
+        <td>Broadway multi-page HTML structure (6 sites)</td>
+        <td>6/6</td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/broadway-eval-20260728T184434Z">broadway-eval…/REPORT.md</a></td>
+      </tr>
+      <tr>
+        <td>Long-context needles (3 depths)</td>
+        <td>3/3</td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/longctx-eval-20260728T193321Z">longctx-eval…/REPORT.md</a></td>
+      </tr>
+      <tr>
+        <td>Long-context dossier QA</td>
+        <td>14/14</td>
+        <td>same longctx REPORT</td>
+      </tr>
+      <tr>
+        <td>Long multi-slot stress c=262144 np=12</td>
+        <td>120/120 request success</td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/long-multislot-stress-20260728T194913Z">long-multislot-stress…/REPORT.md</a></td>
+      </tr>
+    </table>
   </div>
 </section>
 
 <section id="bench">
   <div class="wrap">
     <div class="section-head">
-      <span class="over">Agent Bench</span>
-      <h2>94/100, twice, on two different GPUs</h2>
-      <p>69 deterministic agent scenarios, one server slot, 262,144-token context,
-         temperature 0, seed 42 — reproduced exactly (score and verdict vector) on
-         Intel Arc Pro B70 and NVIDIA GB10.</p>
+      <span class="over">Named freeze · not every install</span>
+      <h2>Agent Bench 94/100 (historical package run)</h2>
+      <p>
+        One checksum-pinned run of tool-eval-bench 69 scenarios, then an independent
+        replica on a second GPU. This is <strong>not</strong> a claim that every
+        <code>treebeard serve</code> scores 94. Matched stock-Q5 control A/B on
+        2026-07-28 scored <strong>91 on both arms</strong> (<a href="#verify">above</a>).
+      </p>
     </div>
     <div class="bench-grid">
       <div class="score-card">
-        <div class="of">Agent Bench score</div>
+        <div class="of">tool-eval-bench 2.1.0 · public 69</div>
         <div class="big">94</div>
-        <div class="of">out of 100 · 130/138 points</div>
-        <span class="verdict">Excellent</span>
+        <div class="of">/100 · 130/138 points</div>
+        <span class="verdict">named freeze</span>
         <ul>
-          <li><span>Scenarios</span><b>69/69 completed</b></li>
+          <li><span>Shape</span><b>np=1 · c=262144 · seed 42</b></li>
+          <li><span>Thinking</span><b>off</b></li>
           <li><span>Outcomes</span><b>63 pass · 4 partial · 2 fail</b></li>
           <li><span>Request errors</span><b>0</b></li>
-          <li><span>Cross-platform</span><b>exact reproduction</b></li>
+          <li><span>B70 artifact</span><b><a href="result.json">result.json</a></b></li>
+          <li><span>GB10 artifact</span><b><a href="nvidia-result.json">nvidia-result.json</a></b></li>
         </ul>
       </div>
       <div>
@@ -483,122 +458,124 @@
           <div class="category"><div class="category-top"><span>O. Structured Output</span><span class="category-score">12/12</span></div><div class="bar"><span style="--score:100%"></span></div></div>
         </div>
         <p class="bench-note">
-          Historical package-champion freeze (exact Intel ↔ NVIDIA reproduction).
-          Matched stock-Q5 control A/B today lands <b>91 vs 91</b> — see
-          <a href="#verify">Control A/B</a>.
-          Evidence:
-          <a href="result.json">result.json</a> ·
-          <a href="summary.json">summary.json</a> ·
-          <a href="nvidia-result.json">nvidia-result.json</a> ·
-          <a href="https://github.com/newjordan/treebeard/tree/main/results">full results index</a>
+          Category bars are from the B70 freeze result file, not a second measurement.
+          Bundle: <a href="https://github.com/newjordan/treebeard/tree/main/results/agent/single-slot-94">results/agent/single-slot-94/</a>
+          · methodology notes in <a href="https://github.com/newjordan/treebeard/blob/docs/release-20260728-dual-axis/package/docs/BENCHMARKS.md">package/docs/BENCHMARKS.md</a>.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="verify">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="over">2026-07-28 · matched control</span>
-      <h2>Original Qwen control vs Treebeard</h2>
-      <p>
-        Same stock Q5 weights, same shape, clean upstream SYCL vs Treebeard package.
-        This is the confidence gate: <strong>not a smarter model</strong> — a measured runtime.
-      </p>
-    </div>
-
-    <div style="margin:0 0 28px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)">
-      <img src="assets/release-20260728/chart-dual-axis.png"
-           alt="Dual-axis freeze: quality-neutral 91=91, solo decode +15.4%, multi-slot +283% vs Original Qwen control"
-           style="display:block;width:100%;height:auto" loading="lazy">
-    </div>
-
-    <table style="margin-bottom:22px">
-      <tr><th>Gate</th><th>Original Qwen control</th><th>Treebeard</th><th>Read</th></tr>
-      <tr><td><b>Public Agent Bench 69</b></td><td>91/100 (125/138)</td><td>91/100 (126/138)</td><td>quality-neutral</td></tr>
-      <tr><td><b>Held-out ho-pack-v1.1</b></td><td>91.3% (42/46)</td><td>91.3% (42/46)</td><td>quality-neutral</td></tr>
-      <tr><td>Solo decode tg_p50 (tiny suite)</td><td>77.1 tok/s</td><td>88.9 tok/s</td><td><b>+15.4%</b></td></tr>
-      <tr><td>Multi-slot p50 / agent (np=12)</td><td>6.88</td><td>26.33</td><td><b>+282.8%</b> ops</td></tr>
-      <tr><td>Multi-slot aggregate</td><td>72.9 tok/s</td><td>208.7 tok/s</td><td>+186%</td></tr>
-    </table>
-
-    <div class="pillars" style="margin-bottom:28px">
-      <div class="pillar">
-        <div class="glyph">=</div>
-        <h3>Quality held</h3>
-        <p>Agent suite and frozen held-out pack score the same on both arms.
-           Runtime specialization did not buy or sell intelligence.</p>
-        <div class="evidence">
-          <b>1/69</b> public status diff only (TC-50 partial→pass)<br>
-          <b>0</b> request errors both arms
-        </div>
-      </div>
-      <div class="pillar">
-        <div class="glyph">↑</div>
-        <h3>Solo speed modest</h3>
-        <p>What one user feels: slightly faster decode on B70 SYCL.
-           Tiny suite — speed signal, not a quality claim.</p>
-        <div class="evidence">
-          <b>77.1 → 88.9</b> tg_p50 tok/s<br>
-          <b>1874 → 1794 ms</b> median turn on Agent Bench
-        </div>
-      </div>
-      <div class="pillar">
-        <div class="glyph">⧉</div>
-        <h3>Capacity is ops</h3>
-        <p>Twelve concurrent agents pack much harder under Treebeard.
-           Useful for servers; <b>not</b> the solo-product headline.</p>
-        <div class="evidence">
-          <b>+283%</b> p50 vs clean upstream control<br>
-          Most of the win is compiled engine code
-        </div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-bottom:18px">
-      <div style="border:1px solid var(--line);border-radius:var(--radius);overflow:hidden">
-        <img src="assets/release-20260728/chart-quality-ab.png" alt="Quality A/B 91=91 public and 91.3=91.3 held-out" style="display:block;width:100%;height:auto" loading="lazy">
-      </div>
-      <div style="border:1px solid var(--line);border-radius:var(--radius);overflow:hidden">
-        <img src="assets/release-20260728/chart-multislot-aba.png" alt="Multi-slot capacity control vs Treebeard" style="display:block;width:100%;height:auto" loading="lazy">
-      </div>
-      <div style="border:1px solid var(--line);border-radius:var(--radius);overflow:hidden">
-        <img src="assets/release-20260728/chart-quality-gates.png" alt="Private verification gates summary" style="display:block;width:100%;height:auto" loading="lazy">
-      </div>
-    </div>
-
-    <p class="bench-note">
-      Full writeup:
-      <a href="RELEASE-20260728.md">RELEASE-20260728.md</a> ·
-      <a href="https://github.com/newjordan/treebeard/blob/docs/release-20260728-dual-axis/results/private-verification-20260728/DAY_PACKAGE_20260728.md">DAY_PACKAGE</a> ·
-      <a href="https://github.com/newjordan/treebeard/blob/docs/release-20260728-dual-axis/results/private-verification-20260728/agent-bench-ab-20260728T220230Z/REPORT.md">agent-bench A/B REPORT</a>
-    </p>
-  </div>
-</section>
-
 <section id="performance">
   <div class="wrap">
     <div class="section-head">
-      <span class="over">Selected measurements</span>
-      <h2>Performance</h2>
-      <p>Matched control rows are stock Q5 on Arc Pro B70 (2026-07-28). Older platform rows unchanged.</p>
+      <span class="over">Measurements</span>
+      <h2>Other banked numbers (with tests)</h2>
+      <p>Each row names the instrument. If the path is missing, the row should not be here.</p>
     </div>
     <table>
-      <tr><th>Measurement</th><th>Platform</th><th>Result</th></tr>
-      <tr><td><b>Agent Bench vs Original Qwen control</b></td><td>Intel Arc Pro B70 (stock Q5)</td><td><b>91 = 91</b></td></tr>
-      <tr><td><b>Held-out vs Original Qwen control</b></td><td>Intel Arc Pro B70 (stock Q5)</td><td><b>91.3% = 91.3%</b></td></tr>
-      <tr><td><b>Solo decode tg_p50 vs control</b></td><td>Intel Arc Pro B70 (stock Q5, np=1)</td><td><b>77.1 → 88.9 (+15.4%)</b></td></tr>
-      <tr><td><b>Multi-slot p50 / agent vs control</b></td><td>Intel Arc Pro B70 (stock Q5, np=12)</td><td><b>6.88 → 26.33 (+283%)</b></td></tr>
-      <tr><td>Multi-slot aggregate vs control</td><td>Intel Arc Pro B70 (stock Q5, np=12)</td><td>72.9 → 208.7 tok/s</td></tr>
-      <tr><td>Historical Agent Bench freeze</td><td>Intel B70 + NVIDIA GB10</td><td>94/100 exact reproduction</td></tr>
-      <tr><td>12-slot aggregate serving (ship stack)</td><td>Intel Arc Pro B70</td><td>194.023 tok/s</td></tr>
-      <tr><td>Native pp4096</td><td>NVIDIA GB10</td><td>2,026.9 tok/s</td></tr>
-      <tr><td>Native tg128</td><td>NVIDIA GB10</td><td>52.5 tok/s</td></tr>
-      <tr><td>Q8_0 direct 12-column speedup</td><td>NVIDIA Blackwell</td><td>33.0%</td></tr>
-      <tr><td>Q8_0 MoE down speedup</td><td>NVIDIA Blackwell</td><td>3.4%</td></tr>
-      <tr><td>Installed-package chat smoke</td><td>AMD Ryzen 9 5950X (portable CPU)</td><td>9.30 tok/s</td></tr>
+      <tr><th>Test / instrument</th><th>Hardware</th><th>Result</th><th>Artifact</th></tr>
+      <tr>
+        <td>tool-eval-bench 69 control A/B</td>
+        <td>B70 · stock Q5 · np=1</td>
+        <td>91 = 91</td>
+        <td>private-verification…/agent-bench-ab-…</td>
+      </tr>
+      <tr>
+        <td>ho-pack-v1.1 control A/B</td>
+        <td>B70 · stock Q5 · np=1</td>
+        <td>42/46 = 42/46</td>
+        <td>same · heldout/</td>
+      </tr>
+      <tr>
+        <td>single-agent sequential tg_p50</td>
+        <td>B70 · stock Q5 · np=1 · c=32768</td>
+        <td>77.1 → 88.9</td>
+        <td>private-verification…/single-agent-ab-…</td>
+      </tr>
+      <tr>
+        <td>12-agent ABA p50/agent</td>
+        <td>B70 · stock Q5 · np=12</td>
+        <td>6.88 → 26.33</td>
+        <td>private-verification…/base-vs-package-aba-…</td>
+      </tr>
+      <tr>
+        <td>tool-eval-bench 69 freeze (named)</td>
+        <td>B70 + GB10</td>
+        <td>94/100 both</td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/main/results/agent/single-slot-94">results/agent/single-slot-94/</a></td>
+      </tr>
+      <tr>
+        <td>llama-bench pp4096 (samples in JSON)</td>
+        <td>GB10 CUDA</td>
+        <td>2,026.9 tok/s</td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/main/results/nvidia/native-bench">results/nvidia/native-bench/</a></td>
+      </tr>
+      <tr>
+        <td>llama-bench tg128</td>
+        <td>GB10 CUDA</td>
+        <td>52.5 tok/s</td>
+        <td>same native-bench</td>
+      </tr>
+      <tr>
+        <td>Q8_0 12-col latency attribution</td>
+        <td>Blackwell CUDA</td>
+        <td>33.0% lower latency (direct path)</td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/main/results/nvidia/attribution-q8">results/nvidia/attribution-q8/</a></td>
+      </tr>
+      <tr>
+        <td>Q8_0 MoE-down latency attribution</td>
+        <td>Blackwell CUDA</td>
+        <td>3.4% lower latency</td>
+        <td>same attribution-q8</td>
+      </tr>
+      <tr>
+        <td>Installed-package chat smoke</td>
+        <td>Ryzen 9 5950X CPU</td>
+        <td>9.30 tok/s chat; exact tool call</td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/main/results/cpu-linux-x86_64/smoke">results/cpu-linux-x86_64/smoke/</a></td>
+      </tr>
+      <tr>
+        <td>12-slot aggregate serving (ship profile)</td>
+        <td>B70 SYCL</td>
+        <td>194.023 tok/s aggregate</td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/main/results/sycl">results/sycl/</a> (see package BENCHMARKS)</td>
+      </tr>
     </table>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="over">What ships</span>
+      <h2>Runtime pieces (description, not scores)</h2>
+      <p>
+        Architecture notes only. Performance claims for these pieces live in the
+        measurement tables above, or they are omitted.
+      </p>
+    </div>
+    <div class="how">
+      <div class="howcard">
+        <h3>01 <span>/</span> Weights</h3>
+        <div class="sub">Commodity model file</div>
+        <p>Qwen3.6-35B-A3B UD-Q5_K_XL GGUF (~26.6 GB). Optional vision projector.
+           Weights are not a Treebeard invention.</p>
+      </div>
+      <div class="howcard">
+        <h3>02 <span>/</span> llama-server</h3>
+        <div class="sub">OpenAI-compatible local API</div>
+        <p>Packaged <code>llama-server</code> with platform backends. Default bind is loopback
+           <code>:8093</code>. “OpenAI-compatible” means the HTTP routes; it does not mean a quality score.</p>
+      </div>
+      <div class="howcard">
+        <h3>03 <span>/</span> SYCL package port</h3>
+        <div class="sub">Intel GPU specialization</div>
+        <p>MoE/decode paths and env knobs measured in the control A/B ledger.
+           Upstream PR prep: <a href="https://github.com/newjordan/treebeard/blob/docs/release-20260728-dual-axis/results/private-verification-20260728/LLAMA_CPP_PR_PREP.md">LLAMA_CPP_PR_PREP.md</a>.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -610,34 +587,33 @@
     </div>
     <div class="releases">
       <div class="release current">
-        <span class="tag">docs · verification</span>
-        <h3>Dual-axis pack 2026-07-28</h3>
-        <span class="date">2026-07-28 · evidence + site · <a href="RELEASE-20260728.md">release notes</a> · package still 0.1.0-rc.3 / 0.2.0-rc.1</span>
+        <span class="tag">docs · evidence</span>
+        <h3>Control A/B pack 2026-07-28</h3>
+        <span class="date">2026-07-28 · <a href="RELEASE-20260728.md">RELEASE-20260728.md</a> · no new runtime archive</span>
         <ul>
-          <li>Matched <b>Original Qwen control vs Treebeard</b> on stock Q5: Agent Bench <b>91=91</b>, held-out <b>91.3=91.3</b> (quality-neutral).</li>
-          <li>Solo decode <b>+15.4%</b> tg_p50; multi-slot capacity <b>+283%</b> p50 vs clean upstream (ops appendix).</li>
-          <li>Broadway 6/6 · long-ctx 3/3 + 14/14 · long multi-slot stress 120/120.</li>
-          <li>Honest product line: runtime package on open Qwen weights — not a smarter model.</li>
+          <li>tool-eval-bench 69 control A/B: <b>91=91</b> — artifact <code>results/private-verification-20260728/agent-bench-ab-…</code></li>
+          <li>ho-pack-v1.1: <b>42/46 both arms</b> — same dir <code>heldout/</code></li>
+          <li>single-agent tg_p50: <b>77.1 → 88.9</b> — <code>single-agent-ab-…</code></li>
+          <li>12-agent ABA p50/agent: <b>6.88 → 26.33</b> — <code>base-vs-package-aba-…</code> (ops, not solo chat)</li>
         </ul>
       </div>
       <div class="release">
         <span class="tag">runtime · pkg5</span>
-        <h3>Treebeard 0.2.0</h3>
-        <span class="date">2026-07-18 · runtime 0.2.0-rc.1 · <a href="https://github.com/newjordan/treebeard/releases/tag/v0.2.0">release notes</a></span>
+        <h3>Treebeard 0.2.0-rc.1</h3>
+        <span class="date">2026-07-18 · <a href="https://github.com/newjordan/treebeard/releases/tag/v0.2.0">release notes</a></span>
         <ul>
-          <li>The StateTree runtime line goes public: sequence-ragged KV + state-I/O fusion, and the live PCBT transaction surface (<code>pcbt.receipt.v1</code>, <code>/transactions</code>).</li>
-          <li>Agent Bench <b>94/100 revalidated 2026-07-17</b> on Intel B70 and NVIDIA GB10 (exact score + verdict-vector reproduction); portable CPU build with perf parity.</li>
-          <li>PCBT-12 wave benchmark: <b>97.8%</b> vs 53.6/63.6% single-pass; deep-task gates at <b>0 regret</b> under the TQG-5 distinct-variant selector.</li>
-          <li>GB10 token generation at parity with the 0.1 line within host drift (three-point bisect, interleaved re-measurement).</li>
+          <li>Runtime line ships StateTree / PCBT surfaces in the package (see that release for scope).</li>
+          <li>Named Agent Bench freeze still 94/100 with B70 + GB10 result JSONs under <code>results/agent/single-slot-94/</code>.</li>
+          <li>Other product-bench numbers from that release stay in that release’s notes — not repeated here without paths.</li>
         </ul>
       </div>
       <div class="release">
-        <span class="tag">previous · pkg4</span>
+        <span class="tag">launcher</span>
         <h3>Treebeard 0.1.1</h3>
-        <span class="date">2026-07-17 · runtime 0.1.0-rc.3 (launcher-only controls)</span>
+        <span class="date">2026-07-17 · runtime 0.1.0-rc.3</span>
         <ul>
-          <li><code>TREEBEARD_REASONING=off|bounded|unrestricted</code> — thinking off by default (matches the 94/100 run); bounded budgets of 64 tokens (GPU) / 16 (CPU), overridable per request.</li>
-          <li><code>TREEBEARD_SPECULATION=off|ngram|mtp|hybrid</code> — opt-in drafting with Qwen3.6's native MTP head; not yet claimed as a speedup.</li>
+          <li><code>TREEBEARD_REASONING=off|bounded|unrestricted</code> — default off (matches freeze shape: thinking disabled).</li>
+          <li><code>TREEBEARD_SPECULATION=…</code> — opt-in; no speed claim attached on this page.</li>
         </ul>
       </div>
     </div>
