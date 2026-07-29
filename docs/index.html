@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0d0a07">
-  <meta name="description" content="Treebeard: llama.cpp runtime package for Qwen3.6-35B-A3B. Public numbers are attached to named tests and result artifacts — not marketing slogans.">
-  <meta property="og:title" content="Treebeard — llama.cpp package for Qwen3.6-35B-A3B">
-  <meta property="og:description" content="OpenAI-compatible local server + platform runtimes. Evidence-led measurements on Arc B70 and GB10; every score links to a test artifact.">
+  <meta name="description" content="Treebeard packages Qwen3.6-35B-A3B for Linux: GGUF weights, platform runtimes, local llama-server. Scores below come from named result files.">
+  <meta property="og:title" content="Treebeard">
+  <meta property="og:description" content="Qwen3.6-35B-A3B Linux package: install, serve, and the measurement tables with result paths.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://newjordan.github.io/treebeard/">
   <meta property="og:image" content="https://newjordan.github.io/treebeard/report-preview.png">
   <link rel="canonical" href="https://newjordan.github.io/treebeard/">
-  <title>Treebeard — llama.cpp package for Qwen3.6-35B-A3B</title>
+  <title>Treebeard</title>
   <style>
     :root {
       color-scheme: dark;
@@ -292,12 +292,10 @@
     <a class="wordmark" href="#top"><span class="leaf">❦</span> Treebeard</a>
     <div class="links">
       <a href="#verify">Control A/B</a>
-      <a href="#bench">Agent Bench freeze</a>
+      <a href="#bench">Agent Bench</a>
       <a href="#performance">Measurements</a>
-      <a href="#how">Runtime pieces</a>
-      <a href="#releases">Releases</a>
       <a href="#install">Install</a>
-      <a href="CLAIMS.md">Claims rule</a>
+      <a href="CLAIMS.md">Claims</a>
       <a class="ext" href="https://github.com/newjordan/treebeard">GitHub</a>
       <a class="ext" href="https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF">Hugging&nbsp;Face</a>
     </div>
@@ -306,35 +304,30 @@
 
 <header class="hero" id="top">
   <div class="wrap">
-    <span class="kicker">Linux package · Qwen3.6-35B-A3B · llama.cpp runtimes</span>
-    <h1>A package with <em>attached evidence</em>.</h1>
+    <span class="kicker">Linux · Qwen3.6-35B-A3B · llama.cpp</span>
+    <h1>Treebeard</h1>
     <p class="lede">
-      Treebeard installs a <strong>Q5_K_XL GGUF</strong>, platform runtimes (Intel SYCL /
-      NVIDIA CUDA / portable CPU), and an <strong>OpenAI-compatible</strong>
-      <code>llama-server</code> on loopback. It is <strong>not</strong> a new foundation model.
-      Numbers on this page are from named tests with linked artifacts
-      (<a href="CLAIMS.md">claims rule</a>). A score is not a property of every install.
+      Packages <strong>Qwen3.6-35B-A3B</strong> (Q5_K_XL GGUF), a matching runtime
+      (Intel SYCL, NVIDIA CUDA, or portable CPU), and local
+      <code>llama-server</code> with <code>/v1/chat/completions</code> on loopback.
+      Numbers on this page name their test and link to a result file
+      (<a href="CLAIMS.md">claims rule</a>).
     </p>
     <div class="installbar">
       <code>curl -fsSL https://raw.githubusercontent.com/newjordan/treebeard/main/install.sh | bash</code>
       <span class="then">then <b>&nbsp;treebeard serve</b></span>
     </div>
-    <p class="bench-note" style="margin:0 0 18px;max-width:70ch">
-      Installer integrity = SHA-256 of downloaded files. That is not Agent Bench.
-      <code>treebeard serve</code> exposes <code>/v1/chat/completions</code> — protocol-compatible,
-      not “94-verified.”
-    </p>
   </div>
 </header>
 
 <section id="verify">
   <div class="wrap">
     <div class="section-head">
-      <span class="over">Primary ledger · 2026-07-28</span>
-      <h2>Original Qwen control vs Treebeard (stock Q5)</h2>
+      <span class="over">2026-07-28 · Arc Pro B70 · stock Q5</span>
+      <h2>Original Qwen control vs Treebeard</h2>
       <p>
-        Clean upstream SYCL binary vs Treebeard package binary + package env.
-        Same weights (Q5_K_XL sha256 <code>25233af7…c506</code>). Arc Pro B70.
+        Clean upstream SYCL binary versus Treebeard package binary with package env.
+        Same weights: Q5_K_XL sha256 <code>25233af7…c506</code>.
       </p>
     </div>
 
@@ -345,58 +338,59 @@
         <td>np=1 · c=262144 · temp 0 · seed 42 · no-think · 2.1.0@8b3259b</td>
         <td>91/100 (125/138)</td>
         <td>91/100 (126/138)</td>
-        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/agent-bench-ab-20260728T220230Z">agent-bench-ab…/REPORT.md</a></td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/agent-bench-ab-20260728T220230Z">agent-bench-ab REPORT</a></td>
       </tr>
       <tr>
         <td>held-out ho-pack-v1.1</td>
         <td>np=1 · temp 0 · seed 42 · 23 gated scenarios</td>
         <td>42/46 (91.3%)</td>
         <td>42/46 (91.3%)</td>
-        <td>same run dir · heldout/*/result.json</td>
+        <td>same dir · heldout/*/result.json</td>
       </tr>
       <tr>
         <td>single-agent sequential smoke</td>
         <td>np=1 · c=32768 · 5 prompts × 2 · tg_p50</td>
         <td>77.1 tok/s</td>
         <td>88.9 tok/s (+15.4%)</td>
-        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/single-agent-ab-20260728T213156Z">single-agent-ab…/REPORT.md</a></td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/single-agent-ab-20260728T213156Z">single-agent-ab REPORT</a></td>
       </tr>
       <tr>
         <td>12-agent concurrent ABA</td>
-        <td>np=12 · n_predict=96 · temp 0 · p50 tok/s/agent</td>
+        <td>np=12 · n_predict=96 · temp 0 · p50 tok/s per agent</td>
         <td>6.88</td>
         <td>26.33 (+282.8%)</td>
-        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/base-vs-package-aba-20260728T204515Z">base-vs-package-aba…/REPORT.md</a></td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/base-vs-package-aba-20260728T204515Z">base-vs-package-aba REPORT</a></td>
       </tr>
       <tr>
         <td>12-agent aggregate</td>
-        <td>same ABA · fleet tok/s</td>
+        <td>same ABA · total tok/s</td>
         <td>72.9</td>
         <td>208.7</td>
-        <td>same</td>
+        <td>same REPORT</td>
       </tr>
     </table>
 
     <p class="bench-note" style="margin-bottom:22px">
-      Multi-slot p50 is concurrent capacity, not single-user chat speed.
-      Public suite status vector differed on 1/69 scenarios (TC-50 partial→pass).
-      Charts: <a href="assets/release-20260728/chart-dual-axis.png">dual-axis</a> ·
-      <a href="assets/release-20260728/chart-quality-ab.png">quality A/B</a> ·
+      Multi-slot p50 is concurrent capacity. Single-user chat speed is the sequential
+      row. Public suite status differed on TC-50 only (control partial, Treebeard pass).
+      Charts:
+      <a href="assets/release-20260728/chart-dual-axis.png">dual-axis</a>,
+      <a href="assets/release-20260728/chart-quality-ab.png">quality A/B</a>,
       <a href="assets/release-20260728/chart-multislot-aba.png">multi-slot</a>.
       Writeup: <a href="RELEASE-20260728.md">RELEASE-20260728.md</a>.
     </p>
 
-    <table style="margin-bottom:8px">
-      <tr><th>Treebeard-only smoke (no control arm)</th><th>Result</th><th>Artifact</th></tr>
+    <table>
+      <tr><th>Treebeard-only run (no control arm)</th><th>Result</th><th>Artifact</th></tr>
       <tr>
         <td>Broadway multi-page HTML structure (6 sites)</td>
         <td>6/6</td>
-        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/broadway-eval-20260728T184434Z">broadway-eval…/REPORT.md</a></td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/broadway-eval-20260728T184434Z">broadway-eval REPORT</a></td>
       </tr>
       <tr>
         <td>Long-context needles (3 depths)</td>
         <td>3/3</td>
-        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/longctx-eval-20260728T193321Z">longctx-eval…/REPORT.md</a></td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/longctx-eval-20260728T193321Z">longctx-eval REPORT</a></td>
       </tr>
       <tr>
         <td>Long-context dossier QA</td>
@@ -404,9 +398,9 @@
         <td>same longctx REPORT</td>
       </tr>
       <tr>
-        <td>Long multi-slot stress c=262144 np=12</td>
+        <td>Long multi-slot stress (c=262144, np=12)</td>
         <td>120/120 request success</td>
-        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/long-multislot-stress-20260728T194913Z">long-multislot-stress…/REPORT.md</a></td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/docs/release-20260728-dual-axis/results/private-verification-20260728/long-multislot-stress-20260728T194913Z">long-multislot-stress REPORT</a></td>
       </tr>
     </table>
   </div>
@@ -415,28 +409,26 @@
 <section id="bench">
   <div class="wrap">
     <div class="section-head">
-      <span class="over">Named freeze · not every install</span>
-      <h2>Agent Bench 94/100 (historical package run)</h2>
+      <span class="over">tool-eval-bench 2.1.0 · public 69</span>
+      <h2>Named freeze: 94/100</h2>
       <p>
-        One checksum-pinned run of tool-eval-bench 69 scenarios, then an independent
-        replica on a second GPU. This is <strong>not</strong> a claim that every
-        <code>treebeard serve</code> scores 94. Matched stock-Q5 control A/B on
-        2026-07-28 scored <strong>91 on both arms</strong> (<a href="#verify">above</a>).
+        Checksum-pinned package run on Intel Arc Pro B70, with an independent
+        replica on NVIDIA GB10. Shape: np=1, c=262144, temp 0, thinking off, seed 42.
+        The 2026-07-28 stock-Q5 control A/B above scored 91 on both arms under a
+        different pin and quant context.
       </p>
     </div>
     <div class="bench-grid">
       <div class="score-card">
-        <div class="of">tool-eval-bench 2.1.0 · public 69</div>
+        <div class="of">final_score</div>
         <div class="big">94</div>
         <div class="of">/100 · 130/138 points</div>
-        <span class="verdict">named freeze</span>
         <ul>
-          <li><span>Shape</span><b>np=1 · c=262144 · seed 42</b></li>
-          <li><span>Thinking</span><b>off</b></li>
           <li><span>Outcomes</span><b>63 pass · 4 partial · 2 fail</b></li>
           <li><span>Request errors</span><b>0</b></li>
-          <li><span>B70 artifact</span><b><a href="result.json">result.json</a></b></li>
-          <li><span>GB10 artifact</span><b><a href="nvidia-result.json">nvidia-result.json</a></b></li>
+          <li><span>B70</span><b><a href="result.json">result.json</a></b></li>
+          <li><span>GB10</span><b><a href="nvidia-result.json">nvidia-result.json</a></b></li>
+          <li><span>Bundle</span><b><a href="https://github.com/newjordan/treebeard/tree/main/results/agent/single-slot-94">single-slot-94/</a></b></li>
         </ul>
       </div>
       <div>
@@ -458,9 +450,8 @@
           <div class="category"><div class="category-top"><span>O. Structured Output</span><span class="category-score">12/12</span></div><div class="bar"><span style="--score:100%"></span></div></div>
         </div>
         <p class="bench-note">
-          Category bars are from the B70 freeze result file, not a second measurement.
-          Bundle: <a href="https://github.com/newjordan/treebeard/tree/main/results/agent/single-slot-94">results/agent/single-slot-94/</a>
-          · methodology notes in <a href="https://github.com/newjordan/treebeard/blob/docs/release-20260728-dual-axis/package/docs/BENCHMARKS.md">package/docs/BENCHMARKS.md</a>.
+          Category bars are read from the B70 freeze result file.
+          Methodology: <a href="https://github.com/newjordan/treebeard/blob/docs/release-20260728-dual-axis/package/docs/BENCHMARKS.md">package/docs/BENCHMARKS.md</a>.
         </p>
       </div>
     </div>
@@ -470,12 +461,11 @@
 <section id="performance">
   <div class="wrap">
     <div class="section-head">
-      <span class="over">Measurements</span>
-      <h2>Other banked numbers (with tests)</h2>
-      <p>Each row names the instrument. If the path is missing, the row should not be here.</p>
+      <span class="over">Other runs</span>
+      <h2>Measurements</h2>
     </div>
     <table>
-      <tr><th>Test / instrument</th><th>Hardware</th><th>Result</th><th>Artifact</th></tr>
+      <tr><th>Test</th><th>Hardware</th><th>Result</th><th>Artifact</th></tr>
       <tr>
         <td>tool-eval-bench 69 control A/B</td>
         <td>B70 · stock Q5 · np=1</td>
@@ -501,13 +491,13 @@
         <td>private-verification…/base-vs-package-aba-…</td>
       </tr>
       <tr>
-        <td>tool-eval-bench 69 freeze (named)</td>
+        <td>tool-eval-bench 69 freeze</td>
         <td>B70 + GB10</td>
         <td>94/100 both</td>
         <td><a href="https://github.com/newjordan/treebeard/tree/main/results/agent/single-slot-94">results/agent/single-slot-94/</a></td>
       </tr>
       <tr>
-        <td>llama-bench pp4096 (samples in JSON)</td>
+        <td>llama-bench pp4096</td>
         <td>GB10 CUDA</td>
         <td>2,026.9 tok/s</td>
         <td><a href="https://github.com/newjordan/treebeard/tree/main/results/nvidia/native-bench">results/nvidia/native-bench/</a></td>
@@ -516,19 +506,19 @@
         <td>llama-bench tg128</td>
         <td>GB10 CUDA</td>
         <td>52.5 tok/s</td>
-        <td>same native-bench</td>
+        <td>same</td>
       </tr>
       <tr>
-        <td>Q8_0 12-col latency attribution</td>
+        <td>Q8_0 12-col latency</td>
         <td>Blackwell CUDA</td>
-        <td>33.0% lower latency (direct path)</td>
+        <td>33.0% lower (direct path)</td>
         <td><a href="https://github.com/newjordan/treebeard/tree/main/results/nvidia/attribution-q8">results/nvidia/attribution-q8/</a></td>
       </tr>
       <tr>
-        <td>Q8_0 MoE-down latency attribution</td>
+        <td>Q8_0 MoE-down latency</td>
         <td>Blackwell CUDA</td>
-        <td>3.4% lower latency</td>
-        <td>same attribution-q8</td>
+        <td>3.4% lower</td>
+        <td>same</td>
       </tr>
       <tr>
         <td>Installed-package chat smoke</td>
@@ -537,83 +527,49 @@
         <td><a href="https://github.com/newjordan/treebeard/tree/main/results/cpu-linux-x86_64/smoke">results/cpu-linux-x86_64/smoke/</a></td>
       </tr>
       <tr>
-        <td>12-slot aggregate serving (ship profile)</td>
-        <td>B70 SYCL</td>
+        <td>12-slot aggregate serving</td>
+        <td>B70 SYCL ship profile</td>
         <td>194.023 tok/s aggregate</td>
-        <td><a href="https://github.com/newjordan/treebeard/tree/main/results/sycl">results/sycl/</a> (see package BENCHMARKS)</td>
+        <td><a href="https://github.com/newjordan/treebeard/tree/main/results/sycl">results/sycl/</a></td>
       </tr>
     </table>
-  </div>
-</section>
-
-<section id="how">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="over">What ships</span>
-      <h2>Runtime pieces (description, not scores)</h2>
-      <p>
-        Architecture notes only. Performance claims for these pieces live in the
-        measurement tables above, or they are omitted.
-      </p>
-    </div>
-    <div class="how">
-      <div class="howcard">
-        <h3>01 <span>/</span> Weights</h3>
-        <div class="sub">Commodity model file</div>
-        <p>Qwen3.6-35B-A3B UD-Q5_K_XL GGUF (~26.6 GB). Optional vision projector.
-           Weights are not a Treebeard invention.</p>
-      </div>
-      <div class="howcard">
-        <h3>02 <span>/</span> llama-server</h3>
-        <div class="sub">OpenAI-compatible local API</div>
-        <p>Packaged <code>llama-server</code> with platform backends. Default bind is loopback
-           <code>:8093</code>. “OpenAI-compatible” means the HTTP routes; it does not mean a quality score.</p>
-      </div>
-      <div class="howcard">
-        <h3>03 <span>/</span> SYCL package port</h3>
-        <div class="sub">Intel GPU specialization</div>
-        <p>MoE/decode paths and env knobs measured in the control A/B ledger.
-           Upstream PR prep: <a href="https://github.com/newjordan/treebeard/blob/docs/release-20260728-dual-axis/results/private-verification-20260728/LLAMA_CPP_PR_PREP.md">LLAMA_CPP_PR_PREP.md</a>.</p>
-      </div>
-    </div>
   </div>
 </section>
 
 <section id="releases">
   <div class="wrap">
     <div class="section-head">
-      <span class="over">Releases</span>
-      <h2>Now and next</h2>
+      <span class="over">History</span>
+      <h2>Releases</h2>
     </div>
     <div class="releases">
       <div class="release current">
-        <span class="tag">docs · evidence</span>
-        <h3>Control A/B pack 2026-07-28</h3>
-        <span class="date">2026-07-28 · <a href="RELEASE-20260728.md">RELEASE-20260728.md</a> · no new runtime archive</span>
+        <span class="tag">docs</span>
+        <h3>2026-07-28 control A/B pack</h3>
+        <span class="date"><a href="RELEASE-20260728.md">RELEASE-20260728.md</a> · no new runtime archive</span>
         <ul>
-          <li>tool-eval-bench 69 control A/B: <b>91=91</b> — artifact <code>results/private-verification-20260728/agent-bench-ab-…</code></li>
-          <li>ho-pack-v1.1: <b>42/46 both arms</b> — same dir <code>heldout/</code></li>
-          <li>single-agent tg_p50: <b>77.1 → 88.9</b> — <code>single-agent-ab-…</code></li>
-          <li>12-agent ABA p50/agent: <b>6.88 → 26.33</b> — <code>base-vs-package-aba-…</code> (ops, not solo chat)</li>
+          <li>tool-eval-bench 69: 91=91 · <code>agent-bench-ab-…</code></li>
+          <li>ho-pack-v1.1: 42/46 both · <code>heldout/</code></li>
+          <li>sequential tg_p50: 77.1 → 88.9 · <code>single-agent-ab-…</code></li>
+          <li>12-agent p50/agent: 6.88 → 26.33 · <code>base-vs-package-aba-…</code></li>
         </ul>
       </div>
       <div class="release">
-        <span class="tag">runtime · pkg5</span>
-        <h3>Treebeard 0.2.0-rc.1</h3>
-        <span class="date">2026-07-18 · <a href="https://github.com/newjordan/treebeard/releases/tag/v0.2.0">release notes</a></span>
+        <span class="tag">runtime</span>
+        <h3>0.2.0-rc.1</h3>
+        <span class="date">2026-07-18 · <a href="https://github.com/newjordan/treebeard/releases/tag/v0.2.0">notes</a></span>
         <ul>
-          <li>Runtime line ships StateTree / PCBT surfaces in the package (see that release for scope).</li>
-          <li>Named Agent Bench freeze still 94/100 with B70 + GB10 result JSONs under <code>results/agent/single-slot-94/</code>.</li>
-          <li>Other product-bench numbers from that release stay in that release’s notes — not repeated here without paths.</li>
+          <li>Ships StateTree / PCBT package surfaces (scope in that release).</li>
+          <li>Agent Bench freeze files under <code>results/agent/single-slot-94/</code>.</li>
         </ul>
       </div>
       <div class="release">
         <span class="tag">launcher</span>
-        <h3>Treebeard 0.1.1</h3>
+        <h3>0.1.1</h3>
         <span class="date">2026-07-17 · runtime 0.1.0-rc.3</span>
         <ul>
-          <li><code>TREEBEARD_REASONING=off|bounded|unrestricted</code> — default off (matches freeze shape: thinking disabled).</li>
-          <li><code>TREEBEARD_SPECULATION=…</code> — opt-in; no speed claim attached on this page.</li>
+          <li><code>TREEBEARD_REASONING</code> default off (freeze shape: thinking disabled).</li>
+          <li><code>TREEBEARD_SPECULATION</code> opt-in; no speed claim on this page.</li>
         </ul>
       </div>
     </div>
@@ -624,21 +580,25 @@
   <div class="wrap">
     <div class="section-head">
       <span class="over">Install</span>
-      <h2>Running in three commands</h2>
-      <p>About 26.7 GB, resumable, every byte SHA-256 verified. Needs roughly 32 GB of system or unified memory. Add <code>--multimodal</code> for the 0.9 GB vision projector.</p>
+      <h2>Commands</h2>
+      <p>
+        Download is about 26.7 GB (resumable). Installer checks file SHA-256.
+        Plan on roughly 32 GB system or unified memory.
+        <code>--multimodal</code> adds the 0.9 GB vision projector.
+      </p>
     </div>
     <div class="steps">
       <div class="step">
         <code class="block">curl -fsSL https://raw.githubusercontent.com/newjordan/treebeard/main/install.sh | bash</code>
-        <p>Downloads the model and the right runtime for your host — Intel SYCL, NVIDIA CUDA, or portable CPU.</p>
+        <p>Fetches the model and the runtime for this host (SYCL, CUDA, or CPU).</p>
       </div>
       <div class="step">
         <code class="block">treebeard doctor</code>
-        <p>Shows the platform selection and the exact launch command before anything starts.</p>
+        <p>Prints platform selection and the launch command.</p>
       </div>
       <div class="step">
         <code class="block">treebeard serve</code>
-        <p>OpenAI-compatible API on <code>http://127.0.0.1:8093/v1</code> — point your agent framework at it.</p>
+        <p>Serves <code>http://127.0.0.1:8093/v1</code>.</p>
       </div>
     </div>
   </div>
@@ -649,17 +609,18 @@
     <div class="cols">
       <div>
         <a class="wordmark" href="#top" style="font-size:17px"><span class="leaf">❦</span> Treebeard</a>
-        <div class="fine">Treebeard is not an official Qwen, Unsloth, NVIDIA, Intel,
-        Hugging Face, or llama.cpp release. Model and tokenizer assets are
-        Apache-2.0; llama.cpp-derived runtimes are MIT. The server binds to
-        loopback by default — do not expose it publicly without an
-        authenticated TLS proxy and firewall rules.</div>
+        <div class="fine">
+          Unofficial packaging of open Qwen weights and llama.cpp-derived runtimes.
+          Model/tokenizer: Apache-2.0. llama.cpp runtime: MIT.
+          Default bind is loopback. Put TLS auth and a firewall in front before any public exposure.
+        </div>
       </div>
       <div>
-        <div style="margin-bottom:10px"><a href="https://github.com/newjordan/treebeard">GitHub repository</a></div>
-        <div style="margin-bottom:10px"><a href="https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF">Hugging Face model package</a></div>
-        <div style="margin-bottom:10px"><a href="moe-routing.html">MoE routing explainer</a></div>
-        <div><a href="https://github.com/newjordan/treebeard/tree/main/results">Evidence index</a></div>
+        <div style="margin-bottom:10px"><a href="https://github.com/newjordan/treebeard">GitHub</a></div>
+        <div style="margin-bottom:10px"><a href="https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF">Hugging Face</a></div>
+        <div style="margin-bottom:10px"><a href="moe-routing.html">MoE routing</a></div>
+        <div style="margin-bottom:10px"><a href="https://github.com/newjordan/treebeard/tree/main/results">Evidence index</a></div>
+        <div><a href="CLAIMS.md">Claims rule</a></div>
       </div>
     </div>
   </div>
