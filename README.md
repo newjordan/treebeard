@@ -119,11 +119,11 @@ override with `TREEBEARD_REASONING_BUDGET`). For experimental tools or MCP, set
 
 ## Repository layout
 
-- `install.sh` — Linux installer
-- `package/` — package metadata and docs
-- `docs/` — site and release notes
-- `results/` — result files
-- `source/` — NVIDIA Blackwell CUDA patch used in validation
+- `install.sh` - Linux installer
+- `package/` - package metadata and docs
+- `docs/` - site and release notes
+- `results/` - result files
+- `source/` - NVIDIA Blackwell CUDA patch used in validation
 
 ## Integrity
 
