@@ -144,7 +144,7 @@ make check
 
 `make lint` runs ShellCheck on the installer, launcher, checksum script, and
 tests. `make test` runs `tests/run-tests.sh`. `make checksums` rebuilds
-`SHA256SUMS` and `docs/SHA256SUMS`. GitHub Actions runs `make check` on Ubuntu.
+`SHA256SUMS` and `docs/SHA256SUMS`. GitHub Actions runs `make check` on Ubuntu for pull requests and for pushes to `main`. The workflow checks out the tree with `actions/checkout` v7.0.1.
 
 The tests cover backend selection, profile defaults, reasoning and speculation
 flags, archive path and symlink checks, installer preflight, and checksum
