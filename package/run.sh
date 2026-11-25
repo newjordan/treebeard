@@ -28,7 +28,67 @@ require_command() {
 require_positive_integer() {
     local name="$1"
     local value="$2"
+    local max=9223372036854775807
     [[ "$value" =~ ^[1-9][0-9]*$ ]] || fail "$name must be a positive integer"
+    # Compare as text once the value no longer fits in signed 64-bit arithmetic.
+    # Bash would otherwise abort with "value too great for base" under set -e.
+    # Equal-length digit strings compare in numeric order. Arithmetic -gt would overflow.
+    # shellcheck disable=SC2071
+    if (( ${#value} > ${#max} )) || { (( ${#value} == ${#max} )) && [[ "$value" > "$max" ]]; }; then
+        fail "$name is too large"
+    fi
+}
+
+require_ngl() {
+    local value="$1"
+    [[ "$value" =~ ^(0|[1-9][0-9]*)$ ]] || fail "TREEBEARD_NGL must be an integer from 0 through 999"
+    (( 10#$value <= 999 )) || fail "TREEBEARD_NGL must be at most 999"
+}
+
+# OneAPI setup stays inside this command substitution so auto-detection cannot
+# change PATH, libraries, or shell options for the rest of the launcher.
+# A missing or failing sycl-ls is not fatal here; callers decide.
+read_sycl_devices() {
+    local setvars=${TREEBEARD_ONEAPI_SETVARS:-/opt/intel/oneapi/setvars.sh}
+    local output status=0
+    output=$(
+        if ! command -v sycl-ls >/dev/null 2>&1 && [[ -f "$setvars" ]]; then
+            set +u
+            # shellcheck disable=SC1090
+            source "$setvars" --force >/dev/null 2>&1 || exit 0
+            set -u
+        fi
+        if command -v sycl-ls >/dev/null 2>&1; then
+            sycl-ls 2>&1
+        fi
+    ) || status=$?
+    printf '%s' "$output"
+    return "$status"
+}
+
+assert_safe_archive_members() {
+    local archive="$1"
+    local line name target
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        [[ -n "$line" ]] || continue
+        if [[ "$line" =~ ^[a-zA-Z-][^[:space:]]+[[:space:]]+[^[:space:]]+[[:space:]]+[0-9]+[[:space:]]+[0-9]{4}-[0-9]{2}-[0-9]{2}[[:space:]]+[0-9]{2}:[0-9]{2}(:[0-9]{2})?[[:space:]]+(.+)$ ]]; then
+            name=${BASH_REMATCH[2]}
+        else
+            fail "could not parse runtime archive listing"
+        fi
+        target=
+        if [[ "$name" == *" -> "* ]]; then
+            target=${name#* -> }
+            name=${name%% -> *}
+        fi
+        name=${name#./}
+        [[ "$name" != /* ]] || fail "unsafe path in runtime archive: $name"
+        [[ ! "$name" =~ (^|/)\.\.(/|$) ]] || fail "unsafe path in runtime archive: $name"
+        if [[ -n "$target" ]]; then
+            [[ "$target" != /* ]] || fail "unsafe symlink in runtime archive: $name -> $target"
+            [[ ! "$target" =~ (^|/)\.\.(/|$) ]] || fail "unsafe symlink in runtime archive: $name -> $target"
+        fi
+    done < <(LC_ALL=C tar --full-time -tvf "$archive")
 }
 
 verify_payload() {
@@ -70,6 +130,7 @@ select_backend() {
     local requested="$1"
     local arch
     local sycl_devices
+    requested=$(printf '%s' "$requested" | tr '[:upper:]' '[:lower:]')
     arch=$(uname -m)
 
     if [[ "$requested" == auto ]]; then
@@ -78,20 +139,17 @@ select_backend() {
             printf 'cuda\n'
             return
         fi
-        if [[ "$arch" == x86_64 ]] && ! command -v sycl-ls >/dev/null 2>&1 &&
-                [[ -f "${TREEBEARD_ONEAPI_SETVARS:-/opt/intel/oneapi/setvars.sh}" ]]; then
-            set +u
-            source "${TREEBEARD_ONEAPI_SETVARS:-/opt/intel/oneapi/setvars.sh}" --force >/dev/null
-            set -u
-        fi
-        if [[ "$arch" == x86_64 ]] && command -v sycl-ls >/dev/null 2>&1; then
-            sycl_devices=$(sycl-ls 2>&1) || fail "SYCL device discovery failed"
+        if [[ "$arch" == x86_64 ]]; then
+            sycl_devices=$(read_sycl_devices) || true
             if grep -Fq '[level_zero:gpu]' <<<"$sycl_devices"; then
                 printf 'sycl\n'
                 return
             fi
         fi
         if [[ "$arch" == x86_64 ]]; then
+            if command -v nvidia-smi >/dev/null 2>&1 && nvidia-smi -L >/dev/null 2>&1; then
+                printf 'note: NVIDIA GPU acceleration in this package targets Linux ARM64 (GB10). Selecting the portable x86_64 CPU runtime.\n' >&2
+            fi
             printf 'cpu\n'
             return
         fi
@@ -106,14 +164,7 @@ select_backend() {
             ;;
         sycl)
             [[ "$arch" == x86_64 ]] || fail "packaged SYCL runtime requires Linux x86_64"
-            if ! command -v sycl-ls >/dev/null 2>&1 &&
-                    [[ -f "${TREEBEARD_ONEAPI_SETVARS:-/opt/intel/oneapi/setvars.sh}" ]]; then
-                set +u
-                source "${TREEBEARD_ONEAPI_SETVARS:-/opt/intel/oneapi/setvars.sh}" --force >/dev/null
-                set -u
-            fi
-            require_command sycl-ls
-            sycl_devices=$(sycl-ls 2>&1) || fail "SYCL device discovery failed"
+            sycl_devices=$(read_sycl_devices) || fail "SYCL device discovery failed"
             grep -Fq '[level_zero:gpu]' <<<"$sycl_devices" || fail "no Level Zero GPU detected"
             ;;
         cpu)
@@ -147,7 +198,7 @@ runtime_archive_for_backend() {
 install_runtime() {
     local backend="$1"
     local archive="$2"
-    local relative expected actual runtime_root stage install_root member
+    local relative expected actual runtime_root stage install_root
 
     relative=${archive#"$ROOT/"}
     [[ -f "$ROOT/runtime/SHA256SUMS" ]] || fail "runtime/SHA256SUMS is missing"
@@ -160,17 +211,13 @@ install_runtime() {
     if [[ ! -f "$runtime_root/.complete" ]]; then
         mkdir -p "$CACHE_ROOT/runtime"
         exec 9>>"$CACHE_ROOT/.install.lock"
-        flock -w "${TREEBEARD_LOCK_TIMEOUT:-1800}" 9 || fail "timed out waiting for runtime lock"
+        flock -w "$LOCK_TIMEOUT" 9 || fail "timed out waiting for runtime lock"
         if [[ ! -f "$runtime_root/.complete" ]]; then
             stage="$CACHE_ROOT/runtime/.stage-$backend-$$"
             rm -rf -- "$stage"
             mkdir -p "$stage"
-            while IFS= read -r member; do
-                if [[ "$member" == /* || "$member" =~ (^|/)\.\.(/|$) ]]; then
-                    fail "unsafe path in runtime archive: $member"
-                fi
-            done < <(tar -tzf "$archive")
-            tar -xzf "$archive" -C "$stage" --no-same-owner --no-same-permissions
+            assert_safe_archive_members "$archive"
+            tar -xzf "$archive" -C "$stage" --no-same-owner --no-same-permissions --no-acls --no-xattrs
             install_root="$stage/opt/treebeard-$VERSION"
             [[ -x "$install_root/bin/llama-server" ]] || fail "runtime does not contain llama-server"
             if [[ -f "$install_root/FILES.sha256" ]]; then
@@ -192,6 +239,7 @@ require_command grep
 require_command sha256sum
 require_command stat
 require_command tar
+require_command tr
 
 [[ "$(uname -s)" == Linux ]] || fail "this package requires Linux"
 
@@ -257,6 +305,7 @@ HOST="${TREEBEARD_HOST:-127.0.0.1}"
 PORT="${TREEBEARD_PORT:-8093}"
 MULTIMODAL="${TREEBEARD_MULTIMODAL:-0}"
 DRY_RUN="${TREEBEARD_DRY_RUN:-0}"
+LOCK_TIMEOUT="${TREEBEARD_LOCK_TIMEOUT:-1800}"
 REASONING="${TREEBEARD_REASONING:-off}"
 SPECULATION="${TREEBEARD_SPECULATION:-off}"
 
@@ -273,9 +322,12 @@ require_positive_integer TREEBEARD_BATCH "$BATCH"
 require_positive_integer TREEBEARD_UBATCH "$UBATCH"
 require_positive_integer TREEBEARD_THREADS "$THREADS"
 require_positive_integer TREEBEARD_PORT "$PORT"
+require_ngl "$NGL"
+require_positive_integer TREEBEARD_LOCK_TIMEOUT "${TREEBEARD_LOCK_TIMEOUT:-1800}"
 (( PARALLEL <= CONTEXT )) || fail "TREEBEARD_PARALLEL cannot exceed TREEBEARD_CONTEXT"
 (( UBATCH <= BATCH )) || fail "TREEBEARD_UBATCH cannot exceed TREEBEARD_BATCH"
 (( 10#$PORT <= 65535 )) || fail "TREEBEARD_PORT must be at most 65535"
+[[ "$HOST" =~ ^[A-Za-z0-9._:-]+$ ]] || fail "TREEBEARD_HOST must be a hostname or IP address"
 [[ "$MULTIMODAL" == 0 || "$MULTIMODAL" == 1 ]] || fail "TREEBEARD_MULTIMODAL must be 0 or 1"
 [[ "$DRY_RUN" == 0 || "$DRY_RUN" == 1 ]] || fail "TREEBEARD_DRY_RUN must be 0 or 1"
 [[ "$FLASH_ATTN" == on || "$FLASH_ATTN" == off || "$FLASH_ATTN" == auto ]] ||
@@ -324,6 +376,7 @@ if [[ "$BACKEND" == sycl ]]; then
     ONEAPI_SETVARS="${TREEBEARD_ONEAPI_SETVARS:-/opt/intel/oneapi/setvars.sh}"
     [[ -f "$ONEAPI_SETVARS" ]] || fail "Intel oneAPI setup is missing: $ONEAPI_SETVARS"
     set +u
+    # shellcheck disable=SC1090
     source "$ONEAPI_SETVARS" --force >/dev/null
     set -u
     export GGML_SYCL_ENABLE_FUSION="${GGML_SYCL_ENABLE_FUSION:-1}"
@@ -333,7 +386,9 @@ if [[ "$BACKEND" == sycl ]]; then
     #   cascade 4/4, concurrent 6/6 + multi-hop ws, OPEN_TOOLS concurrent,
     #   recovery 3/3 + concurrent recovery 6/6, hard-v2 TOOL_MODE=direct
     #   residual_* n=2 1.0 + contention under load; PREREG frozen 48 golds;
-    #   tools-root path allowlist when --tools enabled (TREEBEARD_TOOLS_ROOT).
+    #   Extra arguments after "treebeard serve" are appended for experiments.
+    #   TREEBEARD_TOOLS_ROOT is inherited by the server process if a build reads
+    #   it; this launcher does not add a tools flag or a sandbox of its own.
     # Stack wins (ship always-on / opt-in as noted):
     #   GDN_OUT_FLAT=1; MoE-down rps4; Q8 multi-col ncols_sg=32; expert-grouped
     #   atomic-dst + count1 multi-shape; dual shared-act + count1 multi-shape;
@@ -448,9 +503,14 @@ if [[ "$MULTIMODAL" == 1 ]]; then
 fi
 args+=("$@")
 
-printf 'Treebeard %s %s: backend=%s profile=%s context=%s slots=%s multimodal=%s reasoning=%s(%s) speculation=%s\n' \
+if [[ "$HOST" == *:* ]]; then
+    LISTEN_HOST="[$HOST]"
+else
+    LISTEN_HOST="$HOST"
+fi
+printf 'Treebeard %s %s: backend=%s profile=%s context=%s slots=%s multimodal=%s reasoning=%s(%s) speculation=%s listen=http://%s:%s/v1\n' \
     "$VERSION" "$PACKAGING_REVISION" "$BACKEND" "$PROFILE" "$CONTEXT" "$PARALLEL" "$MULTIMODAL" \
-    "$REASONING" "$REASONING_DETAIL" "$SPECULATION"
+    "$REASONING" "$REASONING_DETAIL" "$SPECULATION" "$LISTEN_HOST" "$PORT"
 
 if [[ "$DRY_RUN" == 1 ]]; then
     printf 'Command:'

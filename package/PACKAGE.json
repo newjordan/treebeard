@@ -43,7 +43,7 @@
     "integration_commit": "c7091b65be49a3208e110b303433992c390a088f",
     "gpu_runtime_base_commit": "c7091b65be49a3208e110b303433992c390a088f",
     "baseline": "3799687213eddbdc1389994f110fac0fa01f3e36",
-    "nvidia_patch": "evidence/nvidia/source/treebeard-cuda-blackwell-12col.patch",
+    "nvidia_patch": "source/treebeard-cuda-blackwell-12col.patch",
     "nvidia_patch_sha256": "c1e0780c96432059ea7a517f6ab2db935f1083da065ed0a9009a00d944c3415f",
     "upstream_merge_base": "ac4cddeb0"
   },
@@ -146,12 +146,12 @@
     },
     "intel": {
       "config_fingerprint": "43dd1ef71957",
-      "result": "evidence/agent/single-slot-94/result.json",
+      "result": "results/agent/single-slot-94/result.json",
       "result_sha256": "61bb5f12c4c6f4210d86794b5f1b275efc31ddea0c3af3794cb867e96115fc4e"
     },
     "nvidia": {
       "config_fingerprint": "ba9b0d77c0e4",
-      "result": "evidence/nvidia/agent-single-slot-94/result.json",
+      "result": "results/nvidia/agent-single-slot-94/result.json",
       "result_sha256": "e987f8dc3190b91dc30d3ac61adb497bf24836eeb6ad8296c59525af6c6614e8"
     },
     "revalidated_date": "2026-07-17",
@@ -191,10 +191,10 @@
   },
   "cpu_package_smoke": {
     "status": "passed",
-    "result": "evidence/cpu-linux-x86_64/smoke/summary.json",
+    "result": "results/cpu-linux-x86_64/smoke/summary.json",
     "result_sha256": "d4ddfdd6f5bd23f9edf9c34f2a97fe9f25e5d72219d7f0d2edc05bb3708a7d4b",
-    "chat_generation_tokens_per_second": 9.302273661728398,
-    "tool_generation_tokens_per_second": 7.4002523875551125,
+    "chat_generation_tokens_per_second": 9.252542598706125,
+    "tool_generation_tokens_per_second": 7.141662391066156,
     "tool_call_exact": true
   },
   "nvidia_validation": {
@@ -202,10 +202,10 @@
       "mul_mat": "1104/1104",
       "mul_mat_id": "796/796"
     },
-    "q8_0_direct_12col_speedup_percent": 33.0,
-    "q8_0_moe_down_speedup_percent": 3.4,
-    "pp4096_tokens_per_second": 2026.94,
-    "tg128_tokens_per_second": 52.53,
+    "q8_0_direct_12col_speedup_percent": 31.49,
+    "q8_0_moe_down_speedup_percent": 4.01,
+    "pp4096_tokens_per_second": 2422.324859,
+    "tg128_tokens_per_second": 59.613725,
     "packaged_tool_call": true,
     "packaged_vision_answer": "94",
     "final_gpu_health_gate": "passed",

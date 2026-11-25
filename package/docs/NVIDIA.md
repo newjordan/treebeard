@@ -62,17 +62,22 @@ runs. Set
 `GGML_CUDA_DISABLE_MMVQ_12COL=1` to select the fallback. The shipping extension
 is restricted to Q8_0 on NVIDIA Blackwell; Q5_K and Q6_K use the existing path.
 
-The CUDA runtime archive SHA-256 is
-`0dfadb9ed53c66ab5a23b6731988d833b223af4e51c8f11ad9522a95eb0f04f3`.
-It requires system CUDA 13 `libcudart`, cuBLAS, a compatible NVIDIA driver, and
-glibc-compatible Linux ARM64.
+The packaged runtime requires system CUDA 13 `libcudart`, cuBLAS, a compatible
+NVIDIA driver, and glibc-compatible Linux ARM64. The installer pin is recorded
+below.
 
 The 262,144-token text profile passed the complete agent benchmark. The
 bundled projector was validated at 32,768 tokens and completed with a clean
 kernel-health scan.
 
-Final counts, timings, hashes, and logs are recorded under `evidence/nvidia`.
+Final counts, timings, hashes, and logs are recorded under `results/nvidia`.
 The standalone public report is <https://newjordan.github.io/treebeard/>.
 
-RC3's packaged CUDA target is Linux ARM64. It does not claim NVIDIA x86_64 GPU
+The CUDA archive SHA-256 pinned by `install.sh` and `PACKAGE.json` is
+`e7221ed3e1e61d0158fb58d6c9152cd1217d0eecb6ad0779c81f3bc5b1f3fdc0`.
+An older note in this file cited
+`0dfadb9ed53c66ab5a23b6731988d833b223af4e51c8f11ad9522a95eb0f04f3`, which is
+not the hash the installer checks.
+
+The packaged CUDA target is Linux ARM64. It does not claim NVIDIA x86_64 GPU
 support; Linux x86_64 hosts use the separately validated portable CPU runtime.

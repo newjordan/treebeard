@@ -28,11 +28,11 @@ The published quality freeze is 94/100 and 130/138 points:
 The score reproduced exactly on Intel Arc Pro B70 and NVIDIA GB10, including
 the complete 69-case outcome vector. Supporting evidence:
 
-- `evidence/agent/single-slot-94/result.json`
-- `evidence/agent/single-slot-94/index.html`
-- `evidence/agent/single-slot-94/guard.log`
-- `evidence/agent/single-slot-94/nvidia-result.json`
-- `evidence/nvidia/agent-single-slot-94/result.json`
+- `results/agent/single-slot-94/result.json`
+- `results/agent/single-slot-94/index.html`
+- `results/agent/single-slot-94/guard.log`
+- `results/agent/single-slot-94/nvidia-result.json`
+- `results/nvidia/agent-single-slot-94/result.json`
 
 The published result is checksum-pinned and accompanied by the complete
 supporting evidence bundle.
@@ -68,15 +68,15 @@ Ryzen 9 5950X:
 - build identity: `b9624-6a6dc2def-cpu`;
 - context: 4,096 tokens for the bounded smoke;
 - chat output: exact `TREEBEARD READY`;
-- chat generation: 9.302 tok/s;
+- chat generation: 9.253 tok/s (`generation_tokens_per_second` 9.252542598706125);
 - tool call: exact `multiply({"a":17,"b":23})`;
-- tool-call generation: 7.400 tok/s;
+- tool-call generation: 7.142 tok/s (`generation_tokens_per_second` 7.141662391066156);
 - loader warnings, request errors, and assertion failures: zero.
 
 The archive is an Ubuntu 22.04/glibc 2.35 baseline with 14 dynamically selected
 x86_64 CPU variants. These timings demonstrate a functional fallback, not a
 general CPU speed claim. Raw responses, the pruned server properties, server
-log, reproduction script, and hashes are under `evidence/cpu-linux-x86_64`.
+log, reproduction script, and hashes are under `results/cpu-linux-x86_64`.
 
 ## SYCL serving
 
@@ -89,7 +89,7 @@ sessions and +1.17% at 12 concurrent sessions. Native `llama-bench` measured
 1143.825 tok/s for pp4096
 and 80.909 tok/s for tg128.
 
-Supporting evidence is under `evidence/sycl`.
+Supporting evidence is under `results/sycl`.
 
 ## NVIDIA
 
@@ -106,5 +106,5 @@ NVIDIA results were produced on one GB10, compute capability 12.1, with CUDA
 - packaged vision: bundled projector read the report score as `94`;
 - final kernel-health scans: no matching Xid, fault, reset, hang, or OOM.
 
-See `NVIDIA.md` and `evidence/nvidia` for commands, hashes, raw logs, the source
+See `NVIDIA.md` and `results/nvidia` for commands, hashes, raw logs, the source
 patch, package smoke, and GPU-health records.

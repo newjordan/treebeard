@@ -15,8 +15,9 @@ the MIT License. The runtime license is reproduced in `LICENSE-RUNTIME`.
 
 Treebeard changes in RC3 cover SYCL Q8_0 12-column matrix-vector dispatch,
 shape-aware fused MoE workgroup packing, and a narrowly gated NVIDIA Blackwell
-Q8_0 12-column CUDA dispatch. The exact source patch and checksum are included
-under `evidence/nvidia/source`.
+Q8_0 12-column CUDA dispatch. The source patch in this repository is
+`source/treebeard-cuda-blackwell-12col.patch`. The same bytes are also stored
+at `results/nvidia/source/treebeard-cuda-blackwell-12col.patch`.
 
 Pkg3 also includes a portable Linux x86_64 CPU build. It changes packaging and
 host coverage, not model weights or model behavior.
