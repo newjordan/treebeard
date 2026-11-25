@@ -2,38 +2,74 @@
 set -Eeuo pipefail
 
 VERSION=0.2.0-rc.1
+REVISION=pkg5
 ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
 REPORT_URL=https://newjordan.github.io/treebeard/
 MODEL_URL=https://huggingface.co/Frosty40/Treebeard-Qwen3.6-35B-A3B-GGUF
 
+if [[ -t 1 ]]; then
+    BOLD=$'\033[1m'
+    RESET=$'\033[0m'
+else
+    BOLD=
+    RESET=
+fi
+if [[ -t 2 ]]; then
+    RED=$'\033[31m'
+else
+    RED=
+fi
+
 usage() {
     cat <<EOF
-Treebeard $VERSION
+${BOLD}Treebeard $VERSION ($REVISION)${RESET}
 
 Usage:
-  treebeard [serve] [llama-server options]  Start the OpenAI-compatible API
-  treebeard doctor                         Check this machine and runtime
-  treebeard verify                         Verify installed package files
-  treebeard status                         Check the local API health endpoint
-  treebeard report                         Print the benchmark report URL
+  treebeard serve [llama-server options]   Start the local OpenAI-compatible API
+  treebeard doctor                         Show this machine and the launch command
+  treebeard verify                         Check package or repository checksums
+  treebeard status                         Query the local /health endpoint
+  treebeard report                         Print the public report URL
   treebeard version                        Print the installed version
   treebeard help                           Show this help
 
-Common settings:
-  TREEBEARD_BACKEND=auto|cpu|sycl|cuda
+Settings:
+  TREEBEARD_BACKEND=auto|cpu|sycl|cuda     Default: auto
   TREEBEARD_PROFILE=quality|throughput|custom
   TREEBEARD_REASONING=off|bounded|unrestricted
-  TREEBEARD_REASONING_BUDGET=<tokens>  Bounded default: GPU 64, CPU 16
+  TREEBEARD_REASONING_BUDGET=<tokens>      Bounded default: GPU 64, CPU 16
   TREEBEARD_SPECULATION=off|ngram|mtp|hybrid
-  TREEBEARD_CONTEXT=<tokens>
+  TREEBEARD_CONTEXT=<tokens>               CPU default 32768, GPU default 262144
+  TREEBEARD_PARALLEL=<slots>               quality: 1; GPU throughput: 12; CPU throughput: 2
   TREEBEARD_HOST=127.0.0.1
   TREEBEARD_PORT=8093
+
+Examples:
+  treebeard doctor
+  treebeard serve
+  TREEBEARD_PROFILE=throughput treebeard serve
+  TREEBEARD_CONTEXT=8192 TREEBEARD_PORT=8080 treebeard serve
+  TREEBEARD_REASONING=bounded treebeard serve
+
+The server listens on http://127.0.0.1:8093/v1 unless host or port is changed.
+Arguments after "serve" are passed through to llama-server.
 
 Benchmarks: $REPORT_URL
 Model files: $MODEL_URL
 EOF
 }
 
+health_url() {
+    local host=$1
+    local port=$2
+    if [[ "$host" == *:* ]]; then
+        printf 'http://[%s]:%s/health\n' "$host" "$port"
+    else
+        printf 'http://%s:%s/health\n' "$host" "$port"
+    fi
+}
+
+main() {
 command=${1:-serve}
 case "$command" in
     serve)
@@ -43,14 +79,18 @@ case "$command" in
         exec bash "$ROOT/run.sh" "$@"
         ;;
     doctor)
-        printf 'Treebeard %s doctor\n' "$VERSION"
+        printf '%sTreebeard %s (%s) doctor%s\n' "$BOLD" "$VERSION" "$REVISION" "$RESET"
+        printf 'Package root: %s\n' "$ROOT"
         printf 'Kernel: %s\n' "$(uname -srmo)"
         if command -v lscpu >/dev/null 2>&1; then
-            printf 'CPU: %s\n' "$(lscpu | awk -F: '$1 == "Model name" { sub(/^[[:space:]]+/, "", $2); print $2; exit }')"
+            cpu=$(lscpu | awk -F: '$1 == "Model name" { sub(/^[[:space:]]+/, "", $2); print $2; exit }')
+            if [[ -n "$cpu" ]]; then
+                printf 'CPU: %s\n' "$cpu"
+            fi
         fi
         awk '$1 == "MemTotal:" { printf "Memory: %.1f GiB\n", $2 / 1048576 }' /proc/meminfo
         df -Ph "$ROOT" | awk 'NR == 2 { printf "Package filesystem: %s total, %s available\n", $2, $4 }'
-        printf '\nSelected launch command:\n'
+        printf '\n%sLaunch check%s\n' "$BOLD" "$RESET"
         TREEBEARD_DRY_RUN=1 TREEBEARD_VERIFY=never bash "$ROOT/run.sh"
         ;;
     verify)
@@ -62,24 +102,36 @@ case "$command" in
         elif [[ -f "$ROOT/verify.sh" ]]; then
             exec bash "$ROOT/verify.sh"
         else
-            printf 'error: no verification manifest found\n' >&2
-            exit 1
+            repo_root=$(cd -- "$ROOT/.." && pwd -P)
+            if [[ -f "$repo_root/SHA256SUMS" ]] && grep -q '  package/run.sh$' "$repo_root/SHA256SUMS"; then
+                (cd "$repo_root" && sha256sum --check SHA256SUMS)
+                printf 'repository files verified\n'
+            else
+                printf '%serror: no verification manifest found%s\n' "$RED" "$RESET" >&2
+                exit 1
+            fi
         fi
         ;;
     status)
         host=${TREEBEARD_HOST:-127.0.0.1}
         port=${TREEBEARD_PORT:-8093}
+        url=$(health_url "$host" "$port")
         command -v curl >/dev/null 2>&1 || {
-            printf 'error: curl is required\n' >&2
+            printf '%serror: curl is required%s\n' "$RED" "$RESET" >&2
             exit 1
         }
-        exec curl -fsS "http://$host:$port/health"
+        printf 'Checking %s\n' "$url"
+        if ! body=$(curl -fsS --max-time "${TREEBEARD_STATUS_TIMEOUT:-5}" "$url" 2>/dev/null); then
+            printf '%serror: API health check failed at %s%s\n' "$RED" "$url" "$RESET" >&2
+            exit 1
+        fi
+        printf '%s\n' "$body"
         ;;
     report)
         printf '%s\n' "$REPORT_URL"
         ;;
     version|--version|-V)
-        printf 'Treebeard %s (pkg5)\n' "$VERSION"
+        printf 'Treebeard %s (%s)\n' "$VERSION" "$REVISION"
         ;;
     help|--help|-h)
         usage
@@ -88,8 +140,13 @@ case "$command" in
         exec bash "$ROOT/run.sh" "$@"
         ;;
     *)
-        printf 'error: unknown command: %s\n\n' "$command" >&2
+        printf '%serror: unknown command: %s%s\n\n' "$RED" "$command" "$RESET" >&2
         usage >&2
         exit 2
         ;;
 esac
+}
+
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi

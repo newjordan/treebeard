@@ -6,9 +6,11 @@ GitHub repository: <https://github.com/newjordan/treebeard>
 
 MoE algorithm explainer: <https://newjordan.github.io/treebeard/moe-routing.html>
 
-Treebeard pkg3 follows a standard Hugging Face GGUF layout. The complete GGUF
-model and official Qwen configuration and tokenizer files live at repository
-root. Runtimes, launch tools, and evidence are additive directories.
+Treebeard 0.2.0-rc.1 pkg5 follows a standard Hugging Face GGUF layout. The
+complete GGUF model and official Qwen configuration and tokenizer files live at
+the model repository root. Runtimes, launch tools, and evidence are additive
+directories. In this GitHub repository the evidence directory is `results/`
+and the CUDA patch is `source/treebeard-cuda-blackwell-12col.patch`.
 
 ## User paths
 
@@ -36,8 +38,12 @@ permission bits. `bash ./treebeard serve` is always a valid entry point.
 - `tokenizer.json`, `tokenizer_config.json`, `vocab.json`, and `merges.txt`;
 - `chat_template.jinja`;
 - `preprocessor_config.json` and `video_preprocessor_config.json`;
-- `install.sh`, `treebeard`, `run.sh`, and `verify.sh`;
+- `install.sh`, `treebeard`, `run.sh`, and, on a full published package, `verify.sh`;
 - `PACKAGE.json`, `SHA256SUMS`, and `runtime/SHA256SUMS`.
+
+This GitHub checkout keeps `run.sh` and `treebeard` in `package/`. `treebeard
+verify` checks `INSTALL-SHA256SUMS` after installation and `SHA256SUMS` at the
+repository root when that manifest is present.
 
 ## Runtime selection
 
@@ -58,9 +64,9 @@ silently selects an unsupported architecture.
 
 ## Verification
 
-`verify.sh` checks the complete repository against `SHA256SUMS`. The installer
-creates `INSTALL-SHA256SUMS` for the selected subset, and `treebeard verify`
-checks the appropriate manifest automatically.
+On a full published package, `verify.sh` checks the complete tree against
+`SHA256SUMS`. The installer creates `INSTALL-SHA256SUMS` for the selected
+subset, and `treebeard verify` checks that manifest when it is present.
 
 `run.sh` checks exact model size at each launch and verifies its hash once per
 stable device/inode/size/mtime fingerprint by default. Set
@@ -76,8 +82,8 @@ always hashed before extraction.
 | `runtime/cuda-linux-aarch64` | Linux ARM64 | CUDA 13 runtime, cuBLAS, and compatible NVIDIA driver |
 
 The CUDA and SYCL archives use vendor libraries installed on the host. GPU
-toolkits are not redistributed. NVIDIA x86_64 acceleration is not included in
-RC3; those systems select the portable CPU runtime.
+toolkits are not redistributed. NVIDIA x86_64 acceleration is not included;
+those systems select the portable CPU runtime.
 
 Adding another target requires a runtime directory, an entry in
 `runtime/SHA256SUMS`, build provenance, internal file hashes, CPU-oracle
@@ -85,9 +91,9 @@ correctness where applicable, and a real server/API package smoke test.
 
 ## Resource contract
 
-- text install download: about 26.7 GB;
-- multimodal add-on: about 0.9 GB;
-- minimum memory check: 32 GB, with an explicit low-memory override;
+- text model pin: 26592508896 bytes, plus the selected runtime archive;
+- multimodal projector pin: 899283680 bytes;
+- minimum MemTotal check: 30000000000 bytes, with an explicit low-memory override;
 - default CPU profile: 32,768 context tokens and one slot;
 - default validated GPU profile: 262,144 context tokens and one slot.
 

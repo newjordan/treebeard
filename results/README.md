@@ -6,7 +6,7 @@ GitHub repository: <https://github.com/newjordan/treebeard>
 
 MoE algorithm explainer: <https://newjordan.github.io/treebeard/moe-routing.html>
 
-This directory contains the checksum-pinned evidence behind the RC3 claims.
+This directory contains the checksum-pinned evidence behind the published claims.
 The primary human-readable view is the public dark-mode
 [Agent Bench report](https://newjordan.github.io/treebeard/).
 
